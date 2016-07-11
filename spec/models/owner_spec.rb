@@ -5,6 +5,8 @@ RSpec.describe Owner, type: :model do
 	# feature "Fantasy Baseball Setup Tests" do
 	before :all do
 		Owner.destroy_all
+		owner = Owner.create!(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns")
+		@test_owner = {first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns"}
 	end
 
 		def class_exists?(class_name)
@@ -40,10 +42,17 @@ RSpec.describe Owner, type: :model do
       	expect(owner.team_name).to eq("Pink Unicorns")
       end
       it "Query by name returns correct owner" do
-      	owner = Owner.create!(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns")
       	owner = Owner.find_by(first_name: "Matt", last_name: "Schreiber")
       	expect(owner).to_not be_nil
       end
+      it "Query by team name returns correct team" do
+      	owner = Owner.find_by(team_name: "Pink Unicorns")
+      	expect(owner).to_not be_nil
+      	expect(owner.first_name).to eq @test_owner[:first_name]
+      	expect(owner.last_name).to eq @test_owner[:last_name]
+      	expect(owner.team_name).to eq @test_owner[:team_name]
+      end
+
   	# end
   end
 end
