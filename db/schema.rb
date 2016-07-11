@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160710225252) do
+ActiveRecord::Schema.define(version: 20160711135948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,4 +24,35 @@ ActiveRecord::Schema.define(version: 20160710225252) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "team_seasons", force: :cascade do |t|
+    t.integer  "year"
+    t.integer  "place"
+    t.integer  "run_points"
+    t.integer  "hr_points"
+    t.integer  "rbi_points"
+    t.integer  "sb_points"
+    t.integer  "avg_points"
+    t.integer  "win_points"
+    t.integer  "k_points"
+    t.integer  "sv_points"
+    t.integer  "whip_points"
+    t.integer  "era_points"
+    t.integer  "total_run"
+    t.integer  "total_hr"
+    t.integer  "total_rbi"
+    t.integer  "total_sb"
+    t.integer  "total_avg"
+    t.integer  "total_win"
+    t.integer  "total_k"
+    t.integer  "total_sv"
+    t.integer  "total_whip"
+    t.integer  "total_era"
+    t.integer  "owner_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "team_seasons", ["owner_id"], name: "index_team_seasons_on_owner_id", using: :btree
+
+  add_foreign_key "team_seasons", "owners"
 end
