@@ -1,3 +1,3 @@
 class TeamSeason < ActiveRecord::Base
-	belongs_to :owners
+	belongs_to :owner
 end
