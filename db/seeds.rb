@@ -7,12 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Owner.destroy_all
 
-fn = ["Matt", "Scott", "Alan", "Mike", "Pete", "Mike", "Jay", "James", "Joe", "David"]
+fn = ["Matt", "Scott", "Alan", "Mike", "Pete", "Mike", "Jay", "James", "Joe", "David", "James","", "Mike", "Mike", "Brian", "Scott"]
 ln = ["Schreiber", "Pierce", "Thomay", "Thellman", "Tran", "Kelly", "Zadzilka",
-			"Ungerer", "Shaw", "Thompson"]
+			"Ungerer", "Shaw", "Thompson", "Wailani","", "McNamara", "Hoendorf", "Sweet", "Reifschneider"]
 tn = ["Pink Unicorns", "Silver Sluggers", "Morgantown Swingers", "Championship Vinyl",
 			"Rockford Peaches", "Shiva Bastards", "Brunswick Bulldozers", "Fluffy White Bunnies",
-			"The Florida Dumpster Fire", "Greenbriar Sycamores"]
+			"The Florida Dumpster Fire", "Greenbriar Sycamores", "", "Alderaan Asteroid","", "", "", ""]
 
 # Owner.create(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns")
 
