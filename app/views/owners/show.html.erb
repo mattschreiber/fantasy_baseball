@@ -32,3 +32,45 @@
 
 <%= link_to 'Edit', edit_owner_path(@owner) %> |
 <%= link_to 'Back', owners_path %>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Place</th>
+      <th>Runs</th>
+      <th>HR</th>
+      <th>RBI</th>
+      <th>SB</th>
+      <th>AVG</th>
+      <th>K</th>
+      <th>Win</th>
+      <th>Saves</th>
+      <th>ERA</th>
+      <th>Whip</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @owner.team_seasons.each do |team_season| %>
+      <tr>
+        <td><%= team_season.year%></td>
+        <td style="text-align:center"><%= team_season.place %></td>
+        <td><%= team_season.run_points %></td>
+        <td><%= team_season.hr_points %></td>
+        <td><%= team_season.rbi_points %></td>
+        <td><%= team_season.sb_points %></td>
+        <td><%= team_season.avg_points %></td>
+        <td><%= team_season.k_points %></td>
+        <td><%= team_season.win_points %></td>
+        <td><%= team_season.sv_points %></td>
+        <td><%= team_season.whip_points %></td>
+        <td><%= team_season.era_points %></td>
+        <td><%= team_season.total_points %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
