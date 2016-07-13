@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160711181329) do
+ActiveRecord::Schema.define(version: 20160713161644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20160711181329) do
     t.integer  "total_hr"
     t.integer  "total_rbi"
     t.integer  "total_sb"
-    t.integer  "total_avg"
+    t.float    "total_avg"
     t.integer  "total_win"
     t.integer  "total_k"
     t.integer  "total_sv"
