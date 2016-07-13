@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @owner.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @owner.last_name %>
+</p>
+
+<p>
+  <strong>Team name:</strong>
+  <%= @owner.team_name %>
+</p>
+
+<p>
+  <strong>Place avg:</strong>
+  <%= @owner.place_avg %>
+</p>
+
+<p>
+  <strong>Total points avg:</strong>
+  <%= @owner.total_points_avg %>
+</p>
+
+<p>
+  <strong>Num titles:</strong>
+  <%= @owner.num_titles %>
+</p>
+
+<%= link_to 'Edit', edit_owner_path(@owner) %> |
+<%= link_to 'Back', owners_path %>
