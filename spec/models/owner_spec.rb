@@ -6,12 +6,17 @@ RSpec.describe Owner, type: :model do
 	before :all do
 		Owner.destroy_all
     TeamSeason.destroy_all
-		owner = Owner.create!(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns", id: 5)
+		# owner = Owner.create!(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns", id: 5)
 		@test_owner = {first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns"}
+
+    file = File.read('spec/models/owners.json')
+    data_hash = JSON.parse(file)
+    data_hash.each do |r|
+      Owner.create!(r)
+    end
 
     file = File.read('spec/models/team_season.json')
     data_hash = JSON.parse(file)
-
     data_hash.each do |r|
       TeamSeason.create!(r)
     end
@@ -44,10 +49,10 @@ RSpec.describe Owner, type: :model do
       #   expect(Owner.column_types["updated_at"].type).to eq :datetime
       # end
       it "Creates a new owner" do
-      	owner = Owner.create!(first_name: "Matt", last_name: "Schreiber", team_name: "Pink Unicorns")
-      	expect(owner.first_name).to eq("Matt")
-      	expect(owner.last_name).to eq("Schreiber")
-      	expect(owner.team_name).to eq("Pink Unicorns")
+      	owner = Owner.create(first_name: "Joe", last_name: "Somebody", team_name: "Test")
+      	expect(owner.first_name).to eq("Joe")
+      	expect(owner.last_name).to eq("Somebody")
+      	expect(owner.team_name).to eq("Test")
       end
       it "Query by name returns correct owner" do
       	owner = Owner.find_by(first_name: "Matt", last_name: "Schreiber")
@@ -61,7 +66,7 @@ RSpec.describe Owner, type: :model do
       	expect(owner.team_name).to eq @test_owner[:team_name]
       end
       it "Calculates team average by category" do
-      owner = Owner.find_by(team_name: "Pink Unicorns")
+      owner = Owner.find_by(id: 5)
       avg = owner.calc_avg("place")
       expect(avg).to_not be_nil
       expect(avg).to eq("6.83")
