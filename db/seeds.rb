@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Owner.destroy_all
+TeamSeason.destroy_all
 
 # fn = ["Matt", "Scott", "Alan", "Mike", "Pete", "Mike", "Jay", "James", "Joe", "David", "James","", "Mike", "Mike", "Brian", "Scott"]
 # ln = ["Schreiber", "Pierce", "Thomay", "Thellman", "Tran", "Kelly", "Zadzilka",
@@ -21,8 +22,16 @@ Owner.destroy_all
 # 	Owner.create!(id: id[n], first_name: fn[n], last_name: ln[n], team_name: tn[n])
 # end
 
-file = File.read('spec/models/owners.json')
+file = File.read('db/owners.json')
 data_hash = JSON.parse(file)
 data_hash.each do |r|
   Owner.create!(r)
 end
+
+file = File.read('db/team_seasons.json')
+data_hash = JSON.parse(file)
+data_hash.each do |r|
+  TeamSeason.create!(r)
+end
+
+
