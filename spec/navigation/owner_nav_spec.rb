@@ -5,7 +5,7 @@ Capybara.default_driver = :poltergeist
 
 Capybara.app_host = "http://localhost:3000"
 
-describe "Module #4: Navigation Tests", :type => :routing do
+describe "Navigation Tests", :type => :routing do
 
     before :all do
         $continue = true
@@ -86,6 +86,17 @@ describe "Module #4: Navigation Tests", :type => :routing do
         end
     end
 
+    context "rq03" do
+        scenario "Destroy link from owners_path deletes owner " do
+                owner_id = Owner.all.sample.id
+                # replace with navigation here
+                visit(owners_path)
+                expect(page).to have_link('Destroy', :href => "#{owners_path}/#{owner_id}")
+                # click_link('Destroy', :href => "#{owners_path}/#{owner_id}")
+                # expect(Owner.find_by(id: owner_id)).to be_nil             
+
+        end
+    end
     # context "rq05" do
 
     #     before :all do    
