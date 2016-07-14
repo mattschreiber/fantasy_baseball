@@ -24,6 +24,8 @@ class Owner < ActiveRecord::Base
 private
 	def calc_team_averages
 		@num_titles = []
+		@place_avg = 0
+		@total_points_avg = 0
 		if self.team_seasons.exists?
 			self.team_seasons.each do |season|
 				@place_avg = season[:place] + (@place_avg.nil? ? 0 : @place_avg)
@@ -36,7 +38,11 @@ private
 			@total_points_avg = (@total_points_avg /count.to_f).round(2)
 			@total_avg_avg = (@total_avg_avg / count).round(4)
 			@num_titles = @num_titles.select {|title| title == 1}.count
-	end
+		else
+			#set place to last if owner doesn't have any records in team_seasons
+			#This is primarily so that sort works properly in the index action for the owners controller
+			@place_avg = 10
+		end
 	end
 end
 
