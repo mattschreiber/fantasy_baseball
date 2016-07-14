@@ -17,7 +17,7 @@
 
   <tbody>
     <% @owners.each do |owner| %>
-      <tr>
+      <tr class=<%=cycle("even", "odd")%> >
         <td><%= owner.first_name %></td>
         <td><%= owner.last_name %></td>
         <td><%= owner.team_name %></td>

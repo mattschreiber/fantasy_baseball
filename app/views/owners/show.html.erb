@@ -56,20 +56,20 @@
 
   <tbody>
     <% @owner.team_seasons.each do |team_season| %>
-      <tr>
+      <tr class=<%=cycle("even", "odd")%> >
         <td><%= team_season.year%></td>
-        <td style="text-align:center"><%= team_season.place %></td>
-        <td><%= team_season.run_points %></td>
-        <td><%= team_season.hr_points %></td>
-        <td><%= team_season.rbi_points %></td>
-        <td><%= team_season.sb_points %></td>
-        <td><%= team_season.avg_points %></td>
-        <td><%= team_season.k_points %></td>
-        <td><%= team_season.win_points %></td>
-        <td><%= team_season.sv_points %></td>
-        <td><%= team_season.whip_points %></td>
-        <td><%= team_season.era_points %></td>
-        <td><%= team_season.total_points %></td>
+        <td><%= team_season.place %></td>
+        <td><%= round_zero team_season.run_points %></td>
+        <td><%= round_zero team_season.hr_points %></td>
+        <td><%= round_zero team_season.rbi_points %></td>
+        <td><%= round_zero team_season.sb_points %></td>
+        <td><%= round_zero team_season.avg_points %></td>
+        <td><%= round_zero team_season.k_points %></td>
+        <td><%= round_zero team_season.win_points %></td>
+        <td><%= round_zero team_season.sv_points %></td>
+        <td><%= round_zero team_season.whip_points %></td>
+        <td><%= round_zero team_season.era_points %></td>
+        <td><%= round_zero team_season.total_points %></td>
       </tr>
     <% end %>
   </tbody>
