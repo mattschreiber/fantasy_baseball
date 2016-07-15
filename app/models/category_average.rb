@@ -3,13 +3,14 @@
 
 class CategoryAverage
 
-	attr_reader :total_run_avg, :total_hr_avg, :total_rbi_avg, :total_sb_avg, :total_avg_avg, :total_win_avg, :total_k_avg,
-							:total_sv_avg, :total_era_avg, :total_whip_avg
+	# CATEGORIES = ["total_run_avg", "total_hr_avg", "total_rbi_avg", "total_sb_avg", 
+	# 	"total_avg_avg", "total_win_avg", "total_k_avg", "total_sv_avg", "total_era_avg", "total_whip_avg"]
 
-	
-	def initialize 
-		# category_averages
-		self.class.calc_all
+# dynamically define methods that return category averages
+	TeamSeason.column_names.each do |cat|
+		define_method("#{cat}_avg") do
+			self.class.calc_one("#{cat}")
+		end
 	end
 
 	def self.calc_one(category)
@@ -25,35 +26,6 @@ class CategoryAverage
 		return hash
 	end
 
-	#only calculates averages for actual totals not point categories
-	def category_averages
-		#calculate totals for each category
-		TeamSeason.all.each do |season|
-			@total_run_avg = season.total_run + (@total_run_avg.nil? ? 0 : @total_run_avg)
-			@total_hr_avg = season.total_hr + (@total_hr_avg.nil? ? 0: @total_hr_avg)
-			@total_rbi_avg = season.total_rbi + (@total_rbi_avg.nil? ? 0 : @total_rbi_avg)
-			@total_sb_avg = season.total_sb + (@total_sb_avg.nil? ? 0 : @total_sb_avg)
-			@total_avg_avg = season.total_avg + (@total_avg_avg.nil? ? 0 : @total_avg_avg)
 
-			@total_win_avg = season.total_win + (@total_win_avg.nil? ? 0 : @total_win_avg)
-			@total_k_avg = season.total_k + (@total_k_avg.nil? ? 0 : @total_k_avg)
-			@total_sv_avg = season.total_sv + (@total_sv_avg.nil? ? 0 : @total_sv_avg)
-			@total_era_avg = season.total_era + (@total_era_avg.nil? ? 0 : @total_era_avg)
-			@total_whip_avg = season.total_whip + (@total_whip_avg.nil? ? 0 : @total_whip_avg)
-		end
-		# calculate average
-		count = TeamSeason.count
-		@total_run_avg = @total_run_avg / count.to_f
-		@total_hr_avg = @total_hr_avg / count.to_f
-		@total_rbi_avg = @total_rbi_avg / count.to_f
-		@total_sb_avg = @total_sb_avg / count.to_f
-		@total_avg_avg = @total_avg_avg / count.to_f
-
-		@total_win_avg = @total_win_avg / count.to_f
-		@total_k_avg = @total_k_avg / count.to_f
-		@total_sv_avg = @total_sv_avg / count.to_f
-		@total_era_avg = @total_era_avg / count.to_f
-		@total_whip_avg = @total_whip_avg / count.to_f
-	end
 
 end
