@@ -41,7 +41,7 @@ private
 		else
 			#set place to last if owner doesn't have any records in team_seasons
 			#This is primarily so that sort works properly in the index action for the owners controller
-			@place_avg = 10
+			@place_avg = 10.0
 		end
 	end
 end
