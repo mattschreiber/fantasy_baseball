@@ -34,4 +34,8 @@ data_hash.each do |r|
   TeamSeason.create!(r)
 end
 
+#convert averages to decimals
+TeamSeason.all.each do |s|
+	s.update(total_avg: s.total_avg / 10000)
+end
 
