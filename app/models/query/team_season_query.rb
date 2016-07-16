@@ -1,5 +1,10 @@
 module Query::TeamSeasonQuery
 
+	############################################################################ 
+	# This module will store queries on the TeamSeason model that may be used by 
+	# other classes like ones for creating reports
+	############################################################################
+
 	# return ActiveRecord::Relations based on query params
 	# accepted params :year, :place
 	def filter(attributes)
