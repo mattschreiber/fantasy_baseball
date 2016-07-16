@@ -15,18 +15,6 @@ class CategoryAverage
 		end
 	end
 
-# dynamically define methods that return the average for a particular statistical category
-# The method accepts a hash of query parameters and a string that represents the name of the column to pass to the average method. 
-# The filter method is defined in the team_season_query.rb for available hash parameters
-# Example method call object.hr_by_place(hash, "total_hr")
-# CategoryAverage.instance_methods.grep(/place/) for list of available instance methods
-
-	TeamSeason.column_names.each do |col|
-		define_method("#{col}".sub("total_", "")+"_by_place") do |hash, category|
-			filter(hash).average(category.to_sym).to_s
-		end
-	end
-
 	def calc_one(category)
 		TeamSeason.average(:"#{category}").to_s
 	end
@@ -40,8 +28,26 @@ class CategoryAverage
 		return hash
 	end
 
-	def test_filter (hash)
-		filter(hash)
+	# return list of avg methods 
+	def self.avg_methods
+		self.instance_methods.grep(/_avg/)
+	end
+
+	# dynamically define methods that return the average for a particular statistical category
+# The method accepts a hash of query parameters and a string that represents the name of the column to pass to the average method. 
+# The filter method is defined in the team_season_query.rb for available hash parameters
+# Example method call object.hr_by_place(hash, "total_hr")
+# CategoryAverage.instance_methods.grep(/place/) for list of available instance methods
+
+	TeamSeason.column_names.each do |col|
+		define_method("#{col}".sub("total_", "")+"_by_place") do |hash, category|
+			filter(hash).average(category.to_sym).to_s
+		end
+	end
+
+	#return list of place methods
+	def self.place_methods
+		self.instance_methods.grep(/_place/)
 	end
 
 	# # return ActiveRecord::Relations based on query params
