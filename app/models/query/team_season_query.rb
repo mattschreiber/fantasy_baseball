@@ -8,6 +8,7 @@ module Query::TeamSeasonQuery
 	# return ActiveRecord::Relations based on query params
 	# accepted params :year, :place
 	def filter(attributes)
+
 		case 
 		when attributes[:place].present? && attributes[:year].present?
 			TeamSeason.where("place = :place and year = :year", place: attributes[:place], year: attributes[:year])
@@ -16,7 +17,13 @@ module Query::TeamSeasonQuery
 		when attributes[:year]
 			TeamSeason.where("year = :year", year: attributes[:year])				
 		else
-				return error_msg = "Invalid search parameters"
+			# returns the average for all seasons by category (aka TeamSeason.column_name)
+			begin
+				TeamSeason.average(attributes[:category])
+			rescue Exception => e
+				return error = "invalid category"
+			end
+			
 		end
 	end
 
