@@ -21,6 +21,11 @@ class Owner < ActiveRecord::Base
 		self.team_seasons.average(:"#{category}").round(2).to_s
 	end
 
+	def name
+		"#{first_name} #{last_name}"
+	end
+
+
 private
 	def calc_team_averages
 		@num_titles = []
