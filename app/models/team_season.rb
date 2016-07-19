@@ -7,8 +7,8 @@ class TeamSeason < ActiveRecord::Base
 	CATEGORIES = ["total_run", "total_hr", "total_rbi", "total_sb", "total_avg", "total_win", "total_k", "total_sv", "total_era", "total_whip"]
 
 
-
-	def self.rank
+	#hash parameters (:year)
+	def self.rank hash
 		TeamSeason.find_by_sql([
 		"WITH ranks AS (
     SELECT total_run, total_hr, total_rbi, total_sb, total_avg, 
@@ -57,7 +57,7 @@ class TeamSeason < ActiveRecord::Base
 
            count(*) OVER ()                     AS cnt
       FROM team_seasons
-      WHERE year = 2015
+      WHERE year = :year
     WINDOW run AS (ORDER BY total_run ASC),
     			 h AS (ORDER BY total_hr ASC),
            r AS (ORDER BY total_rbi ASC),
@@ -92,7 +92,7 @@ class TeamSeason < ActiveRecord::Base
 		       sv AS (PARTITION BY sv_aprx),
 		       era AS (PARTITION BY era_aprx),
 		       whip AS (PARTITION BY whip_aprx)
-		 ORDER BY ttl_pts ASC"])
+		 ORDER BY ttl_pts ASC", hash])
 
 	end
 
