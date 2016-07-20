@@ -13,6 +13,7 @@ class TeamSeason < ActiveRecord::Base
 		"WITH ranks AS (
     SELECT total_run, total_hr, total_rbi, total_sb, total_avg, 
     			total_win, total_k, total_sv, total_era, total_whip, owner_id,
+    			concat_ws(' ', owners.first_name, owners.last_name) AS name,
 
   			rank() OVER run                        AS run_rank,
         row_number() OVER run                  AS run_rn,
@@ -56,7 +57,7 @@ class TeamSeason < ActiveRecord::Base
 
 
            count(*) OVER ()                     AS cnt
-      FROM team_seasons
+      FROM team_seasons INNER JOIN owners ON team_seasons.owner_id = owners.id
       WHERE year = :year
     WINDOW run AS (ORDER BY total_run ASC),
     			 h AS (ORDER BY total_hr ASC),
@@ -69,7 +70,7 @@ class TeamSeason < ActiveRecord::Base
            era as (ORDER BY total_era DESC),
            whip as (ORDER BY total_whip DESC)
 		)
-		SELECT total_run, total_hr, total_rbi, total_sb, total_avg, total_win, total_k, total_sv, total_era, total_whip, owner_id,
+		SELECT total_run, total_hr, total_rbi, total_sb, total_avg, total_win, total_k, total_sv, total_era, total_whip, owner_id, name,
 					 (avg(run_rn) OVER run)::float                   AS run_pts,
 		       (avg(hr_rn) OVER h)::float                      AS hr_pts,
 		       (avg(rbi_rn) OVER r)::float                     AS rbi_pts,
@@ -81,7 +82,7 @@ class TeamSeason < ActiveRecord::Base
 		       (avg(era_rn) OVER era)::float									 AS era_pts,
 		       (avg(whip_rn) OVER whip)::float								 AS whip_pts,
 		       (avg(hr_rn) OVER h + avg(rbi_rn) OVER r + avg(sb_rn) OVER sb + avg(run_rn) OVER run + avg(avg_rn) OVER avg + avg(win_rn) OVER w + avg(k_rn) OVER k + avg(sv_rn) OVER sv + avg(era_rn) OVER era + avg(whip_rn) OVER whip)::float AS ttl_pts
-		  FROM ranks
+		  FROM ranks 
 		WINDOW run AS (PARTITION BY run_aprx),
 					 w AS (PARTITION BY win_aprx),
 					 h AS (PARTITION BY hr_aprx),
@@ -95,7 +96,6 @@ class TeamSeason < ActiveRecord::Base
 		 ORDER BY ttl_pts ASC", hash])
 
 	end
-
 
 	# def self.calc_season_points (year)
 	# 	# accepts year as parameter and returns owner name and total points for season
