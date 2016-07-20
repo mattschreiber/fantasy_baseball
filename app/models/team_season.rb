@@ -8,7 +8,7 @@ class TeamSeason < ActiveRecord::Base
 
 
 	#hash parameters (:year)
-	def self.rank hash
+	def self.rank hash = {year: 2015}
 		TeamSeason.find_by_sql([
 		"WITH ranks AS (
     SELECT total_run, total_hr, total_rbi, total_sb, total_avg, 
@@ -93,7 +93,7 @@ class TeamSeason < ActiveRecord::Base
 		       sv AS (PARTITION BY sv_aprx),
 		       era AS (PARTITION BY era_aprx),
 		       whip AS (PARTITION BY whip_aprx)
-		 ORDER BY ttl_pts ASC", hash])
+		 ORDER BY ttl_pts DESC", hash])
 
 	end
 
