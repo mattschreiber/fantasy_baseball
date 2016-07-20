@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  root 'owners#index'
+  root 'seasons#index'
   resources :owners
+  get 'seasons', to: 'seasons#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
