@@ -19,7 +19,7 @@ class Owner < ActiveRecord::Base
 
 	def total_points_avg
 		count = 0
-		self.team_seasons.each do |season|
+		self.team_seasons.where(current_season: false).each do |season|
 			@total_points_avg = season[:total_points] + (@total_points_avg.nil? ? 0 : @total_points_avg)
 			count = count + 1
 		end
@@ -30,7 +30,7 @@ class Owner < ActiveRecord::Base
 	def place_avg
 		@place_avg = 0
 		count = 0
-		self.team_seasons.each do |season|
+		self.team_seasons.where(current_season: false).each do |season|
 			@place_avg = season[:place] + (@place_avg.nil? ? 0 : @place_avg)
 			count = count + 1
 		end

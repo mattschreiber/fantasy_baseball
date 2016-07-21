@@ -11,6 +11,7 @@ class OwnersController < ApplicationController
   # GET /owners/1
   # GET /owners/1.json
   def show
+    @season = @owner.team_seasons.where(current_season: false)
   end
 
   # GET /owners/new
