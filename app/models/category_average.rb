@@ -4,6 +4,7 @@
 class CategoryAverage 
 	include Query::TeamSeasonQuery # models/query
 
+CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_win, :total_k, :total_sv, :total_era, :total_whip]
 # dynamically define methods that return category averages
 # Loop through the team_seasons table and use the column names to call filter method
 # which returns the average for the column (aka category). 
@@ -18,15 +19,16 @@ class CategoryAverage
 		end
 	end
 
-	# def calc_one(category)
-	# 	TeamSeason.average(:"#{category}").to_s
-	# end
+	def self.calc_one(category)
+
+		TeamSeason.average("#{category}").to_s
+	end
 
 	def self.calc_all
-		#class method that returns hash of category averages. hash keys match class attributes
+		#class method that returns hash of category averages
 		hash = {}
-		TeamSeason.column_names.each do |name|
-			hash[:"#{name}_avg"] = calc_one(name) unless TeamSeason.column_for_attribute(name).type == :datetime
+		CATEGORIES.each do |name|
+			hash[:"#{name}"] = calc_one(name)
 		end
 		return hash
 	end
@@ -39,7 +41,8 @@ class CategoryAverage
 # dynamically define methods that return the average for a particular statistical category by year and/or place
 # The method accepts a hash of query parameters and a string that represents the name of the column to pass to the average method. 
 # The filter method is defined in the team_season_query.rb for available hash parameters
-# Example method hr_by_place(hash, "total_hr")
+# Example method hr_by_place(hash) 
+# hash keys :year, :place, :category
 # CategoryAverage.instance_methods.grep(/place/) for list of available instance methods
 
 	TeamSeason.column_names.each do |col|
