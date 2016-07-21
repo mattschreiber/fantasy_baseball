@@ -12,7 +12,7 @@ CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_w
 # methods naming convention is TeamSeason.column_name_avg (ex. total_hr_avg)
 # Method expects hash = {category: "TeamSeason.column" }
 
-	TeamSeason.column_names.each do |cat|
+	CATEGORIES.each do |cat|
 		define_method("#{cat}_avg") do |hash|
 			filter(hash).to_s
 			# calc_one("#{cat}")
@@ -45,7 +45,7 @@ CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_w
 # hash keys :year, :place, :category
 # CategoryAverage.instance_methods.grep(/place/) for list of available instance methods
 
-	TeamSeason.column_names.each do |col|
+	CATEGORIES.each do |col|
 		define_method("#{col}".sub("total_", "")+"_by_place") do |hash|
 			filter(hash).average(hash[:category]).to_s
 		end
