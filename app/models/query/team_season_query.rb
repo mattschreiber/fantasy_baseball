@@ -13,7 +13,7 @@ module Query::TeamSeasonQuery
 		when attributes[:place].present? && attributes[:year].present?
 			TeamSeason.where("place = :place and year = :year", place: attributes[:place], year: attributes[:year])
 		when attributes[:place]
-			TeamSeason.where("place = :place", place: attributes[:place])
+			TeamSeason.where("place = :place and current_season = false", place: attributes[:place])
 		when attributes[:year]
 			TeamSeason.where("year = :year", year: attributes[:year])				
 		else
