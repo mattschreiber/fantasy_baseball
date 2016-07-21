@@ -25,16 +25,16 @@
     <% @current_seasons.each do |season| %>
       <tr class=<%=cycle("even", "odd")%> >
         <td><%= season.name %></td>
-        <td><%= season.run_pts %></td>
-        <td><%= season.hr_pts %></td>
-        <td><%= season.rbi_pts %></td>
-        <td><%= season.sb_pts %></td>
-        <td><%= season.avg_pts %></td>
-        <td><%= season.k_pts %></td>
-        <td><%= season.win_pts %></td>
-        <td><%= season.sv_pts %></td>
-        <td><%= season.era_pts %></td>
-        <td><%= season.whip_pts %></td>
+        <td><%= round_4 season.run_ratio%></td>
+        <td><%= round_4 season.hr_ratio %></td>
+        <td><%= round_4 season.rbi_ratio %></td>
+        <td><%= round_4 season.sb_ratio %></td>
+        <td><%= round_4 season.avg_ratio %></td>
+        <td><%= round_4 season.k_ratio %></td>
+        <td><%= round_4 season.win_ratio %></td>
+        <td><%= round_4 season.sv_ratio %></td>
+        <td><%= round_4 season.era_ratio %></td>
+        <td><%= round_4 season.whip_ratio %></td>
         <td><%= season.ttl_pts %></td>
       </tr>
     <% end %>
