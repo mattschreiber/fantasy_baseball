@@ -18,7 +18,7 @@ CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_w
 	end
 
 	def self.calc_one(category)
-		TeamSeason.average("#{category}").to_s
+		TeamSeason.where(current_season: false).average("#{category}").to_s
 	end
 
 	def self.calc_all
