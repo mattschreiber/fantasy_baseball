@@ -10,17 +10,14 @@ CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_w
 # which returns the average for the column (aka category). 
 # The filter method is defined in the team_season_query.rb 
 # methods naming convention is Categories_avg (ex. total_hr_avg)
-# Method expects hash = {category: "TeamSeason.column" }
 
 	CATEGORIES.each do |cat|
-		define_method("#{cat}_avg") do |hash|
-			filter(hash).to_s
-			# calc_one("#{cat}")
+		define_method("#{cat}_avg") do 
+			self.class.calc_one("#{cat}")
 		end
 	end
 
 	def self.calc_one(category)
-
 		TeamSeason.average("#{category}").to_s
 	end
 
