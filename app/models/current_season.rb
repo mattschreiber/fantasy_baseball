@@ -6,7 +6,7 @@ class CurrentSeason < ActiveRecord::Base
 		CurrentSeason.find_by_sql([
 			"WITH ranks AS (
 	    SELECT run_ratio, hr_ratio, rbi_ratio, sb_ratio, avg_ratio, 
-	    			win_ratio, k_ratio, sv_ratio, era_ratio, whip_ratio, owner_id,
+	    			win_ratio, k_ratio, sv_ratio, era_ratio, whip_ratio, owner_id, current_seasons.updated_at,
 	    			concat_ws(' ', owners.first_name, owners.last_name) AS name,
 
 	  			rank() OVER run                        AS run_rank,
@@ -63,7 +63,7 @@ class CurrentSeason < ActiveRecord::Base
 	           era as (ORDER BY era_ratio DESC),
 	           whip as (ORDER BY whip_ratio DESC)
 			)
-			SELECT run_ratio, hr_ratio, rbi_ratio, sb_ratio, avg_ratio, win_ratio, k_ratio, sv_ratio, era_ratio, whip_ratio, owner_id, name,
+			SELECT run_ratio, hr_ratio, rbi_ratio, sb_ratio, avg_ratio, win_ratio, k_ratio, sv_ratio, era_ratio, whip_ratio, owner_id, updated_at, name,
 						 (avg(run_rn) OVER run)::float                   AS run_pts,
 			       (avg(hr_rn) OVER h)::float                      AS hr_pts,
 			       (avg(rbi_rn) OVER r)::float                     AS rbi_pts,
