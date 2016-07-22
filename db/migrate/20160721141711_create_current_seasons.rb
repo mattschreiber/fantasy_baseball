@@ -13,7 +13,8 @@ class CreateCurrentSeasons < ActiveRecord::Migration
     	total_sv / innings::float AS sv_ratio,
 			total_whip AS whip_ratio,
 			total_era AS era_ratio,
-			owner_id
+			owner_id,
+      updated_at
 			FROM team_seasons
 			WHERE current_season = true
 			SQL
