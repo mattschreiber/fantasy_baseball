@@ -1,0 +1,6 @@
+<h3>Import Current Stats</h3>
+
+<%= form_tag seasons_import_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

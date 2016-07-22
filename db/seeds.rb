@@ -36,6 +36,6 @@ end
 
 #convert averages to decimals
 TeamSeason.all.each do |s|
-	s.update(total_avg: s.total_avg / 10000)
+	s.update(total_avg: s.total_avg / 10000, current_season: false)
 end
 

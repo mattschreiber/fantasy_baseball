@@ -8,9 +8,9 @@ class TeamSeason < ActiveRecord::Base
 
 
 	def self.import (file)
+		TeamSeason.where(current_season: true).destroy_all
 		CSV.foreach(file.path, headers: true) do |row|
 			parameters = ActionController::Parameters.new(row.to_hash)
-
 			TeamSeason.create!(parameters.permit(:total_run, :total_hr, :total_rbi, :total_sb, :total_avg,
       	:total_win, :total_k, :total_era, :total_whip, :total_sv, :year, :owner_id, :gp, :innings, :created_at, :updated_at, :current_season))
 		end

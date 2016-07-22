@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'seasons#index'
   resources :owners
   get 'seasons', to: 'seasons#index'
+  get 'seasons/new' 
   post 'seasons/import', to: 'seasons#import'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

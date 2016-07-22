@@ -6,7 +6,7 @@ class SeasonsController < ApplicationController
 
 	def import
 		TeamSeason.import(params[:file])
-		redirect_to owners_url, notice: "Current Season imported"
+		redirect_to seasons_url, notice: "Current Season imported"
 	end
 
 end
