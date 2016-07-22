@@ -1,7 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <h1>League Information</h1>
+<p>These standings are determined by calculating a teams total for each category and then dividing it by games played or innings pitched.  The teams are then assigned point values for each category following the standard league scoring system.
+Last Updated: <%= @current_seasons.first.updated_at.strftime("%d %b %y %l:%M:%S %P") %> </p>
 
+<h3>Current Standings - Points</h3>
 <table>
   <thead>
     <tr>
@@ -25,11 +28,51 @@
     <% @current_seasons.each do |season| %>
       <tr class=<%=cycle("even", "odd")%> >
         <td><%= season.name %></td>
-        <td><%= round_4 season.run_ratio%></td>
+        <td><%= season.run_pts %></td>
+        <td><%= season.hr_pts %></td>
+        <td><%= season.rbi_pts %></td>
+        <td><%= season.sb_pts %></td>
+        <td><%= season.avg_pts %></td>
+        <td><%= season.k_pts %></td>
+        <td><%= season.win_pts %></td>
+        <td><%= season.sv_pts %></td>
+        <td><%= season.era_pts %></td>
+        <td><%= season.whip_pts %></td>
+        <td><%= season.ttl_pts %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Current Standings - Category</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Runs</th>
+      <th>HR</th>
+      <th>RBI</th>
+      <th>SB</th>
+      <th>AVG</th>
+      <th>K</th>
+      <th>Wins</th>
+      <th>Saves</th>
+      <th>Era</th>
+      <th>Whip</th>
+      <th>Total</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @current_seasons.each do |season| %>
+      <tr class=<%=cycle("even", "odd")%> >
+        <td><%= season.name %></td>
+        <td><%= round_4 season.run_ratio %></td>
         <td><%= round_4 season.hr_ratio %></td>
         <td><%= round_4 season.rbi_ratio %></td>
         <td><%= round_4 season.sb_ratio %></td>
-        <td><%= round_4 season.avg_ratio %></td>
+        <td><%= round_4 season.avg_ratio%></td>
         <td><%= round_4 season.k_ratio %></td>
         <td><%= round_4 season.win_ratio %></td>
         <td><%= round_4 season.sv_ratio %></td>
