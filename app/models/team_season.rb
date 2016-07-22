@@ -7,6 +7,16 @@ class TeamSeason < ActiveRecord::Base
 	CATEGORIES = ["total_run", "total_hr", "total_rbi", "total_sb", "total_avg", "total_win", "total_k", "total_sv", "total_era", "total_whip"]
 
 
+	def self.import (file)
+		CSV.foreach(file.path, headers: true) do |row|
+			parameters = ActionController::Parameters.new(row.to_hash)
+
+			TeamSeason.create!(parameters.permit(:total_run, :total_hr, :total_rbi, :total_sb, :total_avg,
+      	:total_win, :total_k, :total_era, :total_whip, :total_sv, :year, :owner_id, :gp, :innings, :created_at, :updated_at, :current_season))
+		end
+
+	end
+
 	#hash parameters (:year)
 	def self.rank hash = {year: 2015}
 		TeamSeason.find_by_sql([
@@ -97,7 +107,24 @@ class TeamSeason < ActiveRecord::Base
 
 	end
 
-	# def self.calc_season_points (year)
+
+	def self.recursive (n, array)
+		if n < 0 || n > array.length
+			puts 1
+		else
+			if array[n] == array[n+1]
+				recursive(n+1, array)
+			else
+				pp n+1
+			end
+		end
+	end
+
+	
+
+end
+
+# def self.calc_season_points (year)
 	# 	# accepts year as parameter and returns owner name and total points for season
 	# 	# but doesn't calculate half points correctly, holding onto for now  in case
 	# 	# parts are useful in the future
@@ -128,22 +155,6 @@ class TeamSeason < ActiveRecord::Base
 	# 	return standings
 	# end
 
-
-	def self.recursive (n, array)
-		if n < 0 || n > array.length
-			puts 1
-		else
-			if array[n] == array[n+1]
-				recursive(n+1, array)
-			else
-				pp n+1
-			end
-		end
-	end
-
-	
-
-end
 
 # hr.merge(run){|key, oldval, newval| oldval + newval}
 # array.map{|e| array.index(e) + 1}
