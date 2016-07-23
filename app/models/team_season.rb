@@ -8,6 +8,7 @@ class TeamSeason < ActiveRecord::Base
 
 
 	def self.import (file, current)
+		#if the stats are for the current season, then existing current stats should be destroyed
 		if !current.nil?
 			TeamSeason.where(current_season: true).destroy_all
 		end
