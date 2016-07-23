@@ -20,8 +20,13 @@ table {
 
 td {
 	text-align: center;
+	padding: 5px;
 }
 
 .even {
 	background-color:#E0E0E0;
+}
+
+.container{
+	padding-bottom: 10px;
 }
