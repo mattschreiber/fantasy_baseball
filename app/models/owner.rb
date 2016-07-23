@@ -18,13 +18,17 @@ class Owner < ActiveRecord::Base
 	end
 
 	def total_points_avg
+		@total_points_avg = 0
 		count = 0
 		self.team_seasons.where(current_season: false).each do |season|
 			@total_points_avg = season[:total_points] + (@total_points_avg.nil? ? 0 : @total_points_avg)
 			count = count + 1
 		end
-
-		@total_points_avg = (@total_points_avg / count.to_f).round(2)
+		if @total_points_avg > 0
+			@total_points_avg = (@total_points_avg / count.to_f).round(2) 
+		else
+			@total_points_avg = 0
+		end
 	end
 
 	def place_avg
@@ -34,7 +38,12 @@ class Owner < ActiveRecord::Base
 			@place_avg = season[:place] + (@place_avg.nil? ? 0 : @place_avg)
 			count = count + 1
 		end
-		@place_avg = (@place_avg / count.to_f).round(2)
+		if @place_avg > 0
+			@place_avg = (@place_avg / count.to_f).round(2)
+		else
+			@place_avg = 10
+		end
+		
 	end
 
 	#pass in the column name for the category to calculate avg
