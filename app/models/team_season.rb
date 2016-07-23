@@ -7,12 +7,20 @@ class TeamSeason < ActiveRecord::Base
 	CATEGORIES = ["total_run", "total_hr", "total_rbi", "total_sb", "total_avg", "total_win", "total_k", "total_sv", "total_era", "total_whip"]
 
 
-	def self.import (file)
-		TeamSeason.where(current_season: true).destroy_all
-		CSV.foreach(file.path, headers: true) do |row|
+	def self.import (file, current)
+		if !current.nil?
+			TeamSeason.where(current_season: true).destroy_all
+		end
+			CSV.foreach(file.path, headers: true) do |row|
 			parameters = ActionController::Parameters.new(row.to_hash)
-			TeamSeason.create!(parameters.permit(:total_run, :total_hr, :total_rbi, :total_sb, :total_avg,
-      	:total_win, :total_k, :total_era, :total_whip, :total_sv, :year, :owner_id, :gp, :innings, :created_at, :updated_at, :current_season))
+			TeamSeason.create!(parameters.permit(
+				:place, :year, :total_points,
+				:run_points, :hr_points, :rbi_points, :sb_points, :avg_points, 
+				:win_points, :k_points, :sv_points, :whip_points, :era_points, 
+				:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, 
+				:total_win, :total_k, :total_era, :total_whip, :total_sv, 
+				:owner_id, :gp, :innings, 
+				:created_at, :updated_at, :current_season))
 		end
 
 	end
