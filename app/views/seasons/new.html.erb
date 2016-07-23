@@ -1,6 +1,7 @@
 <h3>Import Current Stats</h3>
 
 <%= form_tag seasons_import_path, multipart: true do %>
+	<div><%= label_tag "Current Season?" %> <%= check_box_tag "current" %></div>
   <%= file_field_tag :file %>
   <%= submit_tag "Import" %>
 <% end %>
