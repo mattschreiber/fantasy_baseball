@@ -7,7 +7,7 @@ class CategoryAverage
 CATEGORIES = [:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_win, :total_k, :total_sv, :total_era, :total_whip]
 # dynamically define methods that return category averages
 # Loop through the team_seasons table and use the column names to call filter method
-# which returns the average for the column (aka category). 
+# which returns the average for the CATEGORIES. 
 # The filter method is defined in the team_season_query.rb 
 # methods naming convention is Categories_avg (ex. total_hr_avg)
 
