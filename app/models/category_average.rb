@@ -21,8 +21,6 @@ class CategoryAverage
 		@sv_avg = calc_avg_year(year, "total_sv")
 		@era_avg = calc_avg_year(year, "total_era")
 		@whip_avg = calc_avg_year(year, "total_whip")
-		# @rbi_avg = TeamSeason.where(year:)
-
 
 	end
 
