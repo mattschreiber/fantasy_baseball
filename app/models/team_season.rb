@@ -129,40 +129,139 @@ class TeamSeason < ActiveRecord::Base
 		end
 	end
 
+
+	def self.calc_season_points (year)
+		# accepts year as parameter and returns owner name and total points for season
+		# but doesn't calculate half points correctly, holding onto for now  in case
+		# parts are useful in the future
+		
+		standings = {}
+
+		CATEGORIES.each do |cat|
+			hash = {}
+			sorted_hash = {}
+			h = {}
+
+			if cat == "total_era" || cat == "total_whip"
+				hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
+				sorted_hash = hash.sort_by{|owner, run| run}.to_h
+				sorted_hash.keys.map do |k| 
+					h["#{k}"] = sorted_hash.keys.reverse.index(k) + 1
+				end
+			else
+				hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
+				sorted_hash = hash.sort_by{|owner, val| val}.to_h
+				sorted_hash.keys.map do |k| 
+					h["#{k}"] = sorted_hash.keys.index(k) + 1.to_f
+				end
+			end
+			standings.merge!(h){|key, oldval, newval| oldval + newval}
+		end	
+		standings = standings.map{|k, v| [Owner.find(k).name, v]}.to_h	
+		return standings
+	end
+
+# rank method using ruby instead of postgres window functions
+# postgres is more efficient algorithm, but this should work independent of db
+def self.rankv2(list)
+	i = 0
+		points = 10
+		# list = [5,5,5,2,1]
+		p = []
+		while i < list.length
+			if list.rindex(list[i]) - list.index(list[i]) == 0 
+				p[i] = points.to_f
+				points = points - 1.0
+				i = i +1
+			elsif list.rindex(list[i]) - list.index(list[i]) == 1
+				p[i] = points - 0.5
+				p[i+1] = points - 0.5
+				points = points - 2
+				i = i + 2
+			elsif list.rindex(list[i]) - list.index(list[i]) == 2
+				p[i] = points - 1.0
+				p[i+1] = points - 1.0
+				p[i+2] = points - 1.0
+				points = points - 3
+				i = i + 3
+			elsif list.rindex(list[i]) - list.index(list[i]) == 3
+				p[i] = points - 1.5
+				p[i+1] = points - 1.5
+				p[i+2] = points - 1.5
+				p[i+3] = points - 1.5
+				points = points - 4
+				i = i + 4
+			elsif list.rindex(list[i]) - list.index(list[i]) == 4
+				p[i] = points - 2.0
+				p[i+1] = points - 2.0
+				p[i+2] = points - 2.0
+				p[i+4] = points - 2.0
+				points = points - 5
+				i = i + 5
+			elsif list.rindex(list[i]) - list.index(list[i]) == 5
+				p[i] = points - 2.5
+				p[i+1] = points - 2.5
+				p[i+2] = points - 2.5
+				p[i+3] = points - 2.5
+				p[i+4] = points - 2.5
+				p[i+5] = points - 2.5
+				points = points - 6
+				i = i + 6	
+			elsif list.rindex(list[i]) - list.index(list[i]) == 6
+				p[i] = points - 3.0
+				p[i+1] = points - 3.0
+				p[i+2] = points - 3.0
+				p[i+3] = points - 3.0
+				p[i+4] = points - 3.0
+				p[i+5] = points - 3.0
+				p[i+6] = points - 3.0
+				points = points - 7
+				i = i + 7
+			elsif list.rindex(list[i]) - list.index(list[i]) == 7
+				p[i] = points - 3.5
+				p[i+1] = points - 3.5
+				p[i+2] = points - 3.5
+				p[i+3] = points - 3.5
+				p[i+4] = points - 3.5
+				p[i+5] = points - 3.5
+				p[i+6] = points - 3.5
+				p[i+7] = points - 3.5
+				points = points - 8
+				i = i + 8	
+			elsif list.rindex(list[i]) - list.index(list[i]) == 8
+				p[i] = points - 4.0
+				p[i+1] = points - 4.0
+				p[i+2] = points - 4.0
+				p[i+3] = points - 4.0
+				p[i+4] = points - 4.0
+				p[i+5] = points - 4.0
+				p[i+6] = points - 4.0
+				p[i+7] = points - 4.0
+				p[i+8] = points - 4.0
+				points = points - 9
+				i = i + 9
+			elsif list.rindex(list[i]) - list.index(list[i]) == 9
+				p[i] = points - 4.5
+				p[i+1] = points - 4.5
+				p[i+2] = points - 4.5
+				p[i+3] = points - 4.5
+				p[i+4] = points - 4.5
+				p[i+5] = points - 4.5
+				p[i+6] = points - 4.5
+				p[i+7] = points - 4.5
+				p[i+8] = points - 4.5
+				p[i+9] = points - 4.5
+				points = points - 10
+				i = i + 10
+			end
+		end
+		return p
+	end
 	
 
 end
 
-# def self.calc_season_points (year)
-	# 	# accepts year as parameter and returns owner name and total points for season
-	# 	# but doesn't calculate half points correctly, holding onto for now  in case
-	# 	# parts are useful in the future
-		
-	# 	standings = {}
 
-	# 	CATEGORIES.each do |cat|
-	# 		hash = {}
-	# 		sorted_hash = {}
-	# 		h = {}
-
-	# 		if cat == "total_era" || cat == "total_whip"
-	# 			hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
-	# 			sorted_hash = hash.sort_by{|owner, run| run}.to_h
-	# 			sorted_hash.keys.map do |k| 
-	# 				h["#{k}"] = sorted_hash.keys.reverse.index(k) + 1
-	# 			end
-	# 		else
-	# 			hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
-	# 			sorted_hash = hash.sort_by{|owner, val| val}.to_h
-	# 			sorted_hash.keys.map do |k| 
-	# 				h["#{k}"] = sorted_hash.keys.index(k) + 1.to_f
-	# 			end
-	# 		end
-	# 		standings.merge!(h){|key, oldval, newval| oldval + newval}
-	# 	end	
-	# 	standings = standings.map{|k, v| [Owner.find(k).name, v]}.to_h	
-	# 	return standings
-	# end
 
 
 # hr.merge(run){|key, oldval, newval| oldval + newval}
