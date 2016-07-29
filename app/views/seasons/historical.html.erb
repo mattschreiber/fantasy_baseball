@@ -1,0 +1,47 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+
+<h1>Historical League Averages</h1>
+
+<h3>League Averages by Category 2007 - 2015</h3>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Runs</th>
+      <th>HR</th>
+      <th>RBI</th>
+      <th>SB</th>
+      <th>AVG</th>
+      <th>K</th>
+      <th>Wins</th>
+      <th>Saves</th>
+      <th>Era</th>
+      <th>Whip</th>
+ 
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr class=<%=cycle("even", "odd")%> >
+        <td>Total</td>
+        <td><%= to_int @category_average[:total_run]%></td>
+        <td><%= to_int @category_average[:total_hr] %></td>
+        <td><%= to_int @category_average[:total_rbi] %></td>
+        <td><%= to_int @category_average[:total_sb] %></td>
+        <td><%= round_4 @category_average[:total_avg] %></td>
+        <td><%= to_int @category_average[:total_k] %></td>
+        <td><%= to_int @category_average[:total_win] %></td>
+        <td><%= to_int @category_average[:total_sv] %></td>
+        <td><%= round_2 @category_average[:total_era]%></td>
+        <td><%= round_2 @category_average[:total_whip] %></td>
+      </tr>
+  </tbody>
+</table>
+
+
+
+</div>
