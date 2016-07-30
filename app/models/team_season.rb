@@ -163,7 +163,16 @@ class TeamSeason < ActiveRecord::Base
 
 # rank method using ruby instead of postgres window functions
 # postgres is more efficient algorithm, but this should work independent of db
-def self.rankv2(list)
+def self.rankv2(year, cat)
+	list = []
+	if cat == "total_era" || cat == "total_whip"
+		hash = TeamSeason.where("year = ?", year).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
+	else
+		hash = TeamSeason.where("year = ?", year).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
+	end
+
+	hash.values.map {|k| list << k }
+
 	i = 0
 		points = 10
 		# list = [5,5,5,2,1]
@@ -255,12 +264,25 @@ def self.rankv2(list)
 				i = i + 10
 			end
 		end
-		return p
+
+		counter = 0
+		h = {}
+		hash.keys.map do |k|
+			h[k] = p[counter]
+			counter = counter + 1
+		end
+		return h
 	end
 	
 
 end
 
+
+# calculates total points for all categories
+# CATEGORIES.each do |c|
+# 	h = TeamSeason.rankv2(2016, c)
+# 	standings.merge!(h){|key, oldval, newval| oldval + newval}
+# end
 
 
 
