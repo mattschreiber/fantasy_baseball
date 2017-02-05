@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205142157) do
+ActiveRecord::Schema.define(version: 20170205150120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "battings", force: :cascade do |t|
+    t.integer  "year"
+    t.integer  "games"
+    t.integer  "ab"
+    t.integer  "runs"
+    t.integer  "hits"
+    t.integer  "double"
+    t.integer  "triple"
+    t.integer  "hr"
+    t.integer  "rbi"
+    t.integer  "sb"
+    t.integer  "cs"
+    t.integer  "bb"
+    t.integer  "so"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "battings", ["player_id"], name: "index_battings_on_player_id", using: :btree
 
   create_table "owners", force: :cascade do |t|
     t.string   "first_name"
@@ -66,5 +87,6 @@ ActiveRecord::Schema.define(version: 20170205142157) do
 
   add_index "team_seasons", ["owner_id"], name: "index_team_seasons_on_owner_id", using: :btree
 
+  add_foreign_key "battings", "players"
   add_foreign_key "team_seasons", "owners"
 end
