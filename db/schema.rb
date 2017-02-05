@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205150120) do
+ActiveRecord::Schema.define(version: 20170205150830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,31 @@ ActiveRecord::Schema.define(version: 20170205150120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "pitchings", force: :cascade do |t|
+    t.integer  "year"
+    t.integer  "wins"
+    t.integer  "loss"
+    t.integer  "games"
+    t.integer  "gs"
+    t.float    "innings"
+    t.integer  "cg"
+    t.integer  "shutouts"
+    t.integer  "sv"
+    t.integer  "hits"
+    t.integer  "er"
+    t.integer  "hr"
+    t.integer  "bb"
+    t.integer  "so"
+    t.float    "ba_opp"
+    t.float    "era"
+    t.float    "whip"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "pitchings", ["player_id"], name: "index_pitchings_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "first_name"
@@ -88,5 +113,6 @@ ActiveRecord::Schema.define(version: 20170205150120) do
   add_index "team_seasons", ["owner_id"], name: "index_team_seasons_on_owner_id", using: :btree
 
   add_foreign_key "battings", "players"
+  add_foreign_key "pitchings", "players"
   add_foreign_key "team_seasons", "owners"
 end
