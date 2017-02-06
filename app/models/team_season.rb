@@ -77,7 +77,7 @@ class TeamSeason < ActiveRecord::Base
 
            count(*) OVER ()                     AS cnt
       FROM team_seasons INNER JOIN owners ON team_seasons.owner_id = owners.id
-      WHERE year = :year
+      WHERE year = :year and current_season = false
     WINDOW run AS (ORDER BY total_run ASC),
     			 h AS (ORDER BY total_hr ASC),
            r AS (ORDER BY total_rbi ASC),
@@ -130,45 +130,16 @@ class TeamSeason < ActiveRecord::Base
 	end
 
 
-	def self.calc_season_points (year)
-		# accepts year as parameter and returns owner name and total points for season
-		# but doesn't calculate half points correctly, holding onto for now  in case
-		# parts are useful in the future
-		
-		standings = {}
 
-		CATEGORIES.each do |cat|
-			hash = {}
-			sorted_hash = {}
-			h = {}
-
-			if cat == "total_era" || cat == "total_whip"
-				hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
-				sorted_hash = hash.sort_by{|owner, run| run}.to_h
-				sorted_hash.keys.map do |k| 
-					h["#{k}"] = sorted_hash.keys.reverse.index(k) + 1
-				end
-			else
-				hash = TeamSeason.where("year = ?", year).pluck(:owner_id, cat).to_h
-				sorted_hash = hash.sort_by{|owner, val| val}.to_h
-				sorted_hash.keys.map do |k| 
-					h["#{k}"] = sorted_hash.keys.index(k) + 1.to_f
-				end
-			end
-			standings.merge!(h){|key, oldval, newval| oldval + newval}
-		end	
-		standings = standings.map{|k, v| [Owner.find(k).name, v]}.to_h	
-		return standings
-	end
 
 # rank method using ruby instead of postgres window functions
 # postgres is more efficient algorithm, but this should work independent of db
 def self.rankv2(year, cat)
 	list = []
 	if cat == "total_era" || cat == "total_whip"
-		hash = TeamSeason.where("year = ?", year).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
+		hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
 	else
-		hash = TeamSeason.where("year = ?", year).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
+		hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
 	end
 
 	hash.values.map {|k| list << k }
@@ -279,7 +250,9 @@ end
 
 
 # calculates total points for all categories
-# CATEGORIES.each do |c|
+# standings = {}
+# h = {}
+# CATEGORIES.each do |c|	
 # 	h = TeamSeason.rankv2(2016, c)
 # 	standings.merge!(h){|key, oldval, newval| oldval + newval}
 # end
