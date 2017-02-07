@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'stats/index'
+
   root 'seasons#index'
   resources :owners
   get 'seasons', to: 'seasons#index'
