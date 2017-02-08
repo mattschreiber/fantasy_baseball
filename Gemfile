@@ -54,4 +54,4 @@ end
 
 gem 'httparty'
 
-
+gem 'jquery-tablesorter'
