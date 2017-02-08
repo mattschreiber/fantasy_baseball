@@ -1,2 +1,28 @@
-<h1>Stats#index</h1>
-<p>Find me in app/views/stats/index.html.erb</p>
+<h1>Listing Players</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Team</th>
+      <th>Runs</th>
+      <th>Home Runs</th>
+      <th>RBIs</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr class=<%=cycle("even", "odd")%> >
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.battings.first.mlbteam.abbr %></td>
+        <td><%= player.battings.first.runs %></td>
+        <td><%= player.battings.first.hr %></td>
+        <td><%= player.battings.first.rbi%></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
