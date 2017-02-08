@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207145944) do
+ActiveRecord::Schema.define(version: 20170208131017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,9 +35,18 @@ ActiveRecord::Schema.define(version: 20170207145944) do
     t.datetime "updated_at", null: false
     t.float    "average"
     t.string   "pos"
+    t.integer  "mlbteam_id"
   end
 
+  add_index "battings", ["mlbteam_id"], name: "index_battings_on_mlbteam_id", using: :btree
   add_index "battings", ["player_id"], name: "index_battings_on_player_id", using: :btree
+
+  create_table "mlbteams", force: :cascade do |t|
+    t.string   "abbr"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "owners", force: :cascade do |t|
     t.string   "first_name"
@@ -80,6 +89,20 @@ ActiveRecord::Schema.define(version: 20170207145944) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "players_positions", force: :cascade do |t|
+    t.integer "position_id"
+    t.integer "player_id"
+  end
+
+  add_index "players_positions", ["player_id"], name: "index_players_positions_on_player_id", using: :btree
+  add_index "players_positions", ["position_id"], name: "index_players_positions_on_position_id", using: :btree
+
+  create_table "positions", force: :cascade do |t|
+    t.string   "pos"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "team_seasons", force: :cascade do |t|
     t.integer  "year"
     t.integer  "place"
@@ -114,7 +137,10 @@ ActiveRecord::Schema.define(version: 20170207145944) do
 
   add_index "team_seasons", ["owner_id"], name: "index_team_seasons_on_owner_id", using: :btree
 
+  add_foreign_key "battings", "mlbteams"
   add_foreign_key "battings", "players"
   add_foreign_key "pitchings", "players"
+  add_foreign_key "players_positions", "players"
+  add_foreign_key "players_positions", "positions"
   add_foreign_key "team_seasons", "owners"
 end
