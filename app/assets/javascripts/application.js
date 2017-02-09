@@ -12,6 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery-tablesorter
+//= require turbolinks
 //= require_tree .

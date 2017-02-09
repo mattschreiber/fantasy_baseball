@@ -55,3 +55,4 @@ end
 gem 'httparty'
 
 gem 'jquery-tablesorter'
+gem 'jquery-turbolinks'
