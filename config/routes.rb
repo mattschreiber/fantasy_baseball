@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
 
-
-  get 'stats/index'
-
-  resources :players
-
+  
   root 'seasons#index'
   resources :owners
+  resources :players
   get 'seasons', to: 'seasons#index'
   get 'seasons/new' 
   get 'historical', to: 'seasons#historical'
   post 'seasons/import', to: 'seasons#import'
+  get 'stats/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
