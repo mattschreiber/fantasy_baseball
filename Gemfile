@@ -56,3 +56,4 @@ gem 'httparty'
 
 gem 'jquery-tablesorter'
 gem 'jquery-turbolinks'
+gem 'mechanize', '~> 2.7', '>= 2.7.5'

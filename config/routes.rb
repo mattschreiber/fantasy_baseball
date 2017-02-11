@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
+
   get 'stats/index'
+
+  resources :players
 
   root 'seasons#index'
   resources :owners

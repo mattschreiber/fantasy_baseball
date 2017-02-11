@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208131017) do
+ActiveRecord::Schema.define(version: 20170209203037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170208131017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float    "average"
-    t.string   "pos"
     t.integer  "mlbteam_id"
   end
 
@@ -77,8 +76,10 @@ ActiveRecord::Schema.define(version: 20170208131017) do
     t.integer  "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "mlbteam_id"
   end
 
+  add_index "pitchings", ["mlbteam_id"], name: "index_pitchings_on_mlbteam_id", using: :btree
   add_index "pitchings", ["player_id"], name: "index_pitchings_on_player_id", using: :btree
 
   create_table "players", force: :cascade do |t|
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170208131017) do
 
   add_foreign_key "battings", "mlbteams"
   add_foreign_key "battings", "players"
+  add_foreign_key "pitchings", "mlbteams"
   add_foreign_key "pitchings", "players"
   add_foreign_key "players_positions", "players"
   add_foreign_key "players_positions", "positions"

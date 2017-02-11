@@ -1,5 +1,6 @@
 $(document).on('turbolinks:load', function() {
   $("#myTable").tablesorter({
-   	 widgets: ['zebra'] 
+   	 widgets: ['zebra'],
+   	 sortList: [[7,1]] 
    });
 });

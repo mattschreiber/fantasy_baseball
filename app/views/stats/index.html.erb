@@ -52,6 +52,7 @@
         <td><%= player.battings.first.rbi%></td>
         <td><%= player.battings.first.sb%></td>
         <td><%= player.battings.first.average%></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
       </tr>
     <% end %>
   </tbody>
