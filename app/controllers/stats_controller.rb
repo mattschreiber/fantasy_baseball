@@ -1,12 +1,22 @@
 class StatsController < ApplicationController
   def index
-  	@players = Player.all
   	if params[:pos]
   		@players = Position.search(params[:pos], params[:q])
-  	elsif params[:q]
-  		@players = Player.search(params[:q])
-  	else
-  		@players = Player.all
+      respond_to do |format|
+          format.html { render :batter }
+      end
+  	else params[:q]
+  		@players = Player.search(params[:q], params[:bat_pitch])
+      if params[:bat_pitch] != "false"
+        respond_to do |format|
+          format.html { render :batter }
+        end
+      else
+        byebug
+        respond_to do |format|
+          format.html {render :pitcher}
+        end
+      end
   	end
   end
 end

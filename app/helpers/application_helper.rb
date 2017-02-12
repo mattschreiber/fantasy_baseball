@@ -1,5 +1,8 @@
 module ApplicationHelper
 
+	BAT_CATEGORIES = ["First", "Last", "Team", "Runs", "Home Runs", "RBIs", "SB", 
+		"BA", "Edit"]
+	
 	def round_zero points
 		points.round(0)
 	end

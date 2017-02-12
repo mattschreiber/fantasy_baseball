@@ -4,9 +4,9 @@
   <%= text_field_tag(:q) %>
   <br>
   <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:bat_pitch, "b", true) %>
+	  <%= radio_button_tag(:bat_pitch, true) %>
 		<%= label_tag(:bat, "BAT") %>
-		<%= radio_button_tag(:bat_pitch, "p") %>
+		<%= radio_button_tag(:bat_pitch, false, true) %>
 		<%= label_tag(:pos_1b, "PITCH") %>
 	</div>
 
@@ -40,11 +40,11 @@
       <th>First</th>
       <th>Last</th>
       <th>Team</th>
-      <th>Runs</th>
-      <th>Home Runs</th>
-      <th>RBIs</th>
-      <th>SB</th>
-      <th>BA</th>
+      <th>Wins</th>
+      <th>Ks</th>
+      <th>SVs</th>
+      <th>Era</th>
+      <th>Whip</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -54,12 +54,12 @@
       <tr>
         <td><%= player.first_name %></td>
         <td><%= player.last_name %></td>
-        <td><%= player.battings.first.mlbteam.abbr %></td>
-        <td><%= player.battings.first.runs %></td>
-        <td><%= player.battings.first.hr %></td>
-        <td><%= player.battings.first.rbi%></td>
-        <td><%= player.battings.first.sb%></td>
-        <td><%= player.battings.first.average%></td>
+        <td><%= player.pitchings.first.mlbteam.abbr %></td>
+        <td><%= player.pitchings.first.wins %></td>
+        <td><%= player.pitchings.first.so %></td>
+        <td><%= player.pitchings.first.sv%></td>
+        <td><%= player.pitchings.first.era%></td>
+        <td><%= player.pitchings.first.whip%></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
       </tr>
     <% end %>

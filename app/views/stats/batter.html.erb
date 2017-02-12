@@ -1,0 +1,67 @@
+
+<%= form_tag("/stats/index", method: "get") do %>
+  <%= label_tag(:q, "Last Name:") %>
+  <%= text_field_tag(:q) %>
+  <br>
+  <div style="margin-top: 10px; margin-bottom: 10px">
+	  <%= radio_button_tag(:bat_pitch, true, true) %>
+		<%= label_tag(:bat, "BAT") %>
+		<%= radio_button_tag(:bat_pitch, false) %>
+		<%= label_tag(:pos_1b, "PITCH") %>
+	</div>
+
+  <div style="margin-top: 10px; margin-bottom: 10px">
+	  <%= radio_button_tag(:pos, "c") %>
+		<%= label_tag(:pos_c, "C") %>
+		<%= radio_button_tag(:pos, "1b") %>
+		<%= label_tag(:pos_1b, "1B") %>
+		<%= radio_button_tag(:pos, "2b") %>
+		<%= label_tag(:pos_2b, "2B") %>
+		<%= radio_button_tag(:pos, "3b") %>
+		<%= label_tag(:pos_3b, "3B") %>
+		<%= radio_button_tag(:pos, "ss") %>
+		<%= label_tag(:pos_ss, "SS") %>
+		<%= radio_button_tag(:pos, "of") %>
+		<%= label_tag(:pos_of, "OF") %>
+		<%= radio_button_tag(:pos, "sp") %>
+		<%= label_tag(:pos_p, "SP") %>
+		<%= radio_button_tag(:pos, "rp") %>
+		<%= label_tag(:pos_rp, "RP") %>
+	</div>
+  <%= submit_tag "Search", name: nil%>
+<% end %>
+
+
+<h1>Listing Players</h1>
+
+<table id="myTable" class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Team</th>
+      <th>Runs</th>
+      <th>Home Runs</th>
+      <th>RBIs</th>
+      <th>SB</th>
+      <th>BA</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.battings.first.mlbteam.abbr %></td>
+        <td><%= player.battings.first.runs %></td>
+        <td><%= player.battings.first.hr %></td>
+        <td><%= player.battings.first.rbi%></td>
+        <td><%= player.battings.first.sb%></td>
+        <td><%= player.battings.first.average%></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
