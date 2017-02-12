@@ -10,9 +10,9 @@ class StatsController < ApplicationController
       if params[:bat_pitch] != "false"
         respond_to do |format|
           format.html { render :batter }
+          format.json { render :batter }
         end
       else
-        byebug
         respond_to do |format|
           format.html {render :pitcher}
         end
