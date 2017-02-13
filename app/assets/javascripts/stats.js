@@ -3,6 +3,10 @@ $(document).on('turbolinks:load', function() {
    	 widgets: ['zebra'],
    	 sortList: [[7,1]] 
    });
+  $("#myTable1").tablesorter({
+   	 widgets: ['zebra'],
+   	 sortList: [[7,1]] 
+   });
 
   var pitch = document.getElementById('bat_pitch_false');
   // var btn_c = document.getElementsByName('pos')
@@ -48,5 +52,30 @@ $(document).on('turbolinks:load', function() {
       $('label[for="pos_p"]').hide();
       $("#pos_rp").hide();
       $('label[for="pos_rp"]').hide();
+      
+
   };
+
+  // var player = document.getElementById('player_first_name_dj');
+  // player.onclick = function(){
+  // 	$.ajax({
+		// 	type: 'GET',
+		// 	url : "partial",
+		// 	 });
+  // 	$("#myTable1").tablesorter({
+  //  	 widgets: ['zebra'],
+  //  	 sortList: [[7,1]] 
+  //  });
+
+  // }
+  
+ 
+
 });
+
+ function render_partial() {
+  	$.ajax({
+			type: 'GET',
+			url : "partial",
+			 });
+	};

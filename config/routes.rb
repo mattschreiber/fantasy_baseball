@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'historical', to: 'seasons#historical'
   post 'seasons/import', to: 'seasons#import'
   get 'stats/index'
+  get 'stats/partial'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
