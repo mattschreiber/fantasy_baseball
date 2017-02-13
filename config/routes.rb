@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
   root 'seasons#index'
   resources :owners
   resources :players

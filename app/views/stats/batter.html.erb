@@ -4,7 +4,7 @@
   <%= text_field_tag(:q) %>
   <br>
   <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:bat_pitch, true, true) %>
+	  <%= radio_button_tag(:bat_pitch, true, true, remote: true) %>
 		<%= label_tag(:bat, "BAT") %>
 		<%= radio_button_tag(:bat_pitch, false) %>
 		<%= label_tag(:pos_1b, "PITCH") %>
@@ -33,42 +33,67 @@
   <%= submit_tag "Search", name: nil%>
 <% end %>
 
+<div id="stats">
+	<%= render partial: "batter" %>
+</div>
 
-<h1>Listing Players</h1>
+<script type="text/javascript">
+	  var pitch = document.getElementById('bat_pitch_false');
+  // var btn_c = document.getElementsByName('pos')
+  pitch.onclick = function() {
+      $("#pos_c").hide();
+      $('label[for="pos_c"]').hide();
+      $("#pos_1b").hide();
+      $('label[for="pos_one"]').hide();
+      $("#pos_2b").hide();
+      $('label[for="pos_2b"]').hide();
+      $("#pos_2b").hide();
+      $('label[for="pos_2b"]').hide();
+      $("#pos_3b").hide();
+      $('label[for="pos_3b"]').hide();
+      $("#pos_ss").hide();
+      $('label[for="pos_ss"]').hide();
+      $("#pos_of").hide();
+      $('label[for="pos_of"]').hide();
+      $("#pos_sp").show();
+      $('label[for="pos_p"]').show();
+      $("#pos_rp").show();
+      $('label[for="pos_rp"]').show();
+      $("#pos_a").prop('checked', true);
+  };
 
-<table id="myTable" class="tablesorter tablesorter-blue">
-  <thead>
-    <tr>
-      <th>First</th>
-      <th>Last</th>
-      <th>Team</th>
-      <th>Runs</th>
-      <th>Home Runs</th>
-      <th>RBIs</th>
-      <th>SB</th>
-      <th>BA</th>
-      <th>Edit</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @players.each do |player| %>
-      <tr>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
-        <td><%= player.battings.first.mlbteam.abbr %></td>
-        <td><%= player.battings.first.runs %></td>
-        <td><%= player.battings.first.hr %></td>
-        <td><%= player.battings.first.rbi%></td>
-        <td><%= player.battings.first.sb%></td>
-        <td><%= player.battings.first.average%></td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
+  var bat = document.getElementById('bat_pitch_true');
+  // var btn_c = document.getElementsByName('pos')
+  bat.onclick = function() {
+  		$("#pos_c").show();
+      $('label[for="pos_c"]').show();
+      $("#pos_1b").show();
+      $('label[for="pos_one"]').show();
+      $("#pos_2b").show();
+      $('label[for="pos_2b"]').show();
+      $("#pos_2b").show();
+      $('label[for="pos_2b"]').show();
+      $("#pos_3b").show();
+      $('label[for="pos_3b"]').show();
+      $("#pos_ss").show();
+      $('label[for="pos_ss"]').show();
+      $("#pos_of").show();
+      $('label[for="pos_of"]').show();
+      $("#pos_sp").hide();
+      $('label[for="pos_p"]').hide();
+      $("#pos_rp").hide();
+      $('label[for="pos_rp"]').hide();
+      $("#pos_a").prop('checked', true);
+       // if($('#pos_c').is(':checked')) { alert("it's checked")};
+   //    $.ajax({
+			// type: 'GET',
+			// url: "partial",
+			// data: {
+			// 	pos: "1b"
+			// },
+			//  });
+  };
+</script>
 
 
 

@@ -1,6 +1,19 @@
 class StatsController < ApplicationController
 
   def index
+    # if params[:bat_pitch] == 'false' #pitcher selected
+    #   if  (params[:pos] == 'c' || params[:pos] == '1b' || params[:pos] == '2b' || params[:pos] == '3b' || params[:pos] == 'ss' || params[:pos] == 'of')
+    #     #hack if someone enters Pitch with an incorrect position
+    #     @players = Player.search(params[:q], params[:bat_pitch])
+    #   elsif params[:pos] == 'a'
+    #     @players = Player.search(params[:q], params[:bat_pitch])
+    #   else
+    #     # search by position    
+    #     @players = Position.search(params[:pos], params[:q])
+    #   end
+    # else #batter selected
+    
+    # end
   	if params[:pos]
       #hack if someone enters Bat incorrect position
       if (params[:pos] == 'sp' || params[:pos] == 'rp') and params[:bat_pitch] == "true"
