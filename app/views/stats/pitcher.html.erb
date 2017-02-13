@@ -11,18 +11,20 @@
 	</div>
 
   <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:pos, "c") %>
-		<%= label_tag(:pos_c, "C") %>
-		<%= radio_button_tag(:pos, "1b") %>
-		<%= label_tag(:pos_1b, "1B") %>
-		<%= radio_button_tag(:pos, "2b") %>
-		<%= label_tag(:pos_2b, "2B") %>
-		<%= radio_button_tag(:pos, "3b") %>
-		<%= label_tag(:pos_3b, "3B") %>
-		<%= radio_button_tag(:pos, "ss") %>
-		<%= label_tag(:pos_ss, "SS") %>
-		<%= radio_button_tag(:pos, "of") %>
-		<%= label_tag(:pos_of, "OF") %>
+    <%= radio_button_tag(:pos, "a" ) %>
+    <%= label_tag(:pos_a, "ALL") %>
+	  <%= radio_button_tag(:pos, "c", false, style: "display:none") %>
+		<%= label_tag(:pos_c, "C", style: "display:none") %>
+		<%= radio_button_tag(:pos, "1b", false, style: "display:none") %>
+		<%= label_tag(:pos_one, "1B", style: "display:none") %>
+		<%= radio_button_tag(:pos, "2b", false, style: "display:none") %>
+		<%= label_tag(:pos_2b, "2B", style: "display:none") %>
+		<%= radio_button_tag(:pos, "3b", false, style: "display:none") %>
+		<%= label_tag(:pos_3b, "3B", style: "display:none") %>
+		<%= radio_button_tag(:pos, "ss", false, style: "display:none") %>
+		<%= label_tag(:pos_ss, "SS", style: "display:none") %>
+		<%= radio_button_tag(:pos, "of", false, style: "display:none") %>
+		<%= label_tag(:pos_of, "OF", style: "display:none") %>
 		<%= radio_button_tag(:pos, "sp") %>
 		<%= label_tag(:pos_p, "SP") %>
 		<%= radio_button_tag(:pos, "rp") %>

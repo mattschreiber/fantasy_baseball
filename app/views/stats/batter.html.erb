@@ -11,22 +11,24 @@
 	</div>
 
   <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:pos, "c", ) %>
+  	<%= radio_button_tag(:pos, "a", ( params[:pos] != 'a' ? (params[:pos]=="a") : 0 ) ) %>
+		<%= label_tag(:pos_a, "ALL") %>
+	  <%= radio_button_tag(:pos, "c", ( params[:pos] != 'c' ? (params[:pos]=="c") : 0 ) ) %>
 		<%= label_tag(:pos_c, "C") %>
-		<%= radio_button_tag(:pos, "1b") %>
-		<%= label_tag(:pos_1b, "1B") %>
-		<%= radio_button_tag(:pos, "2b") %>
+		<%= radio_button_tag(:pos, "1b", ( params[:pos] != '1b' ? (params[:pos]=="1b") : 0 )) %>
+		<%= label_tag(:pos_one, "1B") %>
+		<%= radio_button_tag(:pos, "2b", ( params[:pos] != '2b' ? (params[:pos]=="2b") : 0 )) %>
 		<%= label_tag(:pos_2b, "2B") %>
-		<%= radio_button_tag(:pos, "3b") %>
+		<%= radio_button_tag(:pos, "3b", ( params[:pos] != '3b' ? (params[:pos]=="3b") : 0 )) %>
 		<%= label_tag(:pos_3b, "3B") %>
-		<%= radio_button_tag(:pos, "ss") %>
+		<%= radio_button_tag(:pos, "ss", ( params[:pos] != 'ss' ? (params[:pos]=="ss") : 0 )) %>
 		<%= label_tag(:pos_ss, "SS") %>
-		<%= radio_button_tag(:pos, "of") %>
+		<%= radio_button_tag(:pos, "of", ( params[:pos] != 'of' ? (params[:pos]=="of") : 0 )) %>
 		<%= label_tag(:pos_of, "OF") %>
-		<%= radio_button_tag(:pos, "sp") %>
-		<%= label_tag(:pos_p, "SP") %>
-		<%= radio_button_tag(:pos, "rp") %>
-		<%= label_tag(:pos_rp, "RP") %>
+		<%= radio_button_tag(:pos, "sp", false, style: "display:none") %>
+		<%= label_tag(:pos_p, "SP", style: "display:none") %>
+		<%= radio_button_tag(:pos, "rp", false, style: "display:none") %>
+		<%= label_tag(:pos_rp, "RP", style: "display:none") %>
 	</div>
   <%= submit_tag "Search", name: nil%>
 <% end %>
@@ -65,3 +67,4 @@
     <% end %>
   </tbody>
 </table>
+
