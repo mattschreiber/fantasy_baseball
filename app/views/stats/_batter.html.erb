@@ -1,0 +1,33 @@
+<h1>Listing Players</h1>
+
+<table id="myTable" class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Team</th>
+      <th>Runs</th>
+      <th>Home Runs</th>
+      <th>RBIs</th>
+      <th>SB</th>
+      <th>BA</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.battings.first.mlbteam.abbr %></td>
+        <td><%= player.battings.first.runs %></td>
+        <td><%= player.battings.first.hr %></td>
+        <td><%= player.battings.first.rbi%></td>
+        <td><%= player.battings.first.sb%></td>
+        <td><%= player.battings.first.average%></td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
