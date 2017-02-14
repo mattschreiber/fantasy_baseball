@@ -37,7 +37,11 @@
 </div>
 
 <script type="text/javascript">
-	  var pitch = document.getElementById('bat_pitch_false');
+
+	$('input[type="radio"]').click(function(){
+		$("#q").val("");
+	});
+	var pitch = document.getElementById('bat_pitch_false');
   // var btn_c = document.getElementsByName('pos')
   pitch.onclick = function() {
       $("#pos_c").hide();
