@@ -11,7 +11,7 @@
 	</div>
 
   <div style="margin-top: 10px; margin-bottom: 10px">
-    <%= radio_button_tag(:pos, "a", ( params[:pos] != 'a' ? (params[:pos]=="a") : 0 ) ) %>
+    <%= radio_button_tag(:pos, "a", ( !params[:pos].nil? ? (params[:pos]=="a") : 0   ) ) %>
     <%= label_tag(:pos_a, "ALL") %>
 	  <%= radio_button_tag(:pos, "c", false, style: "display:none") %>
 		<%= label_tag(:pos_c, "C", style: "display:none") %>
@@ -90,6 +90,7 @@
       $('label[for="pos_p"]').show();
       $("#pos_rp").show();
       $('label[for="pos_rp"]').show();
+      $("#pos_a").prop('checked', true);
   };
 
   var bat = document.getElementById('bat_pitch_true');
@@ -113,6 +114,7 @@
       $('label[for="pos_p"]').hide();
       $("#pos_rp").hide();
       $('label[for="pos_rp"]').hide();
+      $("#pos_a").prop('checked', true);
        // if($('#pos_c').is(':checked')) { alert("it's checked")};
    //    $.ajax({
       // type: 'GET',

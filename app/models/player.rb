@@ -4,6 +4,11 @@ class Player < ActiveRecord::Base
 	has_many :battings
 	has_many :pitchings
 
+	# return player hash to make responding to js and json requests simpler.
+	# the search method will return a players array of player hashes 
+	players = []
+	player = {}
+
 	def self.search(search, bat_pitch)
 		if search.nil?
 			search = ""

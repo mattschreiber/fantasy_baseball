@@ -1,11 +1,9 @@
 $(document).on('turbolinks:load', function() {
   $("#myTable").tablesorter({
    	 widgets: ['zebra'],
-   	 sortList: [[7,1]] 
-   });
-  $("#myTable1").tablesorter({
-   	 widgets: ['zebra'],
-   	 sortList: [[7,1]] 
+   	 sortList: [[1,0]],
+     sortRestart : true,
+     sortInitialOrder: 'desc',
    });
   
 });

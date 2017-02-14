@@ -1,17 +1,16 @@
 
-<%= form_tag("/stats/index", method: "get") do %>
+<%= form_tag("/stats/index", method: "get", remote: true) do %>
   <%= label_tag(:q, "Last Name:") %>
   <%= text_field_tag(:q) %>
   <br>
   <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:bat_pitch, true, true, remote: true) %>
+	  <%= radio_button_tag(:bat_pitch, true, true) %>
 		<%= label_tag(:bat, "BAT") %>
 		<%= radio_button_tag(:bat_pitch, false) %>
 		<%= label_tag(:pos_1b, "PITCH") %>
 	</div>
-
   <div style="margin-top: 10px; margin-bottom: 10px">
-  	<%= radio_button_tag(:pos, "a", ( params[:pos] != 'a' ? (params[:pos]=="a") : 0 ) ) %>
+  	<%= radio_button_tag(:pos, "a", ( !params[:pos].nil? ? (params[:pos]=="a") : 0	 ) ) %>
 		<%= label_tag(:pos_a, "ALL") %>
 	  <%= radio_button_tag(:pos, "c", ( params[:pos] != 'c' ? (params[:pos]=="c") : 0 ) ) %>
 		<%= label_tag(:pos_c, "C") %>

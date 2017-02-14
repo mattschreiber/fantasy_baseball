@@ -6,11 +6,11 @@
       <th>First</th>
       <th>Last</th>
       <th>Team</th>
-      <th>Runs</th>
-      <th>Home Runs</th>
-      <th>RBIs</th>
-      <th>SB</th>
-      <th>BA</th>
+      <th>Wins</th>
+      <th>Ks</th>
+      <th>SVs</th>
+      <th>Era</th>
+      <th>Whip</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -18,14 +18,14 @@
   <tbody>
     <% @players.each do |player| %>
       <tr>
-        <td><%= player[:first_name] %></td>
-        <td><%= player[:last_name] %></td>
-        <td><%= player.battings[0].mlbteam[:abbr] %></td>
-        <td><%= player.battings[0][:runs] %></td>
-        <td><%= player.battings[0][:hr] %></td>
-        <td><%= player.battings[0][:rbi]%></td>
-        <td><%= player.battings[0][:sb]%></td>
-        <td><%= player.battings[0][:average]%></td>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.pitchings.first.mlbteam.abbr %></td>
+        <td><%= player.pitchings.first.wins %></td>
+        <td><%= player.pitchings.first.so %></td>
+        <td><%= player.pitchings.first.sv%></td>
+        <td><%= player.pitchings.first.era%></td>
+        <td><%= player.pitchings.first.whip%></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
       </tr>
     <% end %>
