@@ -3,8 +3,10 @@
 <table id="myTable" class="tablesorter tablesorter-blue">
   <thead>
     <tr>
+      <th>ESPN Rank</th>
       <th>First</th>
       <th>Last</th>
+      <th>Age</th>
       <th>Team</th>
       <th>Wins</th>
       <th>Ks</th>
@@ -18,8 +20,10 @@
   <tbody>
     <% @players.each do |player| %>
       <tr>
+      <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> </td>
         <td><%= player.first_name %></td>
         <td><%= player.last_name %></td>
+        <td><%= age player[:birthday] %></td>
         <td><%= player.pitchings.first.mlbteam.abbr %></td>
         <td><%= player.pitchings.first.wins %></td>
         <td><%= player.pitchings.first.so %></td>
@@ -35,7 +39,7 @@
 <script type="text/javascript">
   $("#myTable").tablesorter({
      widgets: ['zebra'],
-     sortList: [[1,0]],
+     sortList: [[0,0]],
      sortRestart : true,
      sortInitialOrder: 'desc',
    });

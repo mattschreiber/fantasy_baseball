@@ -21,13 +21,6 @@ class StatsController < ApplicationController
       end
   end
 
-  def partial
-    @h = {}
-    player = Player.all.first
-    @h[:first] = player.first_name
-    @h[:last] = player.last_name
-    @h[:runs] = player.battings.first.runs
-  end
 
   private
 

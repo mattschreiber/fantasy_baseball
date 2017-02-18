@@ -1,0 +1,4 @@
+#can use to update data in database like adding players to owners
+arr = CSV.read('sheet11.csv')
+arr[0][0].to_i
+arr[0][1].to_i

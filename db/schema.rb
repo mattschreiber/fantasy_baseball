@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217131132) do
+ActiveRecord::Schema.define(version: 20170218123929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,18 @@ ActiveRecord::Schema.define(version: 20170217131132) do
   add_index "pitchings", ["mlbteam_id"], name: "index_pitchings_on_mlbteam_id", using: :btree
   add_index "pitchings", ["player_id"], name: "index_pitchings_on_player_id", using: :btree
 
+  create_table "player_rankings", force: :cascade do |t|
+    t.integer  "my_rank"
+    t.integer  "espn"
+    t.integer  "cbs"
+    t.integer  "mlb"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "player_rankings", ["player_id"], name: "index_player_rankings_on_player_id", using: :btree
+
   create_table "players", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -150,6 +162,7 @@ ActiveRecord::Schema.define(version: 20170217131132) do
   add_foreign_key "battings", "players"
   add_foreign_key "pitchings", "mlbteams"
   add_foreign_key "pitchings", "players"
+  add_foreign_key "player_rankings", "players"
   add_foreign_key "players_positions", "players"
   add_foreign_key "players_positions", "positions"
   add_foreign_key "team_seasons", "owners"

@@ -18,4 +18,14 @@ module ApplicationHelper
 	def to_int points
 		points.to_i
 	end
+
+	def age(bd)
+		now = Time.now
+		if bd.month < now.month
+			age = age = now.year - bd.year
+		else
+			age = now.year - bd.year - 1
+		end
+	end
+	
 end

@@ -4,6 +4,7 @@ class Player < ActiveRecord::Base
 	has_many :mlbteam_pitchings, through: :pitchings, source: :mlbteam
 	has_many :battings
 	has_many :pitchings
+	has_one :player_ranking
 
 	# return player hash to make responding to js and json requests simpler.
 	# the search method will return a players array of player hashes 
@@ -17,7 +18,16 @@ class Player < ActiveRecord::Base
 		if bat_pitch.nil?
 			bat_pitch = true
 		end
-  	where("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch) 
+  	Player.where("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
+	end
+
+	def age(bd)
+		now = Time.now
+		if bd.month < now.month
+			age = age = now.year - bd.year
+		else
+			age = now.year - bd.year - 1
+		end
 	end
 
 end
