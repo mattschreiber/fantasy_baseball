@@ -5,7 +5,7 @@
   <br>
   <div style="margin-top: 10px; margin-bottom: 10px">
   	<%= label_tag(:year, "Select Year") %>
-		<%= collection_select(:year, :id, Year.order(year: :desc), :id, :year) %>
+		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year) %>
   </div>
   <div style="margin-top: 10px; margin-bottom: 10px">
 	  <%= radio_button_tag(:bat_pitch, true, true) %>
