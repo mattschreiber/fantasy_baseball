@@ -1,9 +1,16 @@
 class StatsController < ApplicationController
 
   def index
+
     @players = []
+    if params[:year].nil?
+      year = Time.now.year
+    else
+      year = params[:year][:id]
+    end
+        
   	if params[:pos].nil? || params[:pos] == 'a'
-      @players = Player.search(params[:q], params[:bat_pitch])
+      @players = Player.search(params[:q], params[:bat_pitch], year)
     else
       @players = Position.search(params[:pos], params[:q])
     end
@@ -23,6 +30,8 @@ class StatsController < ApplicationController
 
 
   private
+
+
 
   # def set_player
   #     @players = Player.all

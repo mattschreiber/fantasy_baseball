@@ -11,15 +11,19 @@ class Player < ActiveRecord::Base
 	players = []
 	player = {}
 
-	def self.search(search, bat_pitch)
+	def self.search(search, bat_pitch, year)
 		if search.nil?
 			search = ""
 		end
 		if bat_pitch.nil?
 			bat_pitch = "true"
 		end
+		if year.nil?
+			year = Time.now.year
+		end
+		
 		if bat_pitch == "true"
-			includes(:battings, :player_ranking).where("battings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:battings)
+			includes(:battings, :player_ranking).where("battings.year = ? AND player_rankings.id IS NOT NULL", year).references(:battings)
 		else
 			includes(:pitchings, :player_ranking).where("pitchings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:pitchings)
 		end
