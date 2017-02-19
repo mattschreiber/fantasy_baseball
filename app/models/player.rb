@@ -16,9 +16,14 @@ class Player < ActiveRecord::Base
 			search = ""
 		end
 		if bat_pitch.nil?
-			bat_pitch = true
+			bat_pitch = "true"
 		end
-  	Player.where("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
+		if bat_pitch == "true"
+			includes(:battings, :player_ranking).where("battings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:battings)
+		else
+			includes(:pitchings, :player_ranking).where("pitchings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:pitchings)
+		end
+  	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
 
 	def age(bd)
