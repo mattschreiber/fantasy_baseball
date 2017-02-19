@@ -18,14 +18,11 @@ class Player < ActiveRecord::Base
 		if bat_pitch.nil?
 			bat_pitch = "true"
 		end
-		if year.nil?
-			year = Time.now.year
-		end
-		
+
 		if bat_pitch == "true"
-			includes(:battings, :player_ranking).where("battings.year = ? AND player_rankings.id IS NOT NULL", year).references(:battings)
+			includes(:battings, :player_ranking).where("battings.year = ? AND player_rankings.id IS NOT NULL", year).references(:battings, :player_ranking).order("player_rankings.espn")
 		else
-			includes(:pitchings, :player_ranking).where("pitchings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:pitchings)
+			includes(:pitchings, :player_ranking).where("pitchings.year = ? AND player_rankings.id IS NOT NULL", 2016).references(:pitchings, :player_ranking).order("player_rankings.espn")
 		end
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
@@ -38,5 +35,6 @@ class Player < ActiveRecord::Base
 			age = now.year - bd.year - 1
 		end
 	end
+
 
 end
