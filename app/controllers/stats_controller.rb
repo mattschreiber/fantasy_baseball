@@ -12,7 +12,7 @@ class StatsController < ApplicationController
   	if params[:pos].nil? || params[:pos] == 'a'
       @players = Player.search(params[:q], params[:bat_pitch], year)
     else
-      @players = Position.search(params[:pos], params[:q], year)
+      @players = Position.search(params[:pos], params[:q], year, params[:bat_pitch])
     end
     if params[:bat_pitch] != "false"
         respond_to do |format|
