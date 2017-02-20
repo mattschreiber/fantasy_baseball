@@ -20,9 +20,9 @@ class Player < ActiveRecord::Base
 		end
 
 		if bat_pitch == "true"
-			includes(:battings, :player_ranking).where("last_name LIKE ? AND battings.year = ? AND player_rankings.id IS NOT NULL", "%#{search}%", year).references(:battings, :player_ranking).order("player_rankings.espn")
+			includes(:battings, :player_ranking).where("last_name LIKE ? AND battings.year = ?", "%#{search}%", year).references(:battings).order("player_rankings.espn")
 		else
-			includes(:pitchings, :player_ranking).where("last_name LIKE ? AND pitchings.year = ? AND player_rankings.id IS NOT NULL", "%#{search}%", year).references(:pitchings, :player_ranking).order("player_rankings.espn")
+			includes(:pitchings, :player_ranking).where("last_name LIKE ? AND pitchings.year = ?", "%#{search}%", year).references(:pitchings, :player_ranking).order("player_rankings.espn")
 		end
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
