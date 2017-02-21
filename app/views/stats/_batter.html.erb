@@ -5,6 +5,7 @@
     <tr>
       <th>Pos Rank</th>
       <th>ESPN Rank</th>
+      <th>CBS Rank</th>
       <th>First</th>
       <th>Last</th>
       <th>Age</th>
@@ -23,6 +24,8 @@
       <tr>
         <td><%= index + 1 %>
         <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> 
+        </td>
+        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %> 
         </td>
         <td><%= player[:first_name] %></td>
         <td><%= player[:last_name] %></td>

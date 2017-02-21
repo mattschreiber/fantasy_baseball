@@ -27,5 +27,9 @@ module ApplicationHelper
 			age = now.year - bd.year - 1
 		end
 	end
+
+	def name(first_name, last_name)
+		"#{first_name} #{last_name}"
+	end
 	
 end
