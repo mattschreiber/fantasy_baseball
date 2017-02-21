@@ -29,6 +29,22 @@ td {
 }
 
 .container{
-	padding-bottom: 10px;
+	/*padding-bottom: 10px;*/
+	padding: 5px 15px;
 }
+
+
+#ownerplayer {
+	width: 75%;
+	float: left;
+	padding: 5px 15px;
+}
+
+.footer {
+	clear: both;
+}
+
+
+
+
 

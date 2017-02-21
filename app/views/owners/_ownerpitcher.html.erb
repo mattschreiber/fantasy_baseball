@@ -1,0 +1,31 @@
+<h1>Pitchers</h1>
+<table id="myTable" class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Team</th>
+      <th>POS</th>
+      <th>ESPN Rank</th>
+      <th>CBS Rank</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pitchers.each_with_index do |player|%>
+      <tr>
+        <td><%= player.first_name %></td>
+        <td><%= player.last_name %></td>
+        <td><%= player.pitchings[0].mlbteam.abbr %></td>
+        <td><%= player.positions[0][:pos]%></td>
+        <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> </td>
+        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %> 
+        </td>
+        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+

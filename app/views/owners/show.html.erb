@@ -1,78 +1,94 @@
 <p id="notice"><%= notice %></p>
+  <div class="container">
+    <p>
+      <strong>First name:</strong>
+      <%= @owner.first_name %>
+    </p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @owner.first_name %>
-</p>
+    <p>
+      <strong>Last name:</strong>
+      <%= @owner.last_name %>
+    </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @owner.last_name %>
-</p>
+    <p>
+      <strong>Team name:</strong>
+      <%= @owner.team_name %>
+    </p>
 
-<p>
-  <strong>Team name:</strong>
-  <%= @owner.team_name %>
-</p>
+    <p>
+      <strong>Place avg:</strong>
+      <%= @owner.place_avg %>
+    </p>
 
-<p>
-  <strong>Place avg:</strong>
-  <%= @owner.place_avg %>
-</p>
+    <p>
+      <strong>Total points avg:</strong>
+      <%= @owner.total_points_avg %>
+    </p>
 
-<p>
-  <strong>Total points avg:</strong>
-  <%= @owner.total_points_avg %>
-</p>
+    <p>
+      <strong>Num titles:</strong>
+      <%= @owner.num_titles %>
+    </p>
 
-<p>
-  <strong>Num titles:</strong>
-  <%= @owner.num_titles %>
-</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th>Place</th>
+          <th>Runs</th>
+          <th>HR</th>
+          <th>RBI</th>
+          <th>SB</th>
+          <th>AVG</th>
+          <th>K</th>
+          <th>Win</th>
+          <th>Saves</th>
+          <th>ERA</th>
+          <th>Whip</th>
+          <th>Total</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>Place</th>
-      <th>Runs</th>
-      <th>HR</th>
-      <th>RBI</th>
-      <th>SB</th>
-      <th>AVG</th>
-      <th>K</th>
-      <th>Win</th>
-      <th>Saves</th>
-      <th>ERA</th>
-      <th>Whip</th>
-      <th>Total</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @season.each do |team_season| %>
+          <tr class=<%=cycle("even", "odd")%> >
+            <td><%= team_season.year%></td>
+            <td><%= team_season.place %></td>
+            <td><%= team_season.run_points %></td>
+            <td><%= team_season.hr_points %></td>
+            <td><%= team_season.rbi_points %></td>
+            <td><%= team_season.sb_points %></td>
+            <td><%= team_season.avg_points %></td>
+            <td><%= team_season.k_points %></td>
+            <td><%= team_season.win_points %></td>
+            <td><%= team_season.sv_points %></td>
+            <td><%= team_season.whip_points %></td>
+            <td><%= team_season.era_points %></td>
+            <td><%= team_season.total_points %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <div id="ownerplayer">
+    <%= render 'ownerplayers' %>
+  </div>
+  <div class="footer">
+    <%= link_to 'Edit', edit_owner_path(@owner) %> |
+    <%= link_to 'Back', owners_path %>
+  </div>
 
-  <tbody>
-    <% @season.each do |team_season| %>
-      <tr class=<%=cycle("even", "odd")%> >
-        <td><%= team_season.year%></td>
-        <td><%= team_season.place %></td>
-        <td><%= team_season.run_points %></td>
-        <td><%= team_season.hr_points %></td>
-        <td><%= team_season.rbi_points %></td>
-        <td><%= team_season.sb_points %></td>
-        <td><%= team_season.avg_points %></td>
-        <td><%= team_season.k_points %></td>
-        <td><%= team_season.win_points %></td>
-        <td><%= team_season.sv_points %></td>
-        <td><%= team_season.whip_points %></td>
-        <td><%= team_season.era_points %></td>
-        <td><%= team_season.total_points %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
 
-<%= render 'ownerbatting' %>
 
-<%= link_to 'Edit', edit_owner_path(@owner) %> |
-<%= link_to 'Back', owners_path %>
+
+<script type="text/javascript">
+  $("#myTable").tablesorter({
+     widgets: ['zebra'],
+     sortList: [[4,0]],
+     sortRestart : true,
+     sortInitialOrder: 'desc',
+   });
+  
+</script>
