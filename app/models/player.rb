@@ -7,10 +7,8 @@ class Player < ActiveRecord::Base
 	has_one :player_ranking
 	belongs_to :owner
 
-	# return player hash to make responding to js and json requests simpler.
-	# the search method will return a players array of player hashes 
-	players = []
-	player = {}
+
+
 
 	def self.search(search, bat_pitch, year)
 		if search.nil?

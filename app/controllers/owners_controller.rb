@@ -13,6 +13,7 @@ class OwnersController < ApplicationController
   def show
     # used to display season history by owner
     @season = @owner.team_seasons.where(current_season: false)
+    @batters = Player.includes(:battings).where("owner_id = ? AND battings.year = ?", params[:id], 2017).references(:battings)
   end
 
   # GET /owners/new
