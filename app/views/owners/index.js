@@ -1,0 +1,1 @@
+$("#ownerinfo").html("<%= j render(partial: 'ownerinfo')%>");

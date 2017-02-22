@@ -2,39 +2,34 @@
 
 <h1>Listing Owners</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Team name</th>
-      <th>Avg Place</th>
-      <th>Avg Points</th>
-      <th>Num titles</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @owners.each do |owner| %>
-      <tr class=<%=cycle("even", "odd")%> >
-        <td><%= owner.first_name %></td>
-        <td><%= owner.last_name %></td>
-        <td><%= owner.team_name %></td>
-        <td><%= owner.place_avg %></td>
-        <td><%= owner.total_points_avg %></td>
-        <td><%= owner.num_titles %></td>
-        <td><%= link_to 'Show', owner %></td>
-        <td><%= link_to 'Edit', edit_owner_path(owner) %></td>
-        <td><%= link_to 'Destroy', owner, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= select_tag(:active, options_for_select([['Active', true], ['All', false]])) %>
 
-<br>
+<div id="ownerinfo">
+  <%= render partial: "ownerinfo" %>
+</div>
 
 <%= link_to 'New Owner', new_owner_path %>
+
+
+<script type="text/javascript">
+
+var active = document.getElementById('active');
+
+  active.onchange = function() {
+
+      var val = $("#active").val();
+
+      $.ajax({
+      type: 'GET',
+      url: "owners.js",
+      data: {
+       active: val
+      },
+       });
+  };
+
+</script>
 
 
 

@@ -4,8 +4,18 @@ class OwnersController < ApplicationController
   # GET /owners
   # GET /owners.json
   def index
-    @owners = Owner.all
-    @owners = @owners.sort_by(&:place_avg)
+    if params[:active].nil? or params[:active] == "true"
+      active = true
+      @owners = Owner.where("active= ?", active).sort_by(&:place_avg)
+    else
+      @owners = Owner.all.sort_by(&:place_avg)
+    end
+
+    respond_to do |format|
+      format.html {render :index }
+      format.js { render :index }
+    end
+    # @owners = @owners.sort_by(&:place_avg)
   end
 
   # GET /owners/1

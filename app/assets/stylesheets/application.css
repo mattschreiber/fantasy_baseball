@@ -24,19 +24,34 @@ td {
 	padding: 5px;
 }
 
+caption {
+
+	font-size: 1.5em;
+	padding-bottom: 10px;
+}
+
 .even {
 	background-color:#E0E0E0;
 }
 
 .container{
 	/*padding-bottom: 10px;*/
-	width: 75%;
+	
+}
+#teaminfo {
+	width: 300px;
 	float: left;
+
 }
 
+#ownerrecord {
+	width: 900px;
+	float: left;
+
+}
 
 #ownerplayer {
-	width: 75%;
+	width: 1200px;
 	float: left;
 		
 }

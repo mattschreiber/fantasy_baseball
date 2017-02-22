@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-  <div class="container">
+  <div id="teaminfo">
     <p>
       <strong>First name:</strong>
       <%= @owner.first_name %>
@@ -29,8 +29,12 @@
       <strong>Num titles:</strong>
       <%= @owner.num_titles %>
     </p>
-
+    <%= link_to 'Edit', edit_owner_path(@owner) %> |
+    <%= link_to 'Back', owners_path %>
+  </div>
+  <div id= "ownerrecord">
     <table class="tablesorter tablesorter-blue">
+    <caption>Overall Team Stats</caption>
       <thead>
         <tr>
           <th>Year</th>
@@ -69,14 +73,11 @@
         <% end %>
       </tbody>
     </table>
-  </div>
+    </div>
+  
   <br>
   <div id="ownerplayer">
     <%= render 'ownerplayers' %>
-  </div>
-  <div class="footer">
-    <%= link_to 'Edit', edit_owner_path(@owner) %> |
-    <%= link_to 'Back', owners_path %>
   </div>
 
 
