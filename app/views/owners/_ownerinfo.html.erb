@@ -1,4 +1,4 @@
-<table class="tablesorter tablesorter-blue">
+<table id="myTable"  class="tablesorter tablesorter-blue">
   <thead>
     <tr>
       <th>First name</th>
@@ -26,3 +26,13 @@
     <% end %>
   </tbody>
 </table>
+
+<script type="text/javascript">
+  $("#myTable").tablesorter({
+     widgets: ['zebra'],
+     sortList: [[4,1]],
+     sortRestart : true,
+     sortInitialOrder: 'desc',
+   });
+  
+</script>

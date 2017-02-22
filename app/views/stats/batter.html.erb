@@ -8,6 +8,10 @@
 		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year) %>
   </div>
   <div style="margin-top: 10px; margin-bottom: 10px">
+    <%= label_tag(:avail_players, "Player Status") %>
+    <%= select_tag(:avail_players, options_for_select([['All', true], ['Available', false]])) %>
+  </div>
+  <div style="margin-top: 10px; margin-bottom: 10px">
 	  <%= radio_button_tag(:bat_pitch, true, true) %>
 		<%= label_tag(:bat, "BAT") %>
 		<%= radio_button_tag(:bat_pitch, false) %>

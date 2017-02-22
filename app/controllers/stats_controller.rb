@@ -1,18 +1,22 @@
 class StatsController < ApplicationController
 
   def index
-
-    @players = []
     if params[:year].nil?
       year = Time.now.year
     else
       year = params[:year][:id]
     end
+
+    if params[:avail_players] == 'false'
+      available = true
+    else
+      available = false
+    end
         
   	if params[:pos].nil? || params[:pos] == 'a'
-      @players = Player.search(params[:q], params[:bat_pitch], year)
+      @players = Player.search(params[:q], params[:bat_pitch], year, available)
     else
-      @players = Position.search(params[:pos], params[:q], year, params[:bat_pitch])
+      @players = Position.search(params[:pos], params[:q], year, params[:bat_pitch], available)
     end
     if params[:bat_pitch] != "false"
         respond_to do |format|
