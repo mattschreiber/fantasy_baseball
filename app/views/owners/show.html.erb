@@ -30,7 +30,7 @@
       <%= @owner.num_titles %>
     </p>
 
-    <table>
+    <table class="tablesorter tablesorter-blue">
       <thead>
         <tr>
           <th>Year</th>
@@ -46,7 +46,6 @@
           <th>ERA</th>
           <th>Whip</th>
           <th>Total</th>
-          <th colspan="3"></th>
         </tr>
       </thead>
 
@@ -88,7 +87,7 @@
      widgets: ['zebra'],
      sortList: [[4,0]],
      sortRestart : true,
-     sortInitialOrder: 'desc',
+     sortInitialOrder: 'asc',
    });
   
 </script>
