@@ -26,6 +26,11 @@
     <%= f.check_box :avail%>
   </div>
 
+  <div class="field">
+    <%= label_tag "Owner" %>
+    <%= f.collection_select(:owner_id, Owner.where(active: true), :id, :name) %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

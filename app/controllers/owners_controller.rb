@@ -57,7 +57,7 @@ class OwnersController < ApplicationController
   def update
     respond_to do |format|
       if @owner.update(owner_params)
-        format.html { redirect_to @owner, notice: 'Owner was successfully updated.' }
+        format.html { redirect_to edit_owner_path(@owner), notice: 'Owner was successfully updated.' }
         format.json { render :show, status: :ok, location: @owner }
       else
         format.html { render :edit }

@@ -7,6 +7,8 @@ class Player < ActiveRecord::Base
 	has_one :player_ranking
 	belongs_to :owner
 
+	attr_reader :name
+
 	# return player hash to make responding to js and json requests simpler.
 	# the search method will return a players array of player hashes 
 	players = []
@@ -26,6 +28,10 @@ class Player < ActiveRecord::Base
 			includes(:pitchings, :player_ranking).where("last_name LIKE ? AND pitchings.year = ? AND avail = ?", "%#{search}%", year, available).references(:pitchings, :player_ranking).order("player_rankings.espn")
 		end
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
+	end
+
+	def name 
+		"#{first_name} #{last_name}"
 	end
 
 	def age(bd)
