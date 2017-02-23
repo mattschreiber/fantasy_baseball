@@ -1,0 +1,19 @@
+$( document ).ready(function() {
+
+  // hide spinner
+  $(".spinner").hide();
+
+
+  // show spinner on AJAX start
+  $(document).ajaxStart(function(){
+    $(".spinner").show();
+    $("#stats").css('opacity', '0.6');
+  });
+
+  // hide spinner on AJAX stop
+  $(document).ajaxStop(function(){
+    $(".spinner").hide();
+    $("#stats").css('opacity', '1.0');
+  });
+
+});
