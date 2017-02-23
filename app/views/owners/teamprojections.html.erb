@@ -1,0 +1,38 @@
+<h1>Batters</h1>
+
+<table id="myTable" class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pos</th>
+      <th>Runs</th>
+      <th>HR</th>
+      <th>RBI</th>
+      <th>SB</th>
+      <th>AVG</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @batters.each do |batter| %>
+      <tr>
+        <td><%= name batter.player[:first_name], batter.player[:last_name] %></td>
+        <td><%= batter.player.positions[0].pos %></td>
+        <td><%= batter[:runs] %></td>
+        <td><%= batter[:hr] %></td>
+        <td><%= batter[:rbi]%></td>
+        <td><%= batter[:sb]%></td>
+        <td><%= batter[:average]%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tr>
+      <td></td>
+      <td>Batting Totals:</td>
+      <td><%= @batter_totals[:runs]%></td>
+      <td><%= @batter_totals[:hr]%></td>
+      <td><%= @batter_totals[:rbi] %></td>
+      <td><%= @batter_totals[:sb]%></td>
+      <td><%= round_4 @batter_totals[:average]%></td>
+    </tr>
+</table>

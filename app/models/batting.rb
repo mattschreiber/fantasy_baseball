@@ -13,7 +13,10 @@ class Batting < ActiveRecord::Base
   		end
   	end
   	total["average"] = total["average"] / batters.count
-  	return total
+  	return total.symbolize_keys
   end
 
+  def self.team_player_stats (year, owner_id)
+  	joins(player: :owner).where("year = ? AND players.owner_id = ?", year, owner_id)
+  end
 end

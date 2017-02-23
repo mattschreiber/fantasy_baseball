@@ -1,5 +1,5 @@
 class OwnersController < ApplicationController
-  before_action :set_owner, only: [:show, :edit, :update, :destroy]
+  before_action :set_owner, only: [:show, :edit, :update, :destroy, :team_projections]
 
   # GET /owners
   # GET /owners.json
@@ -74,6 +74,12 @@ class OwnersController < ApplicationController
       format.html { redirect_to owners_url, notice: 'Owner was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def teamprojections
+    year = Time.now.year
+    @batters = Batting.team_player_stats(year, params[:id])
+    @batter_totals = Batting.team_totals(year, params[:id])
   end
 
   private
