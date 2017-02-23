@@ -16,7 +16,9 @@
 
 var active = document.getElementById('active');
 
-  active.onchange = function() {
+  if ( $( "#active" ).length ) {
+ 
+    active.onchange = function() {
 
       var val = $("#active").val();
 
@@ -27,7 +29,11 @@ var active = document.getElementById('active');
        active: val
       },
        });
-  };
+
+  };   
+ 
+}
+  
 
 </script>
 
