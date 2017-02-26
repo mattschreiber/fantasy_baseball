@@ -31,6 +31,8 @@
     </p>
     <%= link_to 'Edit', edit_owner_path(@owner) %> |
     <%= link_to 'Back', owners_path %>
+    <%= link_to 'Team Projections', owners_teamprojections_path %>
+
   </div>
   <div id= "ownerrecord">
     <table class="tablesorter tablesorter-blue">
@@ -84,7 +86,7 @@
 
 
 <script type="text/javascript">
-  $("#myTable").tablesorter({
+  $(".tablesorter").tablesorter({
      widgets: ['zebra'],
      sortList: [[4,0]],
      sortRestart : true,

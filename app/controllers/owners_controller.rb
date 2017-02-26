@@ -78,8 +78,11 @@ class OwnersController < ApplicationController
 
   def teamprojections
     year = Time.now.year
-    @batters = Batting.team_player_stats(year, params[:id])
-    @batter_totals = Batting.team_totals(year, params[:id])
+    @batters = Batting.team_player_stats(year, params[:id], true)
+    @batter_totals = Batting.team_totals(year, params[:id], true)
+
+    @pitchers = Pitching.team_player_stats(year, params[:id], false)
+    @pitcher_totals = Pitching.team_totals(year, params[:id], false)
   end
 
   private

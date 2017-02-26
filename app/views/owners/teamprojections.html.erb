@@ -1,6 +1,6 @@
 <h1>Batters</h1>
 
-<table id="myTable" class="tablesorter tablesorter-blue">
+<table class="tablesorter tablesorter-blue">
   <thead>
     <tr>
       <th>Name</th>
@@ -15,7 +15,7 @@
 
   <tbody>
     <% @batters.each do |batter| %>
-      <tr>
+      <tr class=<%=cycle("even", "odd")%>>
         <td><%= name batter.player[:first_name], batter.player[:last_name] %></td>
         <td><%= batter.player.positions[0].pos %></td>
         <td><%= batter[:runs] %></td>
@@ -23,6 +23,7 @@
         <td><%= batter[:rbi]%></td>
         <td><%= batter[:sb]%></td>
         <td><%= batter[:average]%></td>
+        <!-- <td><%= check_box_tag 'batter', batter.player_id, batter.player.batter %></td> -->
       </tr>
     <% end %>
   </tbody>
@@ -34,5 +35,45 @@
       <td><%= @batter_totals[:rbi] %></td>
       <td><%= @batter_totals[:sb]%></td>
       <td><%= round_4 @batter_totals[:average]%></td>
+    </tr>
+</table>
+
+<h1>Pitchers</h1>
+
+<table class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pos</th>
+      <th>K's</th>
+      <th>Wins</th>
+      <th>SV</th>
+      <th>ERA</th>
+      <th>Whip</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pitchers.each do |pitcher| %>
+      <tr class=<%=cycle("even", "odd")%>>
+        <td><%= name pitcher.player[:first_name], pitcher.player[:last_name] %></td>
+        <td><%= pitcher.player.positions[0].pos %></td>
+        <td><%= pitcher[:so] %></td>
+        <td><%= pitcher[:wins] %></td>
+        <td><%= pitcher[:sv]%></td>
+        <td><%= round_4 pitcher[:era]%></td>
+        <td><%= round_4 pitcher[:whip]%></td>
+     
+      </tr>
+    <% end %>
+  </tbody>
+  <tr>
+      <td></td>
+      <td>Pitching Totals:</td>
+      <td><%= @pitcher_totals[:so]%></td>
+      <td><%= @pitcher_totals[:wins]%></td>
+      <td><%= @pitcher_totals[:sv] %></td>
+      <td><%= round_4 @pitcher_totals[:era]%></td>
+      <td><%= round_4 @pitcher_totals[:whip]%></td>
     </tr>
 </table>

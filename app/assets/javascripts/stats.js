@@ -1,5 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  $("#myTable").tablesorter({
+  $(".tablesorter").tablesorter({
    	 widgets: ['zebra'],
    	 sortList: [[1,0]],
      sortRestart : true,
