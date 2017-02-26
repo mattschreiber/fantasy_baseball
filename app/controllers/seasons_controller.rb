@@ -5,7 +5,7 @@ class SeasonsController < ApplicationController
 	end
 
 	def historical
-		@category_average = CategoryAverage.calc_all
+		@category_average = CategoryAverage.calc_by_place
 		# render json: "soon to be my page"
 		# render :template => 'seasons/historical'
 	end
