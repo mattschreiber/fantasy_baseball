@@ -22,7 +22,7 @@ class PlayersController < ApplicationController
 
   def set_starter
     @player = Player.find(params[:player_id])
-    @player.update(starter: params[:starter])
+    @player.update(player_params)
   end
 
 private
