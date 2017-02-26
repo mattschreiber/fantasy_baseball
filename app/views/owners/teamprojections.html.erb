@@ -10,6 +10,7 @@
       <th>RBI</th>
       <th>SB</th>
       <th>AVG</th>
+      <th>Starter</th>
     </tr>
   </thead>
 
@@ -23,7 +24,7 @@
         <td><%= batter[:rbi]%></td>
         <td><%= batter[:sb]%></td>
         <td><%= batter[:average]%></td>
-        <!-- <td><%= check_box_tag 'batter', batter.player_id, batter.player.batter %></td> -->
+        <td><%= check_box_tag 'starter', batter.player_id, batter.player.starter, class: "starter" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -50,6 +51,7 @@
       <th>SV</th>
       <th>ERA</th>
       <th>Whip</th>
+      <th>Starter</th>
     </tr>
   </thead>
 
@@ -63,7 +65,7 @@
         <td><%= pitcher[:sv]%></td>
         <td><%= round_4 pitcher[:era]%></td>
         <td><%= round_4 pitcher[:whip]%></td>
-     
+        <td><%= check_box_tag 'pitcher', pitcher.player_id, pitcher.player.starter, class:"starter" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -77,3 +79,20 @@
       <td><%= round_4 @pitcher_totals[:whip]%></td>
     </tr>
 </table>
+
+<script type="text/javascript">
+  
+  $(".starter").bind('change', function(){
+    $.ajax({
+      url: '/players/'+this.value+'/set_starter',
+      type: 'POST',
+      data: {"starter": this.checked}
+    });
+
+});
+
+
+
+
+
+</script>

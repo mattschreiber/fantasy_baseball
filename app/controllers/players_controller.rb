@@ -20,6 +20,11 @@ class PlayersController < ApplicationController
     end
   end
 
+  def set_starter
+    @player = Player.find(params[:player_id])
+    @player.update(starter: params[:starter])
+  end
+
 private
 
   def set_player
@@ -27,6 +32,6 @@ private
     end
 
   def player_params
-      params.require(:player).permit(:id, :first_name, :last_name, :avail, :owner_id)
+      params.require(:player).permit(:id, :first_name, :last_name, :avail, :owner_id, :starter)
   end
 end
