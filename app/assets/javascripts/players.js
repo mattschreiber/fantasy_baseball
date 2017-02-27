@@ -8,4 +8,12 @@ $(".starter").bind('change', function(){
     });
 
 });
+$("#player_owner_id").bind('change', function() {
+	if ($("#player_owner_id").val()) {
+		$("#player_avail").prop('checked', false);
+	}
+	else {
+		$("#player_avail").prop('checked', true);
+	}
+});
 });

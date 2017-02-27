@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= label_tag "Owner" %>
-    <%= f.collection_select(:owner_id, Owner.where(active: true), :id, :name) %>
+    <%= f.collection_select(:owner_id, Owner.where(active: true), :id, :name, include_blank: "Select Owner ...") %>
   </div>
 
   <div class="actions">
