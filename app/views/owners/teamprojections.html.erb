@@ -5,6 +5,8 @@
     <tr>
       <th>Name</th>
       <th>Pos</th>
+      <th>ESPN Rank</th>
+      <th>CBS Rank</th>
       <th>Runs</th>
       <th>HR</th>
       <th>RBI</th>
@@ -19,6 +21,10 @@
       <tr class=<%=cycle("even", "odd")%>>
         <td><%= name batter.player[:first_name], batter.player[:last_name] %></td>
         <td><%= batter.player.positions[0].pos %></td>
+        <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> 
+        </td>
+        <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> 
+        </td>
         <td><%= batter[:runs] %></td>
         <td><%= batter[:hr] %></td>
         <td><%= batter[:rbi]%></td>
@@ -29,7 +35,7 @@
     <% end %>
   </tbody>
   <tr>
-      <td></td>
+      <td colspan="3"></td>
       <td>Batting Totals:</td>
       <td><%= @batter_totals[:runs]%></td>
       <td><%= @batter_totals[:hr]%></td>
@@ -42,7 +48,7 @@
 <div>
   <table class="tablesorter-blue">
     <tr class="odd">
-      <td></td>
+      <td colspan="3"></td>
       <td>Average Totals:</td>
       <td><%= to_int @category_average[:total_run]%></td>
       <td><%= to_int @category_average[:total_hr] %></td>
@@ -61,6 +67,8 @@
     <tr>
       <th>Name</th>
       <th>Pos</th>
+      <th>ESPN Rank</th>
+      <th>CBS Rank</th>
       <th>K's</th>
       <th>Wins</th>
       <th>SV</th>
@@ -75,6 +83,9 @@
       <tr class=<%=cycle("even", "odd")%>>
         <td><%= name pitcher.player[:first_name], pitcher.player[:last_name] %></td>
         <td><%= pitcher.player.positions[0].pos %></td>
+        <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %> 
+        </td>
+        <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %> 
         <td><%= pitcher[:so] %></td>
         <td><%= pitcher[:wins] %></td>
         <td><%= pitcher[:sv]%></td>
@@ -85,7 +96,7 @@
     <% end %>
   </tbody>
   <tr>
-      <td></td>
+      <td colspan="3"></td>
       <td>Pitching Totals:</td>
       <td><%= @pitcher_totals[:so]%></td>
       <td><%= @pitcher_totals[:wins]%></td>
@@ -98,7 +109,7 @@
 <div>
 <table class="tablesorter-blue">
  <tr class="odd">
-      <td></td>
+      <td colspan="3"></td>
       <td>Average Totals:</td>
       <td><%= to_int @category_average[:total_k] %></td>
       <td><%= to_int @category_average[:total_win] %></td>
