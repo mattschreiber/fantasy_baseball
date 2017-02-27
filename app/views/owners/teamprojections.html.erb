@@ -36,8 +36,23 @@
       <td><%= @batter_totals[:rbi] %></td>
       <td><%= @batter_totals[:sb]%></td>
       <td><%= round_4 @batter_totals[:average]%></td>
+      <td></td>
     </tr>
 </table>
+<div>
+  <table class="tablesorter-blue">
+    <tr class="odd">
+      <td></td>
+      <td>Average Totals:</td>
+      <td><%= to_int @category_average[:total_run]%></td>
+      <td><%= to_int @category_average[:total_hr] %></td>
+      <td><%= to_int @category_average[:total_rbi] %></td>
+      <td><%= to_int @category_average[:total_sb] %></td>
+      <td><%= round_4 @category_average[:total_avg] %></td>
+      <td></td>
+    </tr>
+  </table>
+</div>
 
 <h1>Pitchers</h1>
 
@@ -77,6 +92,20 @@
       <td><%= @pitcher_totals[:sv] %></td>
       <td><%= round_4 @pitcher_totals[:era]%></td>
       <td><%= round_4 @pitcher_totals[:whip]%></td>
+      <td></td>
     </tr>
 </table>
-
+<div>
+<table class="tablesorter-blue">
+ <tr class="odd">
+      <td></td>
+      <td>Average Totals:</td>
+      <td><%= to_int @category_average[:total_k] %></td>
+      <td><%= to_int @category_average[:total_win] %></td>
+      <td><%= to_int @category_average[:total_sv] %></td>
+      <td><%= round_2 @category_average[:total_era]%></td>
+      <td><%= round_2 @category_average[:total_whip] %></td>
+      <td></td>
+  </tr>
+</table>
+</div>

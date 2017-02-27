@@ -50,8 +50,8 @@ class CategoryAverage
 	end
 
 
-	def self.calc_one(cat_points, category)
-		TeamSeason.where("#{cat_points} = 8 AND current_season = false AND year BETWEEN 2012 AND 2016").average("#{category}")
+	def self.calc_one(cat_points, category, points, start_year, end_year)
+		TeamSeason.where("#{cat_points} = ? AND current_season = false AND year BETWEEN ? AND ?", points, start_year, end_year).average("#{category}")
 	end
 
 	def self.calc_all
@@ -63,12 +63,12 @@ class CategoryAverage
 		return hash
 	end
 
-	def self.calc_by_place
+	def self.calc_by_place(points, start_year, end_year)
 		#class method that returns category averages for a given point total
 		#i.e. average number of runs where run points were 8
 		hash = {}
 		CATEGORIES_HASH.each do |k, v|
-			hash[:"#{v}"] = calc_one(k, v)
+			hash[:"#{v}"] = calc_one(k, v, points, start_year, end_year)
 		end
 		return hash
 
