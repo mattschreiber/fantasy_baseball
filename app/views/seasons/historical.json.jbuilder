@@ -1,1 +1,1 @@
-json.extract! @category_average, :total_run_avg, :total_hr_avg
+json.extract! @category_average, :total_run, :total_hr, :total_rbi, :total_sb, :total_avg, :total_win, :total_k, :total_sv, :total_era, :total_whip
