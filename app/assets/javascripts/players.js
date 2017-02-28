@@ -1,14 +1,24 @@
 $(document).on('turbolinks:load', function() {
-$(".starter").bind('change', function(){
+$(".starter").on('change', function(){
     $.ajax({
       url: '/players/'+this.value+'/set_starter',
       type: 'POST',
       data: {"player":
-      	{starter: this.checked} }
+      	{starter: this.checked} },
+      dataType: 'json',
+      success: function(data, textStatus, jqXHR)
+    {
+        // $('#hr_total').html(data.runs);
+        alert(data.hr +" " + data.rbi);
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+ 
+    }
     });
 
 });
-$("#player_owner_id").bind('change', function() {
+$("#player_owner_id").on('change', function() {
 	if ($("#player_owner_id").val()) {
 		$("#player_avail").prop('checked', false);
 	}

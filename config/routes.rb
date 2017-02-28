@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'seasons#index'
-  resources :owners
+  resources :owners 
   resources :players do
     post 'set_starter'
   end

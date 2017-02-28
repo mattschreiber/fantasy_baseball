@@ -1,0 +1,1 @@
+json.extract! @batter_totals, :runs, :hr, :rbi, :sb, :average

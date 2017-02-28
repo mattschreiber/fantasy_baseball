@@ -34,11 +34,11 @@
       </tr>
     <% end %>
   </tbody>
-  <tr>
+  <tr class="team-project-totals">
       <td colspan="3"></td>
       <td>Batting Totals:</td>
       <td><%= @batter_totals[:runs]%></td>
-      <td><%= @batter_totals[:hr]%></td>
+      <td id="hr_total"><%= @batter_totals[:hr]%></td>
       <td><%= @batter_totals[:rbi] %></td>
       <td><%= @batter_totals[:sb]%></td>
       <td><%= round_4 @batter_totals[:average]%></td>
@@ -95,7 +95,7 @@
       </tr>
     <% end %>
   </tbody>
-  <tr>
+  <tr class="team-project-totals">
       <td colspan="3"></td>
       <td>Pitching Totals:</td>
       <td><%= @pitcher_totals[:so]%></td>
