@@ -34,17 +34,12 @@
       </tr>
     <% end %>
   </tbody>
-  <tr class="team-project-totals">
-      <td colspan="3"></td>
-      <td>Batting Totals:</td>
-      <td><%= @batter_totals[:runs]%></td>
-      <td id="hr_total"><%= @batter_totals[:hr]%></td>
-      <td><%= @batter_totals[:rbi] %></td>
-      <td><%= @batter_totals[:sb]%></td>
-      <td><%= round_4 @batter_totals[:average]%></td>
-      <td></td>
-    </tr>
-</table>
+  </table>
+  <!-- columns updated via ajax in player.js when starter is changed -->
+ <div id="batter-projection-total">
+   <%= render partial: "battertotals", locals: {batter_totals: @batter_totals} %>
+ </div>
+
 <div>
   <table class="tablesorter-blue">
     <tr class="odd">
@@ -95,17 +90,11 @@
       </tr>
     <% end %>
   </tbody>
-  <tr class="team-project-totals">
-      <td colspan="3"></td>
-      <td>Pitching Totals:</td>
-      <td><%= @pitcher_totals[:so]%></td>
-      <td><%= @pitcher_totals[:wins]%></td>
-      <td><%= @pitcher_totals[:sv] %></td>
-      <td><%= round_4 @pitcher_totals[:era]%></td>
-      <td><%= round_4 @pitcher_totals[:whip]%></td>
-      <td></td>
-    </tr>
-</table>
+  </table>
+  <!-- columns updated via ajax in player.js when starter is changed -->
+<div id="pitcher-projection-total">
+  <%= render partial: "pitchertotals", locals: {pitcher_totals: @pitcher_totals} %>
+</div>
 <div>
 <table class="tablesorter-blue">
  <tr class="odd">

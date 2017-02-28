@@ -5,11 +5,11 @@ $(".starter").on('change', function(){
       type: 'POST',
       data: {"player":
       	{starter: this.checked} },
-      dataType: 'json',
+      // dataType: 'json',
       success: function(data, textStatus, jqXHR)
     {
         // $('#hr_total').html(data.runs);
-        alert(data.hr +" " + data.rbi);
+        // alert(data.hr +" " + data.rbi);
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
