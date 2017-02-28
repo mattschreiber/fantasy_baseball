@@ -1,0 +1,1 @@
+$("#batter-projection-total").html("<%= j render(partial: '/owners/battertotals', locals: {batter_totals: @batter_totals}) %>");
