@@ -4,8 +4,8 @@ module TeamProjection
   module ClassMethods
 
   	def team_totals(year, owner_id, batter)
-  	#calculates a teams totals for each category
-  	players = self.joins(player: :owner).where("year = ? AND players.owner_id = ?", year, owner_id).as_json
+  	#calculates a teams totals for each category with starter = true
+  	players = self.joins(player: :owner).where("year = ? AND players.owner_id = ? AND players.starter = true", year, owner_id).as_json
   	total = Hash.new(0)
 	  	if batter == true
 		  	players.each do |batter|

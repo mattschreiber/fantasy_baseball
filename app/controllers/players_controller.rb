@@ -26,10 +26,11 @@ class PlayersController < ApplicationController
     @player.update(player_params)
     owner_id = @player.owner_id
     @batter_totals = Batting.team_totals(year, owner_id, true)
+
     # @pitcher_totals = Pitching.team_totals(year, params[:id], false)
-    # respond_to do |format|
-    #   format.json { render json: @batter_totals}
-    # end
+    respond_to do |format|
+      format.js 
+    end
     
   end
 
