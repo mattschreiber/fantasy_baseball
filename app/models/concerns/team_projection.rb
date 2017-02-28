@@ -14,7 +14,7 @@ module TeamProjection
 		  			total[k] += v
 		  		end
 		  	end
-		  	total["average"] = total["average"] / players.count
+		  	total["average"] = total["average"] / players.count unless players.count == 0
 			else
 				players.each do |pitcher|
 					pitcher.slice!("wins", "sv", "so", "era", "whip")
@@ -22,8 +22,8 @@ module TeamProjection
 		  			total[k] += v
 		  		end
 		  	end
-		  	total["era"] = total["era"] / players.count
-		  	total["whip"] = total["whip"] / players.count
+		  	total["era"] = total["era"] / players.count unless players.count == 0
+		  	total["whip"] = total["whip"] / players.count unless players.count == 0
 			end
 	  	return total.symbolize_keys
   	end

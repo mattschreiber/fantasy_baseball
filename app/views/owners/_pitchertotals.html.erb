@@ -5,8 +5,8 @@
       <td><%= pitcher_totals[:so]%></td>
       <td><%= pitcher_totals[:wins]%></td>
       <td><%= pitcher_totals[:sv] %></td>
-      <td><%= round_4 pitcher_totals[:era]%></td>
-      <td><%= round_4 pitcher_totals[:whip]%></td>
+      <td><%= round_4 pitcher_totals[:era] unless pitcher_totals.blank?%></td>
+      <td><%= round_4 pitcher_totals[:whip] unless pitcher_totals.blank?%></td>
       <td></td>
     </tr>
 </table>

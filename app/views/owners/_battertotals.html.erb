@@ -7,7 +7,7 @@
     <td id="hr_total"><%= batter_totals[:hr]%></td>
     <td><%= batter_totals[:rbi] %></td>
     <td><%= batter_totals[:sb]%></td>
-    <td><%= round_4 batter_totals[:average]%></td>
+    <td><%= round_4 batter_totals[:average] unless batter_totals.blank?	%></td>
     <td></td>
   </tr>
  </table>
