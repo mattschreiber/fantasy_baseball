@@ -29,7 +29,7 @@ module TeamProjection
   	end
 
   def team_player_stats (year, owner_id, batter)
-  	joins(player: :owner).where("year = ? AND players.owner_id = ?", year, owner_id)
+  	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.pos')
   end
 
   end
