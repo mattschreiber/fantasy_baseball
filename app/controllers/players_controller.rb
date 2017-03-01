@@ -25,7 +25,10 @@ class PlayersController < ApplicationController
     @player = Player.find(params[:player_id])
     @player.update(player_params)
     owner_id = @player.owner_id
+    # set last parameter to true for batters or false for pitchers
+    # this is do to Batting and pitching sharing code
     @batter_totals = Batting.team_totals(year, owner_id, true)
+    @pitcher_totals = Pitching.team_totals(year, owner_id, false)
 
     # @pitcher_totals = Pitching.team_totals(year, params[:id], false)
     respond_to do |format|
