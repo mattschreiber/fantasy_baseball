@@ -21,19 +21,23 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     	<ul class="nav navbar-nav">
-    		<li><%= link_to 'Teams', owners_path %></li>
+    		<li><%= link_to 'League Home', owners_path %></li>
     		<li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Players <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Teams <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><%= link_to 'Stats', stats_index_path %></li>
             <li><%= link_to 'Matt', owner_path(5) %></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><%= link_to 'Scott', owner_path(6) %></li>
+            <li><%= link_to 'Alan', owner_path(7) %></li>
+            <li><%= link_to 'Mike T', owner_path(8) %></li>
+            <li><%= link_to 'Pete', owner_path(9) %></li>
+            <li><%= link_to 'Mike K', owner_path(10) %></li>
+            <li><%= link_to 'Jay', owner_path(11) %></li>
+            <li><%= link_to 'James', owner_path(12) %></li>
+            <li><%= link_to 'Joe', owner_path(13) %></li>
+            <li><%= link_to 'David', owner_path(14) %></li>
           </ul>
         </li>
+				<li><%= link_to 'Players', stats_index_path %></li>	
     	</ul>
 
     </div> <!-- navbar collapse -->
