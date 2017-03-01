@@ -1,0 +1,91 @@
+
+@import 'jquery-tablesorter/theme.blue';
+/*"bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"*/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+table {
+	border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td {
+	text-align: center;
+	padding: 5px;
+}
+
+caption {
+
+	font-size: 1.5em;
+	padding-bottom: 10px;
+}
+
+.even {
+	background-color:#E0E0E0;
+}
+
+.container{
+	/*padding-bottom: 10px;*/
+	
+}
+#teaminfo {
+	width: 300px;
+	float: left;
+
+}
+
+#ownerrecord {
+	width: 900px;
+	float: left;
+
+}
+
+#ownerplayer {
+	width: 1200px;
+	float: left;
+		
+}
+
+.footer {
+	clear: both;
+}
+
+.spinner {
+  /*width: 40px;
+  height: 40px;*/
+
+  position: fixed;
+  display: none;
+  width: 100px;
+  height: 100px;
+  top: 25%;
+  left: 50%;
+  background-color: #333;
+
+  margin: 100px auto;
+  -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+  animation: sk-rotateplane 1.2s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-rotateplane {
+  0% { -webkit-transform: perspective(120px) }
+  50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+  100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes sk-rotateplane {
+  0% { 
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
+  } 50% { 
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
+  } 100% { 
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+
+
