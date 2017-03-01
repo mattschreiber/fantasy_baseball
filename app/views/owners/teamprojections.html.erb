@@ -1,111 +1,119 @@
-<h1>Batters</h1>
+<div class="container">
 
-<table class="tablesorter tablesorter-blue">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Pos</th>
-      <th>ESPN Rank</th>
-      <th>CBS Rank</th>
-      <th>Runs</th>
-      <th>HR</th>
-      <th>RBI</th>
-      <th>SB</th>
-      <th>AVG</th>
-      <th>Starter</th>
-    </tr>
-  </thead>
+  <h1>Batters</h1>
 
-  <tbody>
-    <% @batters.each do |batter| %>
-      <tr class=<%=cycle("even", "odd")%>>
-        <td><%= name batter.player[:first_name], batter.player[:last_name] %></td>
-        <td><%= batter.player.positions[0].pos %></td>
-        <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> 
-        </td>
-        <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> 
-        </td>
-        <td><%= batter[:runs] %></td>
-        <td><%= batter[:hr] %></td>
-        <td><%= batter[:rbi]%></td>
-        <td><%= batter[:sb]%></td>
-        <td><%= batter[:average]%></td>
-        <td><%= check_box_tag 'starter', batter.player_id, batter.player.starter, class: "starter" %></td>
+  <table class="tablesorter tablesorter-blue team-projection">
+    <thead>
+      <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Pos</th>
+        <th>ESPN Rank</th>
+        <th>CBS Rank</th>
+        <th>Runs</th>
+        <th>HR</th>
+        <th>RBI</th>
+        <th>SB</th>
+        <th>AVG</th>
+        <th>Starter</th>
       </tr>
-    <% end %>
-  </tbody>
-  </table>
-  <!-- columns updated via ajax in player.js when starter is changed -->
- <div id="batter-projection-total">
-   <%= render partial: "battertotals", locals: {batter_totals: @batter_totals} %>
- </div>
+    </thead>
 
-<div>
-  <table class="tablesorter-blue">
-    <tr class="odd">
-      <td colspan="3"></td>
-      <td>Average Totals:</td>
-      <td><%= to_int @category_average[:total_run]%></td>
-      <td><%= to_int @category_average[:total_hr] %></td>
-      <td><%= to_int @category_average[:total_rbi] %></td>
-      <td><%= to_int @category_average[:total_sb] %></td>
-      <td><%= round_4 @category_average[:total_avg] %></td>
-      <td></td>
-    </tr>
-  </table>
-</div>
+    <tbody>
+      <% @batters.each do |batter| %>
+        <tr class=<%=cycle("even", "odd")%>>
+          <td><%= batter.player[:first_name]%></td>
+          <td><%= batter.player[:last_name]  %></td>
+          <td><%= batter.player.positions[0].pos %></td>
+          <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> 
+          </td>
+          <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> 
+          </td>
+          <td><%= batter[:runs] %></td>
+          <td><%= batter[:hr] %></td>
+          <td><%= batter[:rbi]%></td>
+          <td><%= batter[:sb]%></td>
+          <td><%= batter[:average]%></td>
+          <td><%= check_box_tag 'starter', batter.player_id, batter.player.starter, class: "starter" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+    <!-- columns updated via ajax in player.js when starter is changed -->
+   <div id="batter-projection-total">
+     <%= render partial: "battertotals", locals: {batter_totals: @batter_totals} %>
+   </div>
 
-<h1>Pitchers</h1>
-
-<table class="tablesorter tablesorter-blue">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Pos</th>
-      <th>ESPN Rank</th>
-      <th>CBS Rank</th>
-      <th>K's</th>
-      <th>Wins</th>
-      <th>SV</th>
-      <th>ERA</th>
-      <th>Whip</th>
-      <th>Starter</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @pitchers.each do |pitcher| %>
-      <tr class=<%=cycle("even", "odd")%>>
-        <td><%= name pitcher.player[:first_name], pitcher.player[:last_name] %></td>
-        <td><%= pitcher.player.positions[0].pos %></td>
-        <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %> 
-        </td>
-        <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %> 
-        <td><%= pitcher[:so] %></td>
-        <td><%= pitcher[:wins] %></td>
-        <td><%= pitcher[:sv]%></td>
-        <td><%= round_4 pitcher[:era]%></td>
-        <td><%= round_4 pitcher[:whip]%></td>
-        <td><%= check_box_tag 'pitcher', pitcher.player_id, pitcher.player.starter, class:"starter" %></td>
+  <div>
+    <table class="tablesorter-blue team-projection">
+      <tr class="odd">
+        <td colspan="4"></td>
+        <td>Average:</td>
+        <td><%= to_int @category_average[:total_run]%></td>
+        <td><%= to_int @category_average[:total_hr] %></td>
+        <td><%= to_int @category_average[:total_rbi] %></td>
+        <td><%= to_int @category_average[:total_sb] %></td>
+        <td><%= round_4 @category_average[:total_avg] %></td>
+        <td></td>
       </tr>
-    <% end %>
-  </tbody>
+    </table>
+  </div>
+
+  <h1>Pitchers</h1>
+
+  <table class="tablesorter tablesorter-blue team-projection">
+    <thead>
+      <tr>
+        <th>First</th>
+        <th>Last</th>
+        <th>Pos</th>
+        <th>ESPN Rank</th>
+        <th>CBS Rank</th>
+        <th>K's</th>
+        <th>Wins</th>
+        <th>SV</th>
+        <th>ERA</th>
+        <th>Whip</th>
+        <th>Starter</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @pitchers.each do |pitcher| %>
+        <tr class=<%=cycle("even", "odd")%>>
+          <td><%= pitcher.player[:first_name]%></td>
+          <td><%= pitcher.player[:last_name]  %></td>
+          <td><%= pitcher.player.positions[0].pos %></td>
+          <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %> 
+          </td>
+          <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %> 
+          <td><%= pitcher[:so] %></td>
+          <td><%= pitcher[:wins] %></td>
+          <td><%= pitcher[:sv]%></td>
+          <td><%= round_4 pitcher[:era]%></td>
+          <td><%= round_4 pitcher[:whip]%></td>
+          <td><%= check_box_tag 'pitcher', pitcher.player_id, pitcher.player.starter, class:"starter" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+    <!-- columns updated via ajax in player.js when starter is changed -->
+  <div id="pitcher-projection-total">
+    <%= render partial: "pitchertotals", locals: {pitcher_totals: @pitcher_totals} %>
+  </div>
+  <div>
+  <table class="tablesorter-blue team-projection">
+   <tr class="odd">
+        <td colspan="4"></td>
+        <td>Average:</td>
+        <td><%= to_int @category_average[:total_k] %></td>
+        <td><%= to_int @category_average[:total_win] %></td>
+        <td><%= to_int @category_average[:total_sv] %></td>
+        <td><%= round_2 @category_average[:total_era]%></td>
+        <td><%= round_2 @category_average[:total_whip] %></td>
+        <td></td>
+    </tr>
   </table>
-  <!-- columns updated via ajax in player.js when starter is changed -->
-<div id="pitcher-projection-total">
-  <%= render partial: "pitchertotals", locals: {pitcher_totals: @pitcher_totals} %>
-</div>
-<div>
-<table class="tablesorter-blue">
- <tr class="odd">
-      <td colspan="3"></td>
-      <td>Average Totals:</td>
-      <td><%= to_int @category_average[:total_k] %></td>
-      <td><%= to_int @category_average[:total_win] %></td>
-      <td><%= to_int @category_average[:total_sv] %></td>
-      <td><%= round_2 @category_average[:total_era]%></td>
-      <td><%= round_2 @category_average[:total_whip] %></td>
-      <td></td>
-  </tr>
-</table>
+  </div>
+
 </div>

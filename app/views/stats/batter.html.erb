@@ -1,50 +1,50 @@
+<div class="container">
+  <%= form_tag("/stats/index", method: "get", remote: true) do %>
+    <%= label_tag(:q, "Last Name:") %>
+    <%= text_field_tag(:q) %>
+    <br>
+    <div style="margin-top: 10px; margin-bottom: 10px">
+    	<%= label_tag(:year, "Select Year") %>
+  		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year) %>
+    </div>
+    <div style="margin-top: 10px; margin-bottom: 10px">
+      <%= label_tag(:avail_players, "Player Status") %>
+      <%= select_tag(:avail_players, options_for_select([['All', true], ['Available', false]])) %>
+    </div>
+    <div style="margin-top: 10px; margin-bottom: 10px">
+  	  <%= radio_button_tag(:bat_pitch, true, true) %>
+  		<%= label_tag(:bat, "BAT") %>
+  		<%= radio_button_tag(:bat_pitch, false) %>
+  		<%= label_tag(:pos_1b, "PITCH") %>
+  	</div>
+    <div style="margin-top: 10px; margin-bottom: 10px">
+    	<%= radio_button_tag(:pos, "a", ( !params[:pos].nil? ? (params[:pos]=="a") : 0	 ) ) %>
+  		<%= label_tag(:pos_a, "ALL") %>
+  	  <%= radio_button_tag(:pos, "c", ( params[:pos] != 'c' ? (params[:pos]=="c") : 0 ) ) %>
+  		<%= label_tag(:pos_c, "C") %>
+  		<%= radio_button_tag(:pos, "1b", ( params[:pos] != '1b' ? (params[:pos]=="1b") : 0 )) %>
+  		<%= label_tag(:pos_one, "1B") %>
+  		<%= radio_button_tag(:pos, "2b", ( params[:pos] != '2b' ? (params[:pos]=="2b") : 0 )) %>
+  		<%= label_tag(:pos_2b, "2B") %>
+  		<%= radio_button_tag(:pos, "3b", ( params[:pos] != '3b' ? (params[:pos]=="3b") : 0 )) %>
+  		<%= label_tag(:pos_3b, "3B") %>
+  		<%= radio_button_tag(:pos, "ss", ( params[:pos] != 'ss' ? (params[:pos]=="ss") : 0 )) %>
+  		<%= label_tag(:pos_ss, "SS") %>
+  		<%= radio_button_tag(:pos, "of", ( params[:pos] != 'of' ? (params[:pos]=="of") : 0 )) %>
+  		<%= label_tag(:pos_of, "OF") %>
+  		<%= radio_button_tag(:pos, "sp", false, style: "display:none") %>
+  		<%= label_tag(:pos_p, "SP", style: "display:none") %>
+  		<%= radio_button_tag(:pos, "rp", false, style: "display:none") %>
+  		<%= label_tag(:pos_rp, "RP", style: "display:none") %>
+  	</div>
+    <%= submit_tag "Search", name: nil%>
+  <% end %>
 
-<%= form_tag("/stats/index", method: "get", remote: true) do %>
-  <%= label_tag(:q, "Last Name:") %>
-  <%= text_field_tag(:q) %>
-  <br>
-  <div style="margin-top: 10px; margin-bottom: 10px">
-  	<%= label_tag(:year, "Select Year") %>
-		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year) %>
+  <div class="spinner"></div>
+  <div id="stats">
+  	<%= render partial: "batter" %>
   </div>
-  <div style="margin-top: 10px; margin-bottom: 10px">
-    <%= label_tag(:avail_players, "Player Status") %>
-    <%= select_tag(:avail_players, options_for_select([['All', true], ['Available', false]])) %>
-  </div>
-  <div style="margin-top: 10px; margin-bottom: 10px">
-	  <%= radio_button_tag(:bat_pitch, true, true) %>
-		<%= label_tag(:bat, "BAT") %>
-		<%= radio_button_tag(:bat_pitch, false) %>
-		<%= label_tag(:pos_1b, "PITCH") %>
-	</div>
-  <div style="margin-top: 10px; margin-bottom: 10px">
-  	<%= radio_button_tag(:pos, "a", ( !params[:pos].nil? ? (params[:pos]=="a") : 0	 ) ) %>
-		<%= label_tag(:pos_a, "ALL") %>
-	  <%= radio_button_tag(:pos, "c", ( params[:pos] != 'c' ? (params[:pos]=="c") : 0 ) ) %>
-		<%= label_tag(:pos_c, "C") %>
-		<%= radio_button_tag(:pos, "1b", ( params[:pos] != '1b' ? (params[:pos]=="1b") : 0 )) %>
-		<%= label_tag(:pos_one, "1B") %>
-		<%= radio_button_tag(:pos, "2b", ( params[:pos] != '2b' ? (params[:pos]=="2b") : 0 )) %>
-		<%= label_tag(:pos_2b, "2B") %>
-		<%= radio_button_tag(:pos, "3b", ( params[:pos] != '3b' ? (params[:pos]=="3b") : 0 )) %>
-		<%= label_tag(:pos_3b, "3B") %>
-		<%= radio_button_tag(:pos, "ss", ( params[:pos] != 'ss' ? (params[:pos]=="ss") : 0 )) %>
-		<%= label_tag(:pos_ss, "SS") %>
-		<%= radio_button_tag(:pos, "of", ( params[:pos] != 'of' ? (params[:pos]=="of") : 0 )) %>
-		<%= label_tag(:pos_of, "OF") %>
-		<%= radio_button_tag(:pos, "sp", false, style: "display:none") %>
-		<%= label_tag(:pos_p, "SP", style: "display:none") %>
-		<%= radio_button_tag(:pos, "rp", false, style: "display:none") %>
-		<%= label_tag(:pos_rp, "RP", style: "display:none") %>
-	</div>
-  <%= submit_tag "Search", name: nil%>
-<% end %>
-
-<div class="spinner"></div>
-<div id="stats">
-	<%= render partial: "batter" %>
 </div>
-
 <script type="text/javascript">
 
 	$('input[type="radio"]').click(function(){

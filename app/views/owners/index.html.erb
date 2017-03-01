@@ -1,17 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+	<p id="notice"><%= notice %></p>
 
-<h1>Listing Owners</h1>
+	<h1>Listing Owners</h1>
 
 
-<%= select_tag(:active, options_for_select([['Active', true], ['All', false]])) %>
+	<%= select_tag(:active, options_for_select([['Active', true], ['All', false]])) %>
 
-<div id="ownerinfo">
-  <%= render partial: "ownerinfo" %>
+	<div id="ownerinfo">
+	  <%= render partial: "ownerinfo" %>
+	</div>
+
+	<%= link_to 'New Owner', new_owner_path %>
+
 </div>
-
-<%= link_to 'New Owner', new_owner_path %>
-
-
 
 
 
