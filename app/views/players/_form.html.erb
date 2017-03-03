@@ -24,20 +24,20 @@
     <%= f.text_field :last_name, class: "form-control" %>
   </div>
   </div>
-  <div class="row form-inline", style="margin-top: 10px; margin-bottom: 10px">
+  <div class="row form-inline form-spacing">
   <div class="col-xs-3">
     <%= label_tag "Available" %>
     <%= f.check_box :avail, class: "form-control"%>
   </div>
   </div>
-  <div class="row", style="margin-top: 10px; margin-bottom: 10px">
+  <div class="row form-spacing">
   <div class="col-xs-3">
     <%= label_tag "Owner" %>
     <%= f.collection_select(:owner_id, Owner.where(active: true), :id, :name, {include_blank: "Select Owner ..."}, {class: "form-control"}) %>
   </div>
   </div>
 
-  <div class="row">
+  <div class="row form-spacing">
   <div class="col-xs-3">
   <div class="actions">
     <%= f.submit 'Submit', class: "btn btn-default form-control" %>

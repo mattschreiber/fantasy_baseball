@@ -22,17 +22,22 @@ caption {
 	padding-bottom: 10px;
 }
 .team-projection {
- table-layout: fixed; 
+ table-layout: fixed;
 }
 
 .even {
 	background-color:#E0E0E0;
 }
 
+.form-spacing {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
 #teaminfo {
 	width: 30%;
 	float: left;
-  padding-top: 45px; 
+  padding-top: 45px;
 
 }
 
@@ -75,17 +80,14 @@ caption {
 }
 
 @keyframes sk-rotateplane {
-  0% { 
+  0% {
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) 
-  } 50% { 
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+  } 50% {
     transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) 
-  } 100% { 
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+  } 100% {
     transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
     -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
   }
 }
-
-
-
