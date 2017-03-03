@@ -13,8 +13,8 @@ namespace :csv do
 	task :espn_rank => :environment do
 		new_rank = []
 		exist = []
-		PlayerRanking.update_all(espn: nil)
 		doc = CSV.read('lib/csv_files/espn_rk.csv')
+		PlayerRanking.update_all(espn: nil)
 		doc[0..300].each do |r|
 			#search for player (assumes first_name in second column and last_name is 3rd col)
 			play = Player.where(first_name: r[1], last_name: r[2]).first
@@ -36,7 +36,7 @@ namespace :csv do
 		end
 		#print list of people who aren't in db
 		exist.each do |r|
-			puts r 
+			puts r
 		end
 	end
 
@@ -53,7 +53,7 @@ namespace :csv do
 					play.update(avail: false, owner_id: o.id)
 				end
 			end
-		end 
+		end
 	end
 
 end
