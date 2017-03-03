@@ -1,15 +1,21 @@
 <div class="container-fluid">
-  <%= form_tag("/stats/index", method: "get", remote: true) do %>
+  <%= form_tag("/stats/index", { class: "form-inline", role: 'form', method: "get", remote: true}) do %>
+
+  <div class="row">
+  <div class="col-xs-3">
     <%= label_tag(:q, "Last Name:") %>
-    <%= text_field_tag(:q) %>
-    <br>
+    <%= text_field_tag(:q, "", class: "form-control") %>
+  </div>
+  </div>
+
     <div style="margin-top: 10px; margin-bottom: 10px">
     	<%= label_tag(:year, "Select Year") %>
-  		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year) %>
+  		<%= collection_select(:year, :id, Year.order(year: :desc), :year, :year, {}, {class: "form-control"}) %>
     </div>
+
     <div style="margin-top: 10px; margin-bottom: 10px">
       <%= label_tag(:avail_players, "Player Status") %>
-      <%= select_tag(:avail_players, options_for_select([['All', true], ['Available', false]])) %>
+      <%= select_tag(:avail_players, options_for_select([['All', true], ['Available', false]]), class: "form-control") %>
     </div>
     <div style="margin-top: 10px; margin-bottom: 10px">
   	  <%= radio_button_tag(:bat_pitch, true, true) %>
@@ -37,7 +43,7 @@
   		<%= radio_button_tag(:pos, "rp", false, style: "display:none") %>
   		<%= label_tag(:pos_rp, "RP", style: "display:none") %>
   	</div>
-    <%= submit_tag "Search", name: nil%>
+    <%= submit_tag "Search", name: nil, class: "form-control"%>
   <% end %>
 
   <div class="spinner"></div>
@@ -106,6 +112,3 @@
 			//  });
   };
 </script>
-
-
-
