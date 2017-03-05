@@ -16,11 +16,11 @@ class TeamSeason < ActiveRecord::Base
 			parameters = ActionController::Parameters.new(row.to_hash)
 			TeamSeason.create!(parameters.permit(
 				:place, :year, :total_points,
-				:run_points, :hr_points, :rbi_points, :sb_points, :avg_points, 
-				:win_points, :k_points, :sv_points, :whip_points, :era_points, 
-				:total_run, :total_hr, :total_rbi, :total_sb, :total_avg, 
-				:total_win, :total_k, :total_era, :total_whip, :total_sv, 
-				:owner_id, :gp, :innings, 
+				:run_points, :hr_points, :rbi_points, :sb_points, :avg_points,
+				:win_points, :k_points, :sv_points, :whip_points, :era_points,
+				:total_run, :total_hr, :total_rbi, :total_sb, :total_avg,
+				:total_win, :total_k, :total_era, :total_whip, :total_sv,
+				:owner_id, :gp, :innings,
 				:created_at, :updated_at, :current_season))
 		end
 
@@ -30,7 +30,7 @@ class TeamSeason < ActiveRecord::Base
 	def self.rank year
 		TeamSeason.find_by_sql([
 		"WITH ranks AS (
-    SELECT total_run, total_hr, total_rbi, total_sb, total_avg, 
+    SELECT total_run, total_hr, total_rbi, total_sb, total_avg,
     			total_win, total_k, total_sv, total_era, total_whip, owner_id,
     			concat_ws(' ', owners.first_name, owners.last_name) AS name,
 
@@ -101,7 +101,7 @@ class TeamSeason < ActiveRecord::Base
 		       (avg(era_rn) OVER era)::float									 AS era_pts,
 		       (avg(whip_rn) OVER whip)::float								 AS whip_pts,
 		       (avg(hr_rn) OVER h + avg(rbi_rn) OVER r + avg(sb_rn) OVER sb + avg(run_rn) OVER run + avg(avg_rn) OVER avg + avg(win_rn) OVER w + avg(k_rn) OVER k + avg(sv_rn) OVER sv + avg(era_rn) OVER era + avg(whip_rn) OVER whip)::float AS ttl_pts
-		  FROM ranks 
+		  FROM ranks
 		WINDOW run AS (PARTITION BY run_aprx),
 					 w AS (PARTITION BY win_aprx),
 					 h AS (PARTITION BY hr_aprx),
@@ -134,13 +134,13 @@ class TeamSeason < ActiveRecord::Base
 
 # rank method using ruby instead of postgres window functions
 # postgres is more efficient algorithm, but this should work independent of db
-def self.rankv2(year, cat)
+def self.rankv2(hash)
 	list = []
-	if cat == "total_era" || cat == "total_whip"
-		hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
-	else
-		hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
-	end
+	# if cat == "total_era" || cat == "total_whip"
+	# 	hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
+	# else
+	# 	hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
+	# end
 
 	hash.values.map {|k| list << k }
 
@@ -149,7 +149,7 @@ def self.rankv2(year, cat)
 		# list = [5,5,5,2,1]
 		p = []
 		while i < list.length
-			if list.rindex(list[i]) - list.index(list[i]) == 0 
+			if list.rindex(list[i]) - list.index(list[i]) == 0
 				p[i] = points.to_f
 				points = points - 1.0
 				i = i +1
@@ -186,7 +186,7 @@ def self.rankv2(year, cat)
 				p[i+4] = points - 2.5
 				p[i+5] = points - 2.5
 				points = points - 6
-				i = i + 6	
+				i = i + 6
 			elsif list.rindex(list[i]) - list.index(list[i]) == 6
 				p[i] = points - 3.0
 				p[i+1] = points - 3.0
@@ -207,7 +207,7 @@ def self.rankv2(year, cat)
 				p[i+6] = points - 3.5
 				p[i+7] = points - 3.5
 				points = points - 8
-				i = i + 8	
+				i = i + 8
 			elsif list.rindex(list[i]) - list.index(list[i]) == 8
 				p[i] = points - 4.0
 				p[i+1] = points - 4.0
@@ -244,15 +244,52 @@ def self.rankv2(year, cat)
 		end
 		return h
 	end
-	
 
-end
+# calculates team points total based on player statistics for given year
+	def self.project_team_standings
+
+		bat_hash = {}
+		standings = {}
+
+		o = Owner.where(active: true).order(:id).pluck(:id)
+
+		# This creates array that contains each teams team_totals by category (which is a hash) (team_totals method is from team_projection concern)
+		arr = []
+		Owner.where(active: true).order(:id).each do |o|
+		  arr <<  Batting.team_totals(2017, o.id, true)
+		end
+
+		# iterator to loop through each key/value from team_totals hash
+		c = 0
+		while c < arr[0].values.count
+			# iterator to loop through each owner and create hash with owner id as key and category total as value
+			i = 0
+			arr.each do |a|
+			  if a[:runs].nil?
+			    bat_hash[o[i]] = 0
+			  else
+			    bat_hash[o[i]] = a.values[c]
+			  end
+			  i += 1
+			end
+			# pass sorted bat_hash to rankv2 method
+			result = {}
+			# if key[:average] == :average
+			# result = self.rankv2(bat_hash.sort_by{|k, v| v}.reverse.to_h)
+			result = self.rankv2(bat_hash.sort_by{|k, v| v}.reverse.to_h)
+			standings.merge!(result){|key, oldval, newval| oldval + newval}
+			c += 1
+		end # end while loop
+		return standings
+	end # end project_team_standings
+
+end #end of class
 
 
 # calculates total points for all categories
 # standings = {}
 # h = {}
-# CATEGORIES.each do |c|	
+# CATEGORIES.each do |c|
 # 	h = TeamSeason.rankv2(2016, c)
 # 	standings.merge!(h){|key, oldval, newval| oldval + newval}
 # end

@@ -9,16 +9,16 @@ module TeamProjection
   	total = Hash.new(0)
 	  	if batter == true
 		  	players.each do |batter|
-		  		batter.slice!("runs", "hr", "rbi", "sb", "average")
-		  		batter.each do |k, v|
+		  		bat = batter.slice("runs", "hr", "rbi", "sb", "average")
+		  		bat.each do |k, v|
 		  			total[k] += v
 		  		end
 		  	end
 		  	total["average"] = total["average"] / players.count unless players.count == 0
 			else
 				players.each do |pitcher|
-					pitcher.slice!("wins", "sv", "so", "era", "whip")
-					pitcher.each do |k, v|
+					pitch = pitcher.slice("wins", "sv", "so", "era", "whip")
+					pitch.each do |k, v|
 		  			total[k] += v
 		  		end
 		  	end
@@ -28,9 +28,8 @@ module TeamProjection
 	  	return total.symbolize_keys
   	end
 
-  def team_player_stats (year, owner_id, batter)
-  	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
-  end
-
-  end
-end
+    def team_player_stats (year, owner_id, batter)
+    	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
+    end
+  end # end of ClassMethods
+end # end of module TeamProjection
