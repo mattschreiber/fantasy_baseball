@@ -255,20 +255,36 @@ def self.rankv2(hash)
 
 		# This creates array that contains each teams team_totals by category (which is a hash) (team_totals method is from team_projection concern)
 		arr = []
+		bat_arr = []
+		pitch_arr = []
 		Owner.where(active: true).order(:id).each do |o|
-		  arr <<  Batting.team_totals(2017, o.id, true)
+		  bat_arr <<  Batting.team_totals(2017, o.id, true)
+			pitch_arr << Pitching.team_totals(2017, o.id, false)
 		end
+
+		########################################################
+		# merge bat_arr and pitch_arr
+		i = 0
+		bat_arr.each do |a|
+			arr << a.merge(pitch_arr[i])
+		end
+		#######################################################
 
 		# iterator to loop through each key/value from team_totals hash
 		c = 0
 		while c < arr[0].values.count
+
 			# iterator to loop through each owner and create hash with owner id as key and category total as value
 			i = 0
+			sort_desc = true #direction to sort bat_hash because whip and era need to be sorted low to high and all others high to low
 			arr.each do |a|
-			  if a[:runs].nil?
+			  if a[:runs].nil? || a[:wins].nil?
 			    bat_hash[o[i]] = 0
 			  else
 			    bat_hash[o[i]] = a.values[c]
+					if a.keys[c] == :whip || a.keys[c] == :era
+						sort_desc = false
+					end
 			  end
 			  i += 1
 			end
@@ -276,7 +292,12 @@ def self.rankv2(hash)
 			result = {}
 			# if key[:average] == :average
 			# result = self.rankv2(bat_hash.sort_by{|k, v| v}.reverse.to_h)
-			result = self.rankv2(bat_hash.sort_by{|k, v| v}.reverse.to_h)
+			# sort descending order unless the category is whip or era
+			if sort_desc
+				result = self.rankv2(bat_hash.sort_by{|k, v| v}.reverse.to_h)
+			else
+				result = self.rankv2(bat_hash.sort_by{|k, v| v}.to_h)
+			end
 			standings.merge!(result){|key, oldval, newval| oldval + newval}
 			c += 1
 		end # end while loop
