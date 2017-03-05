@@ -8,6 +8,10 @@ class SeasonsController < ApplicationController
 		@category_average = CategoryAverage.calc_by_place
 	end
 
+	def projected_standings
+		@standings = Standing.build_standings
+	end
+
 	def import
 		TeamSeason.import(params[:file], params[:current])
 		redirect_to seasons_url, notice: "Current Season imported"
