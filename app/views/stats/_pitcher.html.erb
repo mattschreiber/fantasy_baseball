@@ -3,12 +3,12 @@
 <table id="myTable" class="tablesorter tablesorter-blue">
   <thead>
     <tr>
-      <th>Pos Rank</th>
       <th>ESPN Rank</th>
       <th>CBS Rank</th>
       <th>First</th>
       <th>Last</th>
       <th>Age</th>
+      <th>Pos</th>
       <th>Team</th>
       <th>Wins</th>
       <th>Ks</th>
@@ -22,13 +22,13 @@
   <tbody>
     <% @players.each_with_index do |player, index| %>
       <tr>
-      <td><%= index + 1 %>
       <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> </td>
-      <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %> 
+      <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
         <td><%= player.first_name %></td>
         <td><%= player.last_name %></td>
         <td><%= age player[:birthday] %></td>
+        <td><%= player.positions[0].pos%> </td>
         <td><%= player.pitchings[0].mlbteam.abbr %></td>
         <td><%= player.pitchings[0].wins %></td>
         <td><%= player.pitchings[0].so %></td>
@@ -48,5 +48,5 @@
      sortRestart : true,
      sortInitialOrder: 'desc',
    });
-  
+
 </script>
