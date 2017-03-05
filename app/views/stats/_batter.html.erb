@@ -29,7 +29,7 @@
         <td><%= player[:first_name] %></td>
         <td><%= player[:last_name] %></td>
         <td><%= age player[:birthday] %></td>
-        <td><%= player.positions[0].pos%></td>
+        <td><%= player.positions[0].pos unless player.positions[0].nil?%></td>
         <td><%= player.battings[0].mlbteam[:abbr] %></td>
         <td><%= player.battings[0][:runs] %></td>
         <td><%= player.battings[0][:hr] %></td>

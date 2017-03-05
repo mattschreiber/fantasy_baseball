@@ -10,7 +10,7 @@ class Player < ActiveRecord::Base
 	attr_reader :name
 
 	# return player hash to make responding to js and json requests simpler.
-	# the search method will return a players array of player hashes 
+	# the search method will return a players array of player hashes
 	players = []
 	player = {}
 
@@ -38,7 +38,7 @@ class Player < ActiveRecord::Base
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
 
-	def name 
+	def name
 		"#{first_name} #{last_name}"
 	end
 
