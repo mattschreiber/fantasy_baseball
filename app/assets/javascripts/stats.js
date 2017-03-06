@@ -30,13 +30,14 @@ $(document).on('turbolinks:load', function() {
   }); //end compare-cb.on change function
 
   $('#compare-submit').on('click', function(){
+
     if ($('#bat_pitch_true').is(':checked')){
       isBatter = true;
     }
     else {
       isBatter = false;
-    }
-    alert(isBatter);
+    } //end bat_pitch_true if/else
+
     $.ajax({
     type: 'GET',
     url: "/stats/compare.js",

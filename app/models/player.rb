@@ -38,8 +38,13 @@ class Player < ActiveRecord::Base
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
 
-	def compare_players(player_ids)
-		
+	def self.compare_players(player_ids, is_batter, year)
+		if is_batter == "true"
+			includes(:battings, :player_ranking).where("year = ? AND players.id IN (?)", year, player_ids).references(:battings).order("player_rankings.espn")
+		else
+			includes(:pitchings, :player_ranking).where("year = ? AND players.id IN (?)", year, player_ids).references(:pitchings, :player_ranking).order("player_rankings.espn")
+		end
+
 	end
 
 	def name
