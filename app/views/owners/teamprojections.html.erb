@@ -25,10 +25,8 @@
           <td><%= batter.player[:first_name]%></td>
           <td><%= batter.player[:last_name]  %></td>
           <td><%= batter.player.positions[0].pos %></td>
-          <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> 
-          </td>
-          <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> 
-          </td>
+          <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> </td>
+          <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> </td>
           <td><%= batter[:runs] %></td>
           <td><%= batter[:hr] %></td>
           <td><%= batter[:rbi]%></td>
@@ -84,9 +82,8 @@
           <td><%= pitcher.player[:first_name]%></td>
           <td><%= pitcher.player[:last_name]  %></td>
           <td><%= pitcher.player.positions[0].pos %></td>
-          <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %> 
-          </td>
-          <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %> 
+          <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %></td>
+          <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %>
           <td><%= pitcher[:so] %></td>
           <td><%= pitcher[:wins] %></td>
           <td><%= pitcher[:sv]%></td>
