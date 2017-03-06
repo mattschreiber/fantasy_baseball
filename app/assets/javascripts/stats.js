@@ -9,9 +9,26 @@ $(document).on('turbolinks:load', function() {
    var playerArray = [];
    var isBatter;
 
-  $('#search-submit').on('click', function(){
+  $('#bat_pitch_true').on('click', function(){
     playerArray = [];
+    $(".compare-cb").prop('checked', false);
 
+    $.ajax({
+    type: 'GET',
+    url: "index",
+     });
+  });
+  $('#bat_pitch_false').on('click', function(){
+    playerArray = [];
+    $(".compare-cb").prop('checked', false);
+
+    $.ajax({
+    type: 'GET',
+    url: "index",
+    data: {
+     bat_pitch: false
+    },
+     });
   });
 
   $('#stats').on('click', '.compare-cb', function(event) {

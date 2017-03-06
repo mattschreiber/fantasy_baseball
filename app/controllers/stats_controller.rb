@@ -35,6 +35,7 @@ class StatsController < ApplicationController
   def compare
     year = Time.now.year
     @players = Player.compare_players(params[:players], params[:batter], year)
+
     respond_to do |format|
       format.js
     end
