@@ -7,10 +7,11 @@ $(document).on('turbolinks:load', function() {
    });
 
    var playerArray = [];
-
+   var isBatter;
 
   $('#search-submit').on('click', function(){
     playerArray = [];
+
   });
 
   $('#stats').on('click', '.compare-cb', function(event) {
@@ -25,10 +26,26 @@ $(document).on('turbolinks:load', function() {
           playerArray.splice(index, 1);
         }
       } // end if/else
-      alert(playerArray);
+      // alert(playerArray);
   }); //end compare-cb.on change function
 
-
+  $('#compare-submit').on('click', function(){
+    if ($('#bat_pitch_true').is(':checked')){
+      isBatter = true;
+    }
+    else {
+      isBatter = false;
+    }
+    alert(isBatter);
+    $.ajax({
+    type: 'GET',
+    url: "/stats/compare.js",
+    data: {
+     players: playerArray,
+     batter: isBatter
+    },
+     });
+  });
 
 
 });

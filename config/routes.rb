@@ -7,11 +7,13 @@ Rails.application.routes.draw do
   end
   get 'seasons', to: 'seasons#index'
   get 'seasons/new'
+  get 'seasons/projected_standings', to:  'seasons#projected_standings'
   get 'historical', to: 'seasons#historical'
   post 'seasons/import', to: 'seasons#import'
   get 'stats/index'
+  get 'stats/compare', to: 'stats#compare'
   get 'owners/:id/teamprojections', to: 'owners#teamprojections', as: 'owners/teamprojections'
-  get 'seasons/projected_standings', to:  'seasons#projected_standings'
+
 
 
 

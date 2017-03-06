@@ -38,6 +38,10 @@ class Player < ActiveRecord::Base
   	# Player.includes("last_name LIKE ? AND batter = ?", "%#{search}%", bat_pitch)
 	end
 
+	def compare_players(player_ids)
+		
+	end
+
 	def name
 		"#{first_name} #{last_name}"
 	end

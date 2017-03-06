@@ -12,7 +12,7 @@ class StatsController < ApplicationController
     else
       available = false
     end
-        
+
   	if params[:pos].nil? || params[:pos] == 'a'
       @players = Player.search(params[:q], params[:bat_pitch], year, available)
     else
@@ -32,6 +32,11 @@ class StatsController < ApplicationController
       end
   end
 
+  def compare
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
 
