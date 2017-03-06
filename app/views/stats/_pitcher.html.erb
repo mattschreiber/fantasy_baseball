@@ -15,6 +15,7 @@
       <th>SVs</th>
       <th>Era</th>
       <th>Whip</th>
+      <th>Compare</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -35,6 +36,7 @@
         <td><%= player.pitchings[0].sv%></td>
         <td><%= player.pitchings[0].era%></td>
         <td><%= player.pitchings[0].whip%></td>
+        <td><%= check_box_tag 'compare', player[:id], checked = false, class: "compare-cb" %></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
       </tr>
     <% end %>
@@ -48,5 +50,6 @@
      sortRestart : true,
      sortInitialOrder: 'desc',
    });
+
 
 </script>

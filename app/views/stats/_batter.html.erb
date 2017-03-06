@@ -15,6 +15,7 @@
       <th>RBIs</th>
       <th>SB</th>
       <th>BA</th>
+      <th>Compare</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -36,6 +37,7 @@
         <td><%= player.battings[0][:rbi]%></td>
         <td><%= player.battings[0][:sb]%></td>
         <td><%= player.battings[0][:average]%></td>
+        <td><%= check_box_tag 'compare', player[:id], checked = false, class: "compare-cb" %></td>
         <td><%= link_to 'Edit', edit_player_path(player) %></td>
       </tr>
     <% end %>
@@ -49,5 +51,6 @@
      sortRestart : true,
      sortInitialOrder: 'desc',
    });
+
 
 </script>
