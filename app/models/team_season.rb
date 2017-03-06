@@ -134,6 +134,7 @@ class TeamSeason < ActiveRecord::Base
 
 # rank method using ruby instead of postgres window functions
 # postgres is more efficient algorithm, but this should work independent of db
+# hash should be key/value pairs of owner_id and sum for given category
 def self.rankv2(hash)
 	list = []
 	# if cat == "total_era" || cat == "total_whip"

@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
 
   root 'seasons#index'
-  resources :owners 
+  resources :owners
   resources :players do
     post 'set_starter'
   end
   get 'seasons', to: 'seasons#index'
-  get 'seasons/new' 
+  get 'seasons/new'
   get 'historical', to: 'seasons#historical'
   post 'seasons/import', to: 'seasons#import'
   get 'stats/index'
   get 'owners/:id/teamprojections', to: 'owners#teamprojections', as: 'owners/teamprojections'
+  get 'seasons/projected_standings', to:  'seasons#projected_standings'
 
 
 

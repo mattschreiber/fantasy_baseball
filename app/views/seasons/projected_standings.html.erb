@@ -1,0 +1,44 @@
+<div class="container-fluid">
+
+  <h1>Projected Standings</h1>
+
+  <table class="projected_standings tablesorter-blue">
+    <thead>
+      <tr>
+        <th>FIRST</th>
+        <th>LAST</th>
+        <th>RUNS</th>
+        <th>HR</th>
+        <th>RBI</th>
+        <th>SB</th>
+        <th>AVG</th>
+        <th>WINS</th>
+        <th>K'S</th>
+        <th>SV</th>
+        <th>ERA</th>
+        <th>WHIP</th>
+        <th>TOTAL PTS</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @standings.each do |standing| %>
+        <tr>
+          <td><%= standing.owner_first%></td>
+          <td><%= standing.owner_last  %></td>
+          <td><%= standing.run %></td>
+          <td><%= standing.hr %></td>
+          <td><%= standing.rbi %></td>
+          <td><%= standing.sb %></td>
+          <td><%= round_4 standing.average%></td>
+          <td><%= standing.win%></td>
+          <td><%= standing.so%></td>
+          <td><%= standing.sv%></td>
+          <td><%= round_4 standing.era%></td>
+          <td><%= round_4 standing.whip%></td>
+          <td><%= standing.total_points%></td>
+        </tr>
+      <% end %>
+    </tbody>
+    </table>
+</div> <!-- end container fluid  -->
