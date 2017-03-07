@@ -34,6 +34,19 @@ caption {
 	margin-bottom: 10px;
 }
 
+.fixed-height {
+	height: 20px;
+	width: 100%;
+	position:relative;
+}
+.bottom-right {
+  position:absolute;
+  bottom: -60px;
+	right: 0px;
+	padding-right: 15px;
+	z-index: 1;
+}
+
 #teaminfo {
 	width: 30%;
 	float: left;
