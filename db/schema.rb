@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303150448) do
+ActiveRecord::Schema.define(version: 20170307234530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,17 @@ ActiveRecord::Schema.define(version: 20170303150448) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "notes", force: :cascade do |t|
+    t.text     "note"
+    t.integer  "player_id"
+    t.integer  "owner_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "notes", ["owner_id"], name: "index_notes_on_owner_id", using: :btree
+  add_index "notes", ["player_id"], name: "index_notes_on_player_id", using: :btree
 
   create_table "owners", force: :cascade do |t|
     t.string   "first_name"
@@ -167,6 +178,8 @@ ActiveRecord::Schema.define(version: 20170303150448) do
 
   add_foreign_key "battings", "mlbteams"
   add_foreign_key "battings", "players"
+  add_foreign_key "notes", "owners"
+  add_foreign_key "notes", "players"
   add_foreign_key "pitchings", "mlbteams"
   add_foreign_key "pitchings", "players"
   add_foreign_key "player_rankings", "players"

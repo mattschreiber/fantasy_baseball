@@ -1,13 +1,14 @@
 class Owner < ActiveRecord::Base
 	has_many :team_seasons, dependent: :nullify
 	has_many :players
+	has_many :notes
 
 
 	attr_reader :place_avg, :total_points_avg, :num_titles, :total_avg_avg
 
 	# use callback to check if an owner has any associated team_seasons
 	# and if found, set values for calculated fields.  I chose to go this route
-	# in order to keep from storing calculated fields in db and also because the 
+	# in order to keep from storing calculated fields in db and also because the
 	#calc_team_averages method only requires to queries of the db to gather most commonly
 	# used fields
 	# after_find do |owner|
@@ -26,7 +27,7 @@ class Owner < ActiveRecord::Base
 			count = count + 1
 		end
 		if @total_points_avg > 0
-			@total_points_avg = (@total_points_avg / count.to_f).round(2) 
+			@total_points_avg = (@total_points_avg / count.to_f).round(2)
 		else
 			@total_points_avg = 0
 		end
@@ -44,7 +45,7 @@ class Owner < ActiveRecord::Base
 		else
 			@place_avg = 10
 		end
-		
+
 	end
 
 	#pass in the column name for the category to calculate avg
