@@ -44,7 +44,11 @@ $(document).on('turbolinks:load', function() {
           playerArray.push(this.value);
           // add player to list of people selected to compare
           // Add ajax call to get back list of player names as json to populate list???
-          $("#compare-list ul").append('<li id="'+this.value+'">'+this.value+'</li>');
+          var row = $(this).closest("tr");
+          var firstName = row.find("td:nth-child(3)");
+          var lastName = row.find("td:nth-child(4)");
+          var name = firstName.text() + " " + lastName.text();
+          $("#compare-list ul").append('<li id="'+this.value+'">'+ name +'</li>');
         }
       } else {
         var index = playerArray.indexOf(this.value);
