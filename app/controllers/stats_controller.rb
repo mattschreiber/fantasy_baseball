@@ -36,8 +36,14 @@ class StatsController < ApplicationController
     year = Time.now.year
     @players = Player.compare_players(params[:players], params[:batter], year)
 
-    respond_to do |format|
-      format.js
+    if params[:batter] == "true"
+      respond_to do |format|
+        format.js {render :batter}
+      end
+    else
+      respond_to do |format|
+        format.js {render :pitcher}
+      end
     end
   end
 

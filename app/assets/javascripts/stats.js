@@ -62,7 +62,18 @@ $(document).on('turbolinks:load', function() {
      players: playerArray,
      batter: isBatter
     },
-     });
+    success: function(data, textStatus, jqXHR)
+      {
+        // $('#hr_total').html(data.runs);
+        // alert(data.hr +" " + data.rbi);
+        $("#compare-list ul").append('<li>'+ playerArray+'</li>');
+
+      },
+    error: function (jqXHR, textStatus, errorThrown)
+      {
+
+      }
+    });
   });
 
 
