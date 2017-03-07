@@ -42,13 +42,16 @@ $(document).on('turbolinks:load', function() {
         }
         else {
           playerArray.push(this.value);
-          $("#compare-list ul").append('<li>'+this.value+'</li>');
+          // add player to list of people selected to compare
+          // Add ajax call to get back list of player names as json to populate list???
+          $("#compare-list ul").append('<li id="'+this.value+'">'+this.value+'</li>');
         }
       } else {
         var index = playerArray.indexOf(this.value);
         if (index > -1) {
           playerArray.splice(index, 1);
-          $("li:contains('"+this.value+"')").remove();
+          document.getElementById(this.value).remove();
+          // $("li:contains('"+this.value+"')").remove();
         }
       } // end if/else
       // alert(playerArray);
