@@ -1,10 +1,4 @@
 $(document).on('turbolinks:load', function() {
-  $(".tablesorter").tablesorter({
-   	 widgets: ['zebra'],
-   	 sortList: [[1,0]],
-     sortRestart : true,
-     sortInitialOrder: 'desc',
-   });
 
    var playerArray = [];
    var isBatter;
@@ -45,6 +39,10 @@ $(document).on('turbolinks:load', function() {
           // add player to list of people selected to compare
           // Add ajax call to get back list of player names as json to populate list???
           var row = $(this).closest("tr");
+          // var clone = row.clone();
+          // console.log(clone);
+          // $('#compare-results-table').append(clone);
+
           var firstName = row.find("td:nth-child(3)");
           var lastName = row.find("td:nth-child(4)");
           var name = firstName.text() + " " + lastName.text();
@@ -63,6 +61,8 @@ $(document).on('turbolinks:load', function() {
   }); //end compare-cb.on change function
 
   $('#compare-submit').on('click', function(){
+
+    $('#compare-list ul').empty();
 
     if ($('#bat_pitch_true').is(':checked')){
       isBatter = true;
@@ -94,7 +94,38 @@ $(document).on('turbolinks:load', function() {
   });
 
 
+  $(".tablesorter").tablesorter({
+   	 widgets: ['zebra'],
+   	 sortList: [[1,0]],
+     sortRestart : true,
+     sortInitialOrder: 'desc',
+   });
 });
+
+
+function buildTable(){
+  $('#compare-results').append(
+  "<h1 id='compare-table-header'>Players</h1>"+
+  "<table id='compare-results-table' class='tablesorter tablesorter-blue'>"+
+  "<thead><tr>"+
+  "<th>ESPN Rank</th>"+
+  "<th>CBS Rank</th>"+
+  "<th>First</th>"+
+  "<th>Last</th>"+
+  "<th>Age</th>"+
+  "<th>Pos</th>"+
+  "<th>Team</th>"+
+  "<th>Runs</th>"+
+  "<th>Home Runs</th>"+
+  "<th>RBIs</th>"+
+  "<th>SB</th>"+
+  "<th>BA</th>"+
+  "<th>Compare</th>"+
+  "<th>Edit</th></tr></thead>"+
+  "<tbody></tbody>"+
+  "</table>");
+};
+
 
 //  $('#compare-list ul').empty(); remove all items from list
 
