@@ -4,25 +4,12 @@ $(document).on('turbolinks:load', function() {
    var isBatter;
 
   $('#bat_pitch_true').on('click', function(){
-    playerArray = [];
-    $(".compare-cb").prop('checked', false);
-
-    $.ajax({
-    type: 'GET',
-    url: "index",
-     });
+    resetSearchForm();
+    getSearchIndex(true);
   });
   $('#bat_pitch_false').on('click', function(){
-    playerArray = [];
-    $(".compare-cb").prop('checked', false);
-
-    $.ajax({
-    type: 'GET',
-    url: "index",
-    data: {
-     bat_pitch: false
-    },
-     });
+    resetSearchForm(); //reset form controls to defaults
+    getSearchIndex(false); //ajax function to reload index page
 
   });
 
@@ -102,6 +89,22 @@ $(document).on('turbolinks:load', function() {
    });
 });
 
+function resetSearchForm() {
+  playerArray = [];
+  $(".compare-cb").prop('checked', false);
+  $("#avail_players").val("true");
+
+};
+
+function getSearchIndex(isBatter) {
+  $.ajax({
+  type: 'GET',
+  url: "index",
+  data: {
+   bat_pitch: isBatter
+  },
+   });
+};
 
 function buildTable(){
   $('#compare-results').append(
