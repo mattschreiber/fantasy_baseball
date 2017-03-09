@@ -1,0 +1,15 @@
+<div class="col-xs-12">
+  <p>
+    <strong>Name:</strong>
+    <%= name @player.first_name, @player.last_name %>
+  </p>
+  <p>
+    <strong>Position:</strong>
+    <%= @player.positions[0].pos %>
+  </p>
+  <p>
+    <strong>Birthday:</strong>
+    <%= @player.birthday.strftime('%B, %d %Y')%> (<%= age @player.birthday%> yrs)
+  </p>
+  <%= link_to 'Edit', edit_player_path(@player) %>
+</div>

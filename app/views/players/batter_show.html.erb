@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div>
+    <%= render partial: "player_header" %>
+  </div>
+  <div class="col-xs-12">
+  <h4>Career Stats</h4>
+  <table class="tablesorter-blue">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Team</th>
+        <th>AB</th>
+        <th>Runs</th>
+        <th>Hits</th>
+        <th>Double</th>
+        <th>Triple</th>
+        <th>Home Runs</th>
+        <th>RBIs</th>
+        <th>SB</th>
+        <th>BB</th>
+        <th>SO</th>
+        <th>BA</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @statistics.each do |batting| %>
+        <tr class=<%=cycle("even", "odd")%>>
+          <td><%= batting[:year] %></td>
+          <td><%= batting.mlbteam[:abbr] %></td>
+          <td><%= batting[:ab] %></td>
+          <td><%= batting[:runs] %></td>
+          <td><%= batting[:hits] %></td>
+          <td><%= batting[:double] %></td>
+          <td><%= batting[:triple] %></td>
+          <td><%= batting[:hr] %></td>
+          <td><%= batting[:rbi]%></td>
+          <td><%= batting[:sb]%></td>
+          <td><%= batting[:bb] %></td>
+          <td><%= batting[:so] %></td>
+          <td><%= batting[:average]%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

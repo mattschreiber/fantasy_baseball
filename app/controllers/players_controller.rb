@@ -1,8 +1,15 @@
 class PlayersController < ApplicationController
 
 	before_action :set_player, only: [:show, :edit, :update, :destroy]
-  
+
   def show
+		if !@player.battings.blank?
+			@statistics = @player.battings.order(year: :desc)
+			render :batter_show
+		else
+			@statistics = @player.pitchings.order(year: :desc)
+			render :pitcher_show
+		end
   end
 
   def edit
@@ -32,9 +39,9 @@ class PlayersController < ApplicationController
 
     # @pitcher_totals = Pitching.team_totals(year, params[:id], false)
     respond_to do |format|
-      format.js 
+      format.js
     end
-    
+
   end
 
 private

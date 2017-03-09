@@ -25,11 +25,11 @@
         <td><%= player[:last_name] %></td>
         <td><%= player.battings[0].mlbteam[:abbr] %></td>
         <td><%= player.positions[0][:pos]%></td>
-        <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> 
+        <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %>
         </td>
-        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %> 
+        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Show', player_path(player) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -59,12 +59,10 @@
         <td><%= player.pitchings[0].mlbteam.abbr %></td>
         <td><%= player.positions[0][:pos]%></td>
         <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> </td>
-        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %> 
+        <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
-        <td><%= link_to 'Edit', edit_player_path(player) %></td>
+        <td><%= link_to 'Show', player_path(player) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
