@@ -5,6 +5,7 @@ module TeamProjection
 
   	def team_totals(year, owner_id, batter)
   	#calculates a teams totals for each category with starter = true
+    starter_weight = 0 # if pitcher is a starter they should count
   	players = self.joins(player: :owner).where("year = ? AND players.owner_id = ? AND players.starter = true", year, owner_id)
   	total = Hash.new(0)
 	  	if batter == true
@@ -19,11 +20,20 @@ module TeamProjection
 				players.each do |pitcher|
 					pitch = pitcher.slice("wins", "sv", "so", "era", "whip")
 					pitch.each do |k, v|
-		  			total[k] += v
+            if pitcher.player.positions[0].pos == "SP" and (k == "era" or k == "whip")
+		  			       total[k] += (v * 2.5)
+                  #  Espn projections didn't include innings or earned runs so I'm estimating
+                  # that a starter will throw on average 2.5 more innings then a reliever
+                  # The .75 is because each SP will loop through 2x (1 for era and 1 for whip thus totaling 1.5 plus each player
+                  # is already counted 1x in the player.count)
+                   starter_weight += 0.75
+            else
+              total[k] += v
+            end
 		  		end
 		  	end
-		  	total["era"] = total["era"] / players.count unless players.count == 0
-		  	total["whip"] = total["whip"] / players.count unless players.count == 0
+		  	total["era"] = total["era"] / (players.count + starter_weight) unless players.count == 0
+		  	total["whip"] = total["whip"] / (players.count + starter_weight) unless players.count == 0
 			end
       total["owner_id"] = owner_id
 	  	return total.symbolize_keys
