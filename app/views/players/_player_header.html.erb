@@ -1,4 +1,4 @@
-<div class="col-xs-12">
+<div class="col-xs-6">
   <p>
     <strong>Name:</strong>
     <%= name @player.first_name, @player.last_name %>
@@ -12,4 +12,10 @@
     <%= @player.birthday.strftime('%B, %d %Y')%> (<%= age @player.birthday%> yrs)
   </p>
   <%= link_to 'Edit', edit_player_path(@player) %>
+</div>
+<div class="col-xs-6">
+    <h4>Notes: </h4>
+      <% @player.notes.each do |note| %>
+          <p><%= note.note %></p>
+      <% end %>
 </div>
