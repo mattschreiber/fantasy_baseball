@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   get 'stats/compare', to: 'stats#compare'
   get 'owners/:id/teamprojections', to: 'owners#teamprojections', as: 'owners/teamprojections'
 
+  post 'notes', to: 'notes#create'
+
 
 
 

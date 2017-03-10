@@ -39,33 +39,33 @@ $("#add-note-btn").on('click', function(e) {
   numNote = $('.duplicatable_nested_form').length;
 
 
-  // $.ajax({
-  //       url: 'notes',
-  //       type: 'POST',
-  //       data: {"note":
-  //         {player_id: player_id, owner_id: owner_id} },
-  //       dataType: 'json',
-  //       success: function(data, textStatus, jqXHR)
-  //     {
+  $.ajax({
+        url: '/notes',
+        type: 'POST',
+        data: {"note":
+          {player_id: player_id, owner_id: owner_id} },
+        dataType: 'json',
+        success: function(data, textStatus, jqXHR)
+      {
             // need to set value for newly created note's hidden field
-  //         noteId = data.id
-
-            // newNote = newNestedForm(numNote, noteId);
+          noteId = data.id;
+          console.log(data.id);
+            newNote = newNestedForm(numNote, noteId);
             //
-            // if (numNote == 0) {
-            //   $('.notes-container').append(newNote);
-            // }
-            // else {
-            //   lastNestedForm = $('.duplicatable_nested_form').last();
-            //   $( newNote ).insertAfter( lastNestedForm );
-            // }
+            if (numNote == 0) {
+              $('.notes-container').append(newNote);
+            }
+            else {
+              lastNestedForm = $('.duplicatable_nested_form').last();
+              $( newNote ).insertAfter( lastNestedForm );
+            }
 
-  //     },
-  //     error: function (jqXHR, textStatus, errorThrown)
-  //     {
-  //
-  //     }
-  //     });
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+
+      }
+      });
 
 });
 
