@@ -51,6 +51,7 @@ private
     end
 
   def player_params
-      params.require(:player).permit(:id, :first_name, :last_name, :avail, :owner_id, :starter)
+      params.require(:player).permit(:id, :first_name, :last_name, :avail, :owner_id, :starter,
+			notes_attributes: [:id, :note])
   end
 end
