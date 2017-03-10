@@ -3,7 +3,7 @@
 <table class="tablesorter tablesorter-blue">
 <thead>
   <tr>
-    <th colspan= "7">Batters</th>
+    <th colspan= "8">Batters</th>
   </tr>
 </thead>
   <thead>
@@ -13,6 +13,7 @@
       <th>Team</th>
       <th>POS</th>
       <th>ESPN Rank</th>
+      <th>MLB Rank</th>
       <th>CBS Rank</th>
       <th>Edit</th>
     </tr>
@@ -25,8 +26,8 @@
         <td><%= player[:last_name] %></td>
         <td><%= player.battings[0].mlbteam[:abbr] %></td>
         <td><%= player.positions[0][:pos]%></td>
-        <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %>
-        </td>
+        <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %></td>
+        <td><%= player.player_ranking[:mlb] unless player.player_ranking.blank? %></td>
         <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
         <td><%= link_to 'Show', player_path(player) %></td>
@@ -37,7 +38,7 @@
 <table class="tablesorter tablesorter-blue">
 <thead>
   <tr>
-    <th colspan= "7">Pitchers</th>
+    <th colspan= "8">Pitchers</th>
   </tr>
 </thead>
 <thead>
@@ -47,6 +48,7 @@
       <th>Team</th>
       <th>POS</th>
       <th>ESPN Rank</th>
+      <th>MLB Rank</th>
       <th>CBS Rank</th>
       <th>Edit</th>
     </tr>
@@ -59,6 +61,7 @@
         <td><%= player.pitchings[0].mlbteam.abbr %></td>
         <td><%= player.positions[0][:pos]%></td>
         <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %> </td>
+        <td><%= player.player_ranking[:mlb] unless player.player_ranking.blank? %></td>
         <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
         <td><%= link_to 'Show', player_path(player) %></td>
