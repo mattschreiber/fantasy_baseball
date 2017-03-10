@@ -8,6 +8,8 @@ class Player < ActiveRecord::Base
 	has_one :player_ranking
 	belongs_to :owner
 
+	accepts_nested_attributes_for :notes, allow_destroy: true
+
 	attr_reader :name
 
 	# return player hash to make responding to js and json requests simpler.
