@@ -32,26 +32,26 @@ $("#add-note-btn").on('click', function(e) {
 
   // ajax post method to create new note with data{player_id and owner_id}
 
-  player_id = $(this).attr("data-ownerid");
-  owner_id = $('#player_owner_id').val();
-  note = $('textarea').val();
+  var player_id = $(this).attr("data-ownerid");
+  var owner_id = $('#player_owner_id').val();
+  var noteModal = $('#modal-note-textarea').val();
 
   // update various html fields based on new number of player notes
-  numNote = $('.duplicatable_nested_form').length;
-
+  var numNote = $('.duplicatable_nested_form').length;
 
   $.ajax({
         url: '/notes',
         type: 'POST',
         data: {"note":
-          {player_id: player_id, owner_id: owner_id, note: note} },
+          {player_id: player_id, owner_id: owner_id, note: noteModal} },
         dataType: 'json',
         success: function(data, textStatus, jqXHR)
       {
             // need to set value for newly created note's hidden field
-          noteId = data.id;
+        var noteId = data.id;
+        var note = data.note;
             newNote = newNestedForm(numNote, noteId, note);
-            //
+
             if (numNote == 0) {
               $('.notes-container').append(newNote);
             }
@@ -59,13 +59,16 @@ $("#add-note-btn").on('click', function(e) {
               lastNestedForm = $('.duplicatable_nested_form').last();
               $( newNote ).insertAfter( lastNestedForm );
             }
-
       },
       error: function (jqXHR, textStatus, errorThrown)
       {
 
       }
       });
+
+      $('#myModal').on('hidden.bs.modal', function (e) {
+        $('#modal-note-textarea').val("");
+    })
 
 });
 

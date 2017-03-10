@@ -39,7 +39,7 @@
   <div class="row form-spacing">
   <div class="col-xs-3 notes-container">
     <%= f.fields_for :notes do |note_fields| %>
-    <%= note_fields.text_field :note, class: "form-control duplicatable_nested_form" %>
+    <%= note_fields.text_area :note, class: "form-control duplicatable_nested_form" %>
   <% end %>
   </div>
   </div>
@@ -58,7 +58,7 @@
           <h4 class="modal-title" id="myModalLabel">Add Note</h4>
         </div>
         <div class="modal-body">
-          <textarea class="form-control" rows="3"></textarea>
+          <textarea id="modal-note-textarea" class="form-control" rows="3" value="" ></textarea>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -45,7 +45,7 @@
   		<%= radio_button_tag(:pos, "rp", false, style: "display:none") %>
   		<%= label_tag(:pos_rp, "RP", style: "display:none") %>
   	</div>
-    <%= submit_tag "Search", name: nil, id: "search-submit", class: "form-control"%>
+    <%= submit_tag "Search", name: nil, id: "search-submit", class: "btn btn-primary form-control"%>
   <% end %>
 </div><!-- search form column  -->
 <div id="compare-list" class="col-sm-6">
@@ -53,7 +53,7 @@
   </ul>
 </div>
   <div class="col-sm-6 fixed-height text-right">
-        <span class="bottom-right"><button id="compare-submit" class="btn btn-default" type="submit">Compare</button></span>
+        <span class="bottom-right"><button id="compare-submit" class="btn btn-primary" type="submit">Compare</button></span>
   </div><!-- wrap in relative position div in order to position compare button on bottom right  -->
 
   <div class="spinner"></div>
