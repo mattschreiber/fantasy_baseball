@@ -34,6 +34,7 @@ $("#add-note-btn").on('click', function(e) {
 
   player_id = $(this).attr("data-ownerid");
   owner_id = $('#player_owner_id').val();
+  note = $('textarea').val();
 
   // update various html fields based on new number of player notes
   numNote = $('.duplicatable_nested_form').length;
@@ -43,14 +44,13 @@ $("#add-note-btn").on('click', function(e) {
         url: '/notes',
         type: 'POST',
         data: {"note":
-          {player_id: player_id, owner_id: owner_id} },
+          {player_id: player_id, owner_id: owner_id, note: note} },
         dataType: 'json',
         success: function(data, textStatus, jqXHR)
       {
             // need to set value for newly created note's hidden field
           noteId = data.id;
-          console.log(data.id);
-            newNote = newNestedForm(numNote, noteId);
+            newNote = newNestedForm(numNote, noteId, note);
             //
             if (numNote == 0) {
               $('.notes-container').append(newNote);
@@ -92,9 +92,9 @@ $("#add-note-btn").on('click', function(e) {
 // //     // });
 // //
 // });
-function newNestedForm(numNote, noteId){
+function newNestedForm(numNote, noteId, note){
   newNote = '<input class="form-control duplicatable_nested_form"' +
-  ' type="text" value="" name="player[notes_attributes]['+ numNote +'][note]" id="player_notes_attributes_'+numNote+'_note">' +
+  ' type="text" value="'+note+'" name="player[notes_attributes]['+ numNote +'][note]" id="player_notes_attributes_'+numNote+'_note">' +
   '<input type="hidden" value="'+noteId+'" name="player[notes_attributes]['+numNote+'][id]" id="player_notes_attributes_'+numNote+'_id">'
 
   return newNote;
