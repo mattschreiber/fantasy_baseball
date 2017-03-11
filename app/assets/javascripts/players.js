@@ -72,6 +72,26 @@ $("#add-note-btn").on('click', function(e) {
 
 });
 
+
+function newNestedForm(numNote, noteId, note){
+  newNote = '<br><textarea class="form-control duplicatable_nested_form"' +
+  'name="player[notes_attributes]['+ numNote +'][note]" id="player_notes_attributes_'+numNote+'_note">'+note+'</textarea>' +
+  '<input type="hidden" value="'+noteId+'" name="player[notes_attributes]['+numNote+'][id]" id="player_notes_attributes_'+numNote+'_id">'
+
+  return newNote;
+};
+
+(function(){
+  // a player can have multiple notes, but for now limiting to only one
+  if ($('.duplicatable_nested_form').length > 0) {
+      $("#create-note").hide();
+  }
+
+})();
+
+});
+
+
 // $("#update-submit").on('click', function(){
 // //
 //     var note = $("textarea").val();
@@ -95,20 +115,3 @@ $("#add-note-btn").on('click', function(e) {
 // //     // });
 // //
 // });
-function newNestedForm(numNote, noteId, note){
-  newNote = '<br><textarea class="form-control duplicatable_nested_form"' +
-  'name="player[notes_attributes]['+ numNote +'][note]" id="player_notes_attributes_'+numNote+'_note">'+note+'</textarea>' +
-  '<input type="hidden" value="'+noteId+'" name="player[notes_attributes]['+numNote+'][id]" id="player_notes_attributes_'+numNote+'_id">'
-
-  return newNote;
-};
-
-(function(){
-  // a player can have multiple notes, but for now limiting to only one
-  if ($('.duplicatable_nested_form').length > 0) {
-      $("#create-note").hide();
-  }
-
-})();
-
-});
