@@ -1,7 +1,7 @@
 class Owner < ActiveRecord::Base
 	has_many :team_seasons, dependent: :nullify
 	has_many :players
-	has_many :notes
+	has_many :notes , dependent: :destroy
 
 
 	attr_reader :place_avg, :total_points_avg, :num_titles, :total_avg_avg

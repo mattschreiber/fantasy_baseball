@@ -4,7 +4,7 @@ class Player < ActiveRecord::Base
 	has_many :mlbteam_pitchings, through: :pitchings, source: :mlbteam
 	has_many :battings
 	has_many :pitchings
-	has_many :notes
+	has_many :notes, dependent: :destroy
 	has_one :player_ranking
 	belongs_to :owner
 
