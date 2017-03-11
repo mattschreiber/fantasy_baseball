@@ -40,12 +40,13 @@
   <div class="col-xs-3 notes-container">
     <%= f.fields_for :notes do |note_fields| %>
     <%= note_fields.text_area :note, class: "form-control duplicatable_nested_form" %>
+    <br>
   <% end %>
   </div>
   </div>
 
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal">
+  <button id="create-note" type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#myModal">
     Create Note
   </button>
 
