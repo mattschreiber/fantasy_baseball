@@ -1,6 +1,7 @@
 class StatsController < ApplicationController
 
   def index
+    search_string = params[:q][0].upcase + params[:q].dup[1..-1].downcase unless params[:q].blank?
     if params[:year].nil?
       year = Time.now.year
     else
@@ -14,9 +15,9 @@ class StatsController < ApplicationController
     end
 
   	if params[:pos].nil? || params[:pos] == 'a'
-      @players = Player.search(params[:q], params[:bat_pitch], year, available)
+      @players = Player.search(search_string, params[:bat_pitch], year, available)
     else
-      @players = Position.search(params[:pos], params[:q], year, params[:bat_pitch], available)
+      @players = Position.search(params[:pos], search_string, year, params[:bat_pitch], available)
     end
     if params[:bat_pitch] != "false"
         respond_to do |format|
