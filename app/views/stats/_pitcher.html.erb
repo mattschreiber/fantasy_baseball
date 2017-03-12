@@ -28,8 +28,8 @@
       <td><%= player.player_ranking[:mlb] unless player.player_ranking.blank? %> </td>
       <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
-        <td><%= player.first_name %></td>
-        <td><%= player.last_name %></td>
+        <td class="first-name"><%= player.first_name %></td>
+        <td class="last-name"><%= player.last_name %></td>
         <td><%= age player[:birthday] %></td>
         <td><%= player.positions[0].pos unless player.positions[0].nil? %> </td>
         <td><%= player.pitchings[0].mlbteam.abbr %></td>

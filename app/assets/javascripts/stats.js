@@ -30,8 +30,8 @@ $(document).on('turbolinks:load', function() {
           // console.log(clone);
           // $('#compare-results-table').append(clone);
 
-          var firstName = row.find("td:nth-child(3)");
-          var lastName = row.find("td:nth-child(4)");
+          var firstName = row.find(".first-name");
+          var lastName = row.find(".last-name");
           var name = firstName.text() + " " + lastName.text();
           $("#compare-list ul").append('<li id="'+this.value+'">'+ name +'</li>');
         }
