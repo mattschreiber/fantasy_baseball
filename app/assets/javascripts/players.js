@@ -27,9 +27,10 @@ $("#player_owner_id").on('change', function() {
 	}
 });
 
+
 $("#add-note-btn").on('click', function(e) {
   e.preventDefault();
-
+  console.log(e);
   // ajax post method to create new note with data{player_id and owner_id}
 
   var player_id = $(this).attr("data-ownerid");
@@ -38,33 +39,39 @@ $("#add-note-btn").on('click', function(e) {
 
   // update various html fields based on new number of player notes
   var numNote = $('.duplicatable_nested_form').length;
+  if (numNote < 1) {
+    $.ajax({
+          url: '/notes',
+          type: 'POST',
+          data: {"note":
+            {player_id: player_id, owner_id: owner_id, note: noteModal} },
+          dataType: 'json',
+          success: function(data, textStatus, jqXHR)
+        {
+              // need to set value for newly created note's hidden field
+          var noteId = data.id;
+          var note = data.note;
+              newNote = newNestedForm(numNote, noteId, note);
 
-  $.ajax({
-        url: '/notes',
-        type: 'POST',
-        data: {"note":
-          {player_id: player_id, owner_id: owner_id, note: noteModal} },
-        dataType: 'json',
-        success: function(data, textStatus, jqXHR)
-      {
-            // need to set value for newly created note's hidden field
-        var noteId = data.id;
-        var note = data.note;
-            newNote = newNestedForm(numNote, noteId, note);
+              if (numNote == 0) {
+                $('.notes-container').append(newNote);
+                $("#create-note").hide();
+              }
+              else {
+                lastNestedForm = $('.duplicatable_nested_form').last();
+                $( newNote ).insertAfter( lastNestedForm );
+              }
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
 
-            if (numNote == 0) {
-              $('.notes-container').append(newNote);
-            }
-            else {
-              lastNestedForm = $('.duplicatable_nested_form').last();
-              $( newNote ).insertAfter( lastNestedForm );
-            }
-      },
-      error: function (jqXHR, textStatus, errorThrown)
-      {
+        }
+        });
+  } //end if numNote < 1 
+  else {
+    //do nothing, we only allow one note
+  }
 
-      }
-      });
 
       $('#myModal').on('hidden.bs.modal', function (e) {
         $('#modal-note-textarea').val("");
