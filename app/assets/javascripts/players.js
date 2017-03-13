@@ -28,54 +28,67 @@ $("#player_owner_id").on('change', function() {
 });
 
 
-$("#add-note-btn").on('click', function(e) {
+
+$("#myModal").on('click', '#add-note-btn', function(e) {
   e.preventDefault();
-  console.log(e);
-  // ajax post method to create new note with data{player_id and owner_id}
 
-  var player_id = $(this).attr("data-ownerid");
-  var owner_id = $('#player_owner_id').val();
-  var noteModal = $('#modal-note-textarea').val();
+  var numNote = $('.duplicatable_nested_form').length; // how many notes are displayed
 
-  // update various html fields based on new number of player notes
-  var numNote = $('.duplicatable_nested_form').length;
-  if (numNote < 1) {
-    $.ajax({
-          url: '/notes',
-          type: 'POST',
-          data: {"note":
-            {player_id: player_id, owner_id: owner_id, note: noteModal} },
-          dataType: 'json',
-          success: function(data, textStatus, jqXHR)
-        {
-              // need to set value for newly created note's hidden field
-          var noteId = data.id;
-          var note = data.note;
-              newNote = newNestedForm(numNote, noteId, note);
+  // make sure the modal for entering the note is displayed. This check accounts for when a user hits the enter key
+  if (($("#myModal").data('bs.modal') || {}).isShown) {
 
-              if (numNote == 0) {
-                $('.notes-container').append(newNote);
-                $("#create-note").hide();
-              }
-              else {
-                lastNestedForm = $('.duplicatable_nested_form').last();
-                $( newNote ).insertAfter( lastNestedForm );
-              }
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
+    // console.log(e);
+    // ajax post method to create new note with data{player_id and owner_id}
 
-        }
-        });
-  } //end if numNote < 1 
-  else {
-    //do nothing, we only allow one note
+    var player_id = $(this).attr("data-ownerid");
+    var owner_id = $('#player_owner_id').val();
+    var noteModal = $('#modal-note-textarea').val();
+
+    // for now only allow one note so check to make sure none exist
+    if (numNote < 1) {
+      $.ajax({
+            url: '/notes',
+            type: 'POST',
+            data: {"note":
+              {player_id: player_id, owner_id: owner_id, note: noteModal} },
+            dataType: 'json',
+            success: function(data, textStatus, jqXHR)
+          {
+            // need to set value for newly created note's hidden field
+            var noteId = data.id;
+            var note = data.note;
+            //call newNestedForm function which retuns html for new note to be appended to page
+            newNote = newNestedForm(numNote, noteId, note);
+
+                if (numNote == 0) {
+                  $('.notes-container').append(newNote);
+                  $("#create-note").hide();
+                }
+                else {
+                  lastNestedForm = $('.duplicatable_nested_form').last();
+                  $( newNote ).insertAfter( lastNestedForm );
+                }
+          },
+          error: function (jqXHR, textStatus, errorThrown)
+          {
+
+          }
+          });
+    } //end if numNote < 1
+    else {
+      //do nothing, we only allow one note
+    }
   }
+  else { // if user presses enter
+    if (numNote < 1){
+        $("#myModal").modal();
+      }
 
+  } // end if/else to check if modal is shown
 
-      $('#myModal').on('hidden.bs.modal', function (e) {
-        $('#modal-note-textarea').val("");
-    })
+  $('#myModal').on('hidden.bs.modal', function (e) {
+    $('#modal-note-textarea').val("");
+  });
 
 });
 
