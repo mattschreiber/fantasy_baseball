@@ -1,25 +1,27 @@
-<h3>Watch List </h3>
-<table class="tablesorter tablesorter-blue">
-  <thead>
-      <tr>
-        <th>First</th>
-        <th>Last</th>
-        <th>POS</th>
-        <th>ESPN Rank</th>
-        <th>MLB Rank</th>
-        <th>CBS Rank</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @watchlists.each do |watchlist|%>
+<div class="container-fluid">
+  <h3>Watch List </h3>
+  <table class="tablesorter tablesorter-blue">
+    <thead>
         <tr>
-          <td><%= watchlist.player.first_name %></td>
-          <td><%= watchlist.player.last_name %></td>
-          <td><%= watchlist.player.positions[0][:pos]%></td>
-          <td><%= watchlist.player.player_ranking.espn%></td>
-          <td><%= watchlist.player.player_ranking.mlb%></td>
-          <td><%= watchlist.player.player_ranking.cbs%></td>
+          <th>First</th>
+          <th>Last</th>
+          <th>POS</th>
+          <th>ESPN Rank</th>
+          <th>MLB Rank</th>
+          <th>CBS Rank</th>
         </tr>
-      <% end %>
-    </tbody>
-</table>
+      </thead>
+      <tbody>
+        <% @watchlists.each do |watchlist|%>
+          <tr>
+            <td><%= link_to watchlist.player.first_name, player_path(watchlist.player_id) %></td>
+            <td><%= watchlist.player.last_name %></td>
+            <td><%= watchlist.player.positions[0][:pos]%></td>
+            <td><%= watchlist.player.player_ranking.espn%></td>
+            <td><%= watchlist.player.player_ranking.mlb%></td>
+            <td><%= watchlist.player.player_ranking.cbs%></td>
+          </tr>
+        <% end %>
+      </tbody>
+  </table>
+</div> <!--End continer fluid -->

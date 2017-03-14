@@ -22,7 +22,7 @@
     <tbody>
       <% @batters.each do |batter| %>
         <tr class=<%=cycle("even", "odd")%>>
-          <td><%= batter.player[:first_name]%></td>
+          <td><%= link_to batter.player[:first_name], player_path(batter.player_id)%></td>
           <td><%= batter.player[:last_name]  %></td>
           <td><%= batter.player.positions[0].pos %></td>
           <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> </td>
@@ -79,7 +79,7 @@
     <tbody>
       <% @pitchers.each do |pitcher| %>
         <tr class=<%=cycle("even", "odd")%>>
-          <td><%= pitcher.player[:first_name]%></td>
+          <td><%= link_to pitcher.player[:first_name], player_path(pitcher.player_id)%></td>
           <td><%= pitcher.player[:last_name]  %></td>
           <td><%= pitcher.player.positions[0].pos %></td>
           <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %></td>
