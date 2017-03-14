@@ -15,6 +15,10 @@ class NotesController < ApplicationController
     end
   end
 
+  def watchlist
+    @watchlists = Note.watchlist
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

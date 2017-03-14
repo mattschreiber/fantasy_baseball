@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'owners/:id/teamprojections', to: 'owners#teamprojections', as: 'owners/teamprojections'
 
   post 'notes', to: 'notes#create'
+  get 'watchlist', to: 'notes#watchlist', as: 'notes/watchlist'
 
 
 
