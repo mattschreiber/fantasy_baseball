@@ -46,7 +46,12 @@ caption {
 	padding-right: 15px;
 	z-index: 1;
 }
-
+.compare-watchlist {
+  position:absolute;
+  bottom: -40px;
+	right: 0px;
+	z-index: 1;
+}
 #teaminfo {
 	width: 30%;
 	float: left;
