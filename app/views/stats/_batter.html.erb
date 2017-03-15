@@ -18,18 +18,18 @@
       <th>ADP</th>
       <th>wRC+</th>
       <th>Compare</th>
-      <th>Show</th>
+      <th>Owner</th>
     </tr>
   </thead>
 
   <tbody>
-    <% @players.each_with_index do |player, index| %>
+    <% @players.each_with_index do |player| %>
       <tr>
         <td><%= player.player_ranking[:espn] unless player.player_ranking.blank? %></td>
         <td><%= player.player_ranking[:mlb] unless player.player_ranking.blank? %> </td>
         <td><%= player.player_ranking[:cbs] unless player.player_ranking.blank? %>
         </td>
-        <td class="first-name"><%= player[:first_name] %></td>
+        <td class="first-name"><%= link_to player[:first_name], player_path(player) %></td>
         <td class="last-name"><%= player[:last_name] %></td>
         <td><%= age player[:birthday] %></td>
         <td><%= player.positions[0].pos unless player.positions[0].nil?%></td>
@@ -42,7 +42,7 @@
         <td><%= player.battings[0][:adp]%></td>
         <td><%= player.battings[0][:wrc]%></td>
         <td><%= check_box_tag 'compare', player[:id], checked = false, class: "compare-cb" %></td>
-        <td><%= link_to 'Show', player_path(player) %></td>
+        <td><%= collection_select(:player, :owner_id, Owner.where(active:true), :id, :name, {selected: player.owner_id, include_blank: "Select"})%></td>
       </tr>
     <% end %>
   </tbody>
