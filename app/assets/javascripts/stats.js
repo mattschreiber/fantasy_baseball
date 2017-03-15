@@ -14,7 +14,6 @@ $(document).on('turbolinks:load', function() {
   });
 
   $('#stats').on('click', '.compare-cb', function(event) {
-
     // Your normal onclick code
     // $(".compare-cb").on('change', function(){
       if (this.checked == true) {

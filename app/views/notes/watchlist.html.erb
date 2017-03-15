@@ -1,13 +1,14 @@
 <div class="container-fluid">
 
-  <div id="compare-list" class="col-sm-6">
+  <!-- <div id="compare-list" class="col-sm-6">
     <ul>
     </ul>
   </div>
     <div class="col-sm-6 fixed-height1 text-right">
           <span class="compare-watchlist"><button id="compare-submit" class="btn btn-primary" type="submit">Compare</button></span>
-    </div><!-- wrap in relative position div in order to position compare button on bottom right  -->
+    </div> wrap in relative position div in order to position compare button on bottom right  -->
   <h3>Watch List </h3>
+  <div id = "stats">
   <table class="tablesorter tablesorter-blue">
     <thead>
         <tr>
@@ -22,14 +23,16 @@
       <tbody>
         <% @watchlists.each do |watchlist|%>
           <tr>
-            <td><%= link_to watchlist.player.first_name, player_path(watchlist.player_id) %></td>
-            <td><%= watchlist.player.last_name %></td>
+            <td class="first-name"><%= link_to watchlist.player.first_name, player_path(watchlist.player_id) %></td>
+            <td class="last-name"><%= watchlist.player.last_name %></td>
             <td><%= watchlist.player.positions[0][:pos]%></td>
             <td><%= watchlist.player.player_ranking.espn%></td>
             <td><%= watchlist.player.player_ranking.mlb%></td>
             <td><%= watchlist.player.player_ranking.cbs%></td>
+            <!-- <td><%= check_box_tag 'compare', watchlist.player[:id], checked = false, class: "compare-cb" %></td> -->
           </tr>
         <% end %>
       </tbody>
   </table>
+  </div>
 </div> <!--End continer fluid -->
