@@ -15,6 +15,8 @@
       <th>RBIs</th>
       <th>SB</th>
       <th>BA</th>
+      <th>ADP</th>
+      <th>wRC+</th>
       <th>Compare</th>
       <th>Show</th>
     </tr>
@@ -37,6 +39,8 @@
         <td><%= player.battings[0][:rbi]%></td>
         <td><%= player.battings[0][:sb]%></td>
         <td><%= player.battings[0][:average]%></td>
+        <td><%= player.battings[0][:adp]%></td>
+        <td><%= player.battings[0][:wrc]%></td>
         <td><%= check_box_tag 'compare', player[:id], checked = false, class: "compare-cb" %></td>
         <td><%= link_to 'Show', player_path(player) %></td>
       </tr>

@@ -85,9 +85,9 @@ namespace :csv do
 
 			player_exist = [] #gather list of players who aren't in db
 			bat_year_exist = [] #gather list of players with no batting records in db
-			fg = CSV.read('lib/csv_files/FanGraphsLeaderboard.csv'), {headers: true, header_converters: :symbol})
+			fg = CSV.read('lib/csv_files/FanGraphsLeaderboard.csv', {headers: true, header_converters: :symbol})
 			fg.each do |row|
-				player = Player.where(first_name: row[:name].split[0], last_name: row[:name],split[1]).first
+				player = Player.where(first_name: row[:name].split[0], last_name: row[:name].split[1]).first
 				if !player.nil?
 					bat = Batting.where(player_id: player[:id], year: year).first
 					if !bat.nil?
@@ -106,7 +106,7 @@ namespace :csv do
 						bat_year_exist << "#{player.first_name} #{player.last_name} has no season data"
 					end #end check if player has a batting record for this year
 				else
-					player_exist << "Player doesn't exist #{row[:name].split[0]} #{row[:name],split[1]} "
+					player_exist << "Player doesn't exist #{row[:name].split[0]} #{row[:name].split[1]} "
 				end #check if player exits in db (if!p.nil?)
 		end #end loop through fg (csv table object)
 	end #end fangraphs
