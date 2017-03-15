@@ -77,6 +77,38 @@ namespace :csv do
 		end
 	end
 
+	desc "FanGraphs Stats"
+	task :fangraphs => :environment do
+			year = 2017
+			s_weight = 0.3 #weight to be applied to FanGraphs statistics
+			e_weight = 0.7  #weight for espn stats
 
+			player_exist = [] #gather list of players who aren't in db
+			bat_year_exist = [] #gather list of players with no batting records in db
+			fg = CSV.read('lib/csv_files/FanGraphsLeaderboard.csv'), {headers: true, header_converters: :symbol})
+			fg.each do |row|
+				player = Player.where(first_name: row[:name].split[0], last_name: row[:name],split[1]).first
+				if !player.nil?
+					bat = Batting.where(player_id: player[:id], year: year).first
+					if !bat.nil?
+						steamer = row.to_h.slice(:r, :hr, :rbi, :sb, :avg)
+						steamer_weighted = steamer.values.map{|m| m.to_f * s_weight}
 
-end
+						espn = bat.slice("runs", "hr", "rbi", "sb", "average")
+						espn_weighted = espn.values.map{|m| m.to_f * e_weight}
+
+						total = [espn_weighted, steamer_weighted].transpose.map{|m| m.reduce(:+).to_f}
+
+						bat.update(runs: total[0], hr: total[1], rbi: total[2], sb: total[3], average: total[4],
+							adp: row[:adp], wrc: row[:wrc], games: row[:g], ab: row[:ab], hits: row[:h],
+							double: row[:"2b"], triple: row[:"3b"], bb: row[:bb], so: row[:so])
+					else
+						bat_year_exist << "#{player.first_name} #{player.last_name} has no season data"
+					end #end check if player has a batting record for this year
+				else
+					player_exist << "Player doesn't exist #{row[:name].split[0]} #{row[:name],split[1]} "
+				end #check if player exits in db (if!p.nil?)
+		end #end loop through fg (csv table object)
+	end #end fangraphs
+
+end #end CSV name space
