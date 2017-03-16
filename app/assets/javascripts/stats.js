@@ -81,20 +81,29 @@ $(document).on('turbolinks:load', function() {
 
   $('#stats').on('change', '.change-owner', function(){
 
+    var starter = true;
+    var avail = false;
+    if (this.value < 1){
+      starter = false;
+      avail = true;
+    }
     var playerId = $(this).parent().attr('data-playerid')
     $.ajax({
       url: '/players/'+playerId,
       type: 'PUT',
-      data: {"player":
-      	{owner_id: this.value} },
+      data: {"player": {
+        owner_id: this.value,
+        avail: avail,
+        starter: starter
+        }
+      },
         dataType: 'json',
       success: function(data, textStatus, jqXHR)
     {
-      // $('Owner updated successfully').insertBefore('#compare-submit');
-      $( "<p>Owner updated successfully</p>" ).insertBefore( "#compare-submit" );
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
+        $( "<p>"+textStatus + " " + errorThrown + "</p>" ).insertBefore( "#compare-submit" );
     }
     });
   });
