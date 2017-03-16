@@ -79,6 +79,26 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+  $('#stats').on('change', '.change-owner', function(){
+
+    var playerId = $(this).parent().attr('data-playerid')
+    $.ajax({
+      url: '/players/'+playerId,
+      type: 'PUT',
+      data: {"player":
+      	{owner_id: this.value} },
+        dataType: 'json',
+      success: function(data, textStatus, jqXHR)
+    {
+
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+
+    }
+    });
+  });
+
 
   $(".tablesorter").tablesorter({
    	 widgets: ['zebra'],

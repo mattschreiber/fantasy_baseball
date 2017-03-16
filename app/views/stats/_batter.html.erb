@@ -42,7 +42,7 @@
         <td><%= player.battings[0][:adp]%></td>
         <td><%= player.battings[0][:wrc]%></td>
         <td><%= check_box_tag 'compare', player[:id], checked = false, class: "compare-cb" %></td>
-        <td><%= collection_select(:player, :owner_id, Owner.where(active:true), :id, :name, {selected: player.owner_id, include_blank: "Select"})%></td>
+        <td data-playerid="<%=player.id%>"><%= collection_select(:player, :owner_id, Owner.where(active:true), :id, :name, {selected: player.owner_id, include_blank: "Select"}, class: "change-owner")%></td>
       </tr>
     <% end %>
   </tbody>

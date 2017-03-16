@@ -19,10 +19,10 @@ class PlayersController < ApplicationController
     respond_to do |format|
       if @player.update(player_params)
         format.html { redirect_to edit_player_path(@player), notice: 'Player was successfully updated.' }
-        # format.json { render :show, status: :ok, location: @player }
+        format.json { render json: @player }
       else
         format.html { render :edit }
-        # format.json { render json: @owner.errors, status: :unprocessable_entity }
+        format.json { render json: @player.errors, status: :unprocessable_entity }
       end
     end
   end
