@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
   <div class="col-sm-6">
   <%= form_tag("/stats/index", { class: "form-inline", role: 'form', method: "get", remote: true}) do %>
 
@@ -53,6 +52,7 @@
   </ul>
 </div>
   <div class="col-sm-6 fixed-height text-right">
+        <span id="notice"></span>
         <span class="bottom-right"><button id="compare-submit" class="btn btn-primary" type="submit">Compare</button></span>
   </div><!-- wrap in relative position div in order to position compare button on bottom right  -->
 

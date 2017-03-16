@@ -90,11 +90,11 @@ $(document).on('turbolinks:load', function() {
         dataType: 'json',
       success: function(data, textStatus, jqXHR)
     {
-
+      // $('Owner updated successfully').insertBefore('#compare-submit');
+      $( "<p>Owner updated successfully</p>" ).insertBefore( "#compare-submit" );
     },
     error: function (jqXHR, textStatus, errorThrown)
     {
-
     }
     });
   });
