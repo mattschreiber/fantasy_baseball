@@ -64,7 +64,7 @@ namespace :csv do
 				end
 			else
 				#if the player isn't found print to console so can create new player
-				exist << "Player doesn't exist: #{r[1]} #{r[2]}"
+				exist << "Player doesn't exist: #{r[1]} #{r[2]} #{r[0]}"
 			end
 		end
 		#print list of people who are new are rankings
@@ -77,12 +77,14 @@ namespace :csv do
 		end
 	end
 
+	task :espn => [:download_espn_rank, :espn_rank]
+
 	# desc "FanGraphs Stats"
 	# task :fangraphs => :environment do
 	# 		year = 2017
 	# 		s_weight = 0.3 #weight to be applied to FanGraphs statistics
 	# 		e_weight = 0.7  #weight for espn stats
-	# 
+	#
 	# 		player_exist = [] #gather list of players who aren't in db
 	# 		bat_year_exist = [] #gather list of players with no batting records in db
 	# 		fg = CSV.read('lib/csv_files/FanGraphsLeaderboard.csv', {headers: true, header_converters: :symbol})
