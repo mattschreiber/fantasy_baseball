@@ -190,6 +190,7 @@ def self.rankv2(hash)
 		i = 0
 		bat_arr.each do |a|
 			arr << a.merge(pitch_arr[i])
+			i += 1
 		end
 		#######################################################
 

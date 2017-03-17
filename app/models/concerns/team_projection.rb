@@ -35,7 +35,7 @@ module TeamProjection
 		  	total["era"] = total["era"] / (players.count + starter_weight) unless players.count == 0
 		  	total["whip"] = total["whip"] / (players.count + starter_weight) unless players.count == 0
 			end
-      total["owner_id"] = owner_id
+      # total["owner_id"] = owner_id
 	  	return total.symbolize_keys
   	end
 
