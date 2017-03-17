@@ -137,104 +137,111 @@ class TeamSeason < ActiveRecord::Base
 # hash should be key/value pairs of owner_id and sum for given category
 def self.rankv2(hash)
 	list = []
-	# if cat == "total_era" || cat == "total_whip"
-	# 	hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :asc).pluck(:owner_id, cat).to_h
-	# else
-	# 	hash = TeamSeason.where("year = ? and current_season = ?", year, false).order("#{cat}": :desc).pluck(:owner_id, cat).to_h
-	# end
-
+	points = hash.length #calculates the starting total points (i.e. 10 team league each category has a max of 10 points)
 	hash.values.map {|k| list << k }
-
 	i = 0
-		points = 10
-		# list = [5,5,5,2,1]
+	value = 0
 		p = []
 		while i < list.length
-			if list.rindex(list[i]) - list.index(list[i]) == 0
+			value = list.rindex(list[i]) - list.index(list[i])
+			count = 0
+			if value == 0
 				p[i] = points.to_f
-				points = points - 1.0
-				i = i +1
-			elsif list.rindex(list[i]) - list.index(list[i]) == 1
-				p[i] = points - 0.5
-				p[i+1] = points - 0.5
-				points = points - 2
-				i = i + 2
-			elsif list.rindex(list[i]) - list.index(list[i]) == 2
-				p[i] = points - 1.0
-				p[i+1] = points - 1.0
-				p[i+2] = points - 1.0
-				points = points - 3
-				i = i + 3
-			elsif list.rindex(list[i]) - list.index(list[i]) == 3
-				p[i] = points - 1.5
-				p[i+1] = points - 1.5
-				p[i+2] = points - 1.5
-				p[i+3] = points - 1.5
-				points = points - 4
-				i = i + 4
-			elsif list.rindex(list[i]) - list.index(list[i]) == 4
-				p[i] = points - 2.0
-				p[i+1] = points - 2.0
-				p[i+2] = points - 2.0
-				p[i+4] = points - 2.0
-				points = points - 5
-				i = i + 5
-			elsif list.rindex(list[i]) - list.index(list[i]) == 5
-				p[i] = points - 2.5
-				p[i+1] = points - 2.5
-				p[i+2] = points - 2.5
-				p[i+3] = points - 2.5
-				p[i+4] = points - 2.5
-				p[i+5] = points - 2.5
-				points = points - 6
-				i = i + 6
-			elsif list.rindex(list[i]) - list.index(list[i]) == 6
-				p[i] = points - 3.0
-				p[i+1] = points - 3.0
-				p[i+2] = points - 3.0
-				p[i+3] = points - 3.0
-				p[i+4] = points - 3.0
-				p[i+5] = points - 3.0
-				p[i+6] = points - 3.0
-				points = points - 7
-				i = i + 7
-			elsif list.rindex(list[i]) - list.index(list[i]) == 7
-				p[i] = points - 3.5
-				p[i+1] = points - 3.5
-				p[i+2] = points - 3.5
-				p[i+3] = points - 3.5
-				p[i+4] = points - 3.5
-				p[i+5] = points - 3.5
-				p[i+6] = points - 3.5
-				p[i+7] = points - 3.5
-				points = points - 8
-				i = i + 8
-			elsif list.rindex(list[i]) - list.index(list[i]) == 8
-				p[i] = points - 4.0
-				p[i+1] = points - 4.0
-				p[i+2] = points - 4.0
-				p[i+3] = points - 4.0
-				p[i+4] = points - 4.0
-				p[i+5] = points - 4.0
-				p[i+6] = points - 4.0
-				p[i+7] = points - 4.0
-				p[i+8] = points - 4.0
-				points = points - 9
-				i = i + 9
-			elsif list.rindex(list[i]) - list.index(list[i]) == 9
-				p[i] = points - 4.5
-				p[i+1] = points - 4.5
-				p[i+2] = points - 4.5
-				p[i+3] = points - 4.5
-				p[i+4] = points - 4.5
-				p[i+5] = points - 4.5
-				p[i+6] = points - 4.5
-				p[i+7] = points - 4.5
-				p[i+8] = points - 4.5
-				p[i+9] = points - 4.5
-				points = points - 10
-				i = i + 10
+				points -= 1.0
+				i += 1
+			else
+				while count <= value
+					p[i] = points - (value / 2.to_f)
+					i += 1
+					count += 1
+				end
+				points -= value +  1
 			end
+			# if list.rindex(list[i]) - list.index(list[i]) == 0
+			# 	p[i] = points.to_f
+			# 	points = points - 1.0
+			# 	i = i +1
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 1
+			# 	p[i] = points - 0.5
+			# 	p[i+1] = points - 0.5
+			# 	points = points - 2
+			# 	i = i + 2
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 2
+			# 	p[i] = points - 1.0
+			# 	p[i+1] = points - 1.0
+			# 	p[i+2] = points - 1.0
+			# 	points = points - 3
+			# 	i = i + 3
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 3
+			# 	p[i] = points - 1.5
+			# 	p[i+1] = points - 1.5
+			# 	p[i+2] = points - 1.5
+			# 	p[i+3] = points - 1.5
+			# 	points = points - 4
+			# 	i = i + 4
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 4
+			# 	p[i] = points - 2.0
+			# 	p[i+1] = points - 2.0
+			# 	p[i+2] = points - 2.0
+			# 	p[i+4] = points - 2.0
+			# 	points = points - 5
+			# 	i = i + 5
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 5
+			# 	p[i] = points - 2.5
+			# 	p[i+1] = points - 2.5
+			# 	p[i+2] = points - 2.5
+			# 	p[i+3] = points - 2.5
+			# 	p[i+4] = points - 2.5
+			# 	p[i+5] = points - 2.5
+			# 	points = points - 6
+			# 	i = i + 6
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 6
+			# 	p[i] = points - 3.0
+			# 	p[i+1] = points - 3.0
+			# 	p[i+2] = points - 3.0
+			# 	p[i+3] = points - 3.0
+			# 	p[i+4] = points - 3.0
+			# 	p[i+5] = points - 3.0
+			# 	p[i+6] = points - 3.0
+			# 	points = points - 7
+			# 	i = i + 7
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 7
+			# 	p[i] = points - 3.5
+			# 	p[i+1] = points - 3.5
+			# 	p[i+2] = points - 3.5
+			# 	p[i+3] = points - 3.5
+			# 	p[i+4] = points - 3.5
+			# 	p[i+5] = points - 3.5
+			# 	p[i+6] = points - 3.5
+			# 	p[i+7] = points - 3.5
+			# 	points = points - 8
+			# 	i = i + 8
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 8
+			# 	p[i] = points - 4.0
+			# 	p[i+1] = points - 4.0
+			# 	p[i+2] = points - 4.0
+			# 	p[i+3] = points - 4.0
+			# 	p[i+4] = points - 4.0
+			# 	p[i+5] = points - 4.0
+			# 	p[i+6] = points - 4.0
+			# 	p[i+7] = points - 4.0
+			# 	p[i+8] = points - 4.0
+			# 	points = points - 9
+			# 	i = i + 9
+			# elsif list.rindex(list[i]) - list.index(list[i]) == 9
+			# 	p[i] = points - 4.5
+			# 	p[i+1] = points - 4.5
+			# 	p[i+2] = points - 4.5
+			# 	p[i+3] = points - 4.5
+			# 	p[i+4] = points - 4.5
+			# 	p[i+5] = points - 4.5
+			# 	p[i+6] = points - 4.5
+			# 	p[i+7] = points - 4.5
+			# 	p[i+8] = points - 4.5
+			# 	p[i+9] = points - 4.5
+			# 	points = points - 10
+			# 	i = i + 10
+			# end
 		end
 
 		counter = 0
@@ -248,7 +255,7 @@ def self.rankv2(hash)
 
 # calculates team points total based on player statistics for given year
 	def self.project_team_standings
-
+		points = 10 #number of possible points for each category.  This needs to change if number of teams in league changes
 		bat_hash = {}
 		standings = {}
 
