@@ -26,7 +26,9 @@ class Standing
     standings = []
     bat_hash = {}
     pitch_hash = {}
-    TeamSeason.project_team_standings.sort_by {|k, v| v}.reverse.to_a.each do |a|
+    # project_team_standings returns an array, the position 0 is a hash with team point totals for each category
+    # and position 1 a hash with owner_id and team total points
+    TeamSeason.project_team_standings[1].sort_by {|k, v| v}.reverse.to_a.each do |a|
        bat_hash = Batting.team_totals(year, a[0], true)
        pitch_hash = Pitching.team_totals(year, a[0], false)
 			 standings << self.new(a, bat_hash, pitch_hash)
