@@ -15,6 +15,7 @@
           <th>First</th>
           <th>Last</th>
           <th>POS</th>
+          <th>Age</th>
           <th>ESPN Rank</th>
           <th>MLB Rank</th>
           <th>CBS Rank</th>
@@ -26,6 +27,7 @@
             <td class="first-name"><%= link_to watchlist.player.first_name, player_path(watchlist.player_id) %></td>
             <td class="last-name"><%= watchlist.player.last_name %></td>
             <td><%= watchlist.player.positions[0][:pos]%></td>
+            <td><%= age watchlist.player.birthday%></td>
             <td><%= watchlist.player.player_ranking.espn%></td>
             <td><%= watchlist.player.player_ranking.mlb%></td>
             <td><%= watchlist.player.player_ranking.cbs%></td>
