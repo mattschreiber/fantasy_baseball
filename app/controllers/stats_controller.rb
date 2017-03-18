@@ -1,5 +1,4 @@
 class StatsController < ApplicationController
-
   def index
     search_string = params[:q][0].upcase + params[:q].dup[1..-1].downcase unless params[:q].blank?
     if params[:year].nil?
@@ -40,17 +39,23 @@ class StatsController < ApplicationController
     if params[:batter] == "true"
       respond_to do |format|
         format.js {render :batter}
-      end
+      end #end respond_to
     else
       respond_to do |format|
         format.js {render :pitcher}
-      end
-    end
-  end
+      end #end respond_to
+    end # end check if params[:batter] is true
+  end #end compare
+
+  # this method accepts categories from either Batting or Pitching and a weight to be applied to the results
+  # the result is a numerical total that shows the best available player for a given combination of categories
+  # 2-dimensional array [category, weight]
+  def player_select
+    # :run, :hr, :rbi, :sb, :average, :win, :so, :era, :whip, :sv
+    byebug
+  end #end player_select
 
   private
-
-
 
   # def set_player
   #     @players = Player.all

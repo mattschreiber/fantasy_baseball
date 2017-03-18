@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'seasons/import', to: 'seasons#import'
   get 'stats/index'
   get 'stats/compare', to: 'stats#compare'
+  get 'stats/player_select', to: 'stats#player_select', as: 'stats/playerselect'
   get 'owners/:id/teamprojections', to: 'owners#teamprojections', as: 'owners/teamprojections'
 
   post 'notes', to: 'notes#create'
