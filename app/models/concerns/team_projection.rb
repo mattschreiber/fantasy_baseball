@@ -42,5 +42,31 @@ module TeamProjection
     def team_player_stats (year, owner_id, batter)
     	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
     end
+
+    def category_compare(params)
+      player_totals = Hash.new(0)
+      player_array = []
+      year = params[:year] || Time.now.year
+      # check params hash for any params that include category as key
+      categories = []
+      params.each do |k,v|
+        if /^category(.*)/.match(k)
+          categories << v
+        end
+      end #end search for categories in params hash
+      categories.each do |category|
+        temp_hash = {}
+        player_hash = {}
+        if category == 'era' || category == 'whip'
+          temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :asc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.to_h
+          player_hash = TeamSeason.rankv2(temp_hash)
+        else
+          temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :desc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.reverse.to_h
+          player_hash = TeamSeason.rankv2(temp_hash)
+        end #sort hash for ranking descending unless era or whip since lower is better for these 2 categories
+        player_totals.merge!(player_hash){|k, oldval, newval| oldval + newval}
+      end #end categories loop
+      return player_totals
+    end #end category_compare method
   end # end of ClassMethods
 end # end of module TeamProjection
