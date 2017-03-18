@@ -2,6 +2,7 @@ $(document).on('turbolinks:load', function() {
 
    var playerArray = [];
    var isBatter;
+   var counter = 1; // use this to dynamically create select tag with unique id
 
   $('#bat_pitch_true').on('click', function(){
     resetSearchForm();
@@ -108,6 +109,43 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+  //this changes the categories to be chosen from based on if it's a batter or a hitter
+  //we also remove and then re-add a div to insert additonal categories
+  // finally reset the counter to 1 (which is used to give each select tag a unique name and id)
+  $("#is_batter").on('change', function(){
+    if (this.value == 'true') {
+      $("#new-category").remove();
+      $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
+      $("#category-pitcher").hide();
+      $("#category-batter").show();
+      counter = 1;
+    }
+    else {
+      $("#new-category").remove();
+      $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
+      $("#category-batter").hide();
+      $("#category-pitcher").show();
+      counter = 1;
+    }
+
+  });
+
+  $("#add-category").on('click', function() {
+    if ($("#is_batter").val() == 'true'){
+      addCategoryBatter(counter);
+    }
+    else {
+      addCategoryPitcher(counter);
+    }
+    counter = counter + 1;
+  });
+
+  $("#remove-category").on('click', function(){
+    $("#new-category").remove();
+    $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
+    counter = 1;
+  });
+
 
   $(".tablesorter").tablesorter({
    	 widgets: ['zebra'],
@@ -115,7 +153,13 @@ $(document).on('turbolinks:load', function() {
      sortRestart : true,
      sortInitialOrder: 'desc',
    });
-});
+$("#category-pitcher").hide();
+
+
+
+}); // end document.ready
+
+
 
 function resetSearchForm() {
   playerArray = [];
@@ -132,6 +176,36 @@ function getSearchIndex(isBatter) {
    bat_pitch: isBatter
   },
    });
+};
+
+function addCategoryBatter(counter){
+
+  var batterSelect = "<div class='form-spacing'>"+
+  "<label for="+'category'+counter+">Select Category: </label> "+
+  "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
+  "<option value='run'>RUNS</option>" +
+  "<option value='hr'>HR</option>" +
+  "<option value='rbi'>RBI</option>" +
+  "<option value='sb'>SB</option>"+
+  "<option value='average'>AVG</option>"+
+  "</select></div>"
+
+  $("#new-category").append(batterSelect);
+};
+
+function addCategoryPitcher(counter){
+
+  var pitcherSelect = "<div class='form-spacing'>"+
+  "<label for="+'category'+counter+">Select Category: </label> "+
+  "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
+  "<option value='win'>WIN</option>" +
+  "<option value='so'>SO</option>" +
+  "<option value='era'>ERA</option>" +
+  "<option value='whip'>WHIP</option>"+
+  "<option value='sv'>SV</option>"+
+  "</select></div>"
+
+  $("#new-category").append(pitcherSelect);
 };
 
 function buildTable(){

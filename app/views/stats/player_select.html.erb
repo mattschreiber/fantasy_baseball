@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="col-sm-6">
+  <%= form_tag("/stats/player_select", { class: "form-inline", role: 'form', method: "get", remote: true}) do %>
+
+    <div class="form-spacing">
+      <%= label_tag(:is_batter, "Select Player Type:") %>
+      <%= select_tag(:is_batter, options_for_select([['Batter', true], ['Pitcher', false]]), class: "form-control") %>
+    </div>
+    <div id="category-batter" class="form-spacing">
+      <%= label_tag(:category, "Select Category:") %>
+      <%= select_tag(:category, options_for_select([['RUNS', 'run'], ['HR', 'hr'], ['RBI', 'rbi'], ['SB', 'sb'], ['AVG',  'average']]), class: "form-control") %>
+  	</div>
+    <div id="category-pitcher" class="form-spacing">
+      <%= label_tag(:category, "Select Category:") %>
+      <%= select_tag(:category, options_for_select([['WIN', 'win'], ['SO', 'so'], ['ERA', 'era'], ['WHIP', 'whip'], ['SV', 'sv']]), class: "form-control") %>
+  	</div>
+    <div id="new-category">
+
+    </div>
+    <div>
+      <span><button id="add-category" class="btn btn-default" type="button">Add Category</button>
+      <button id="remove-category" class="btn btn-default" type="button">Remove Categories</button></span>
+    </div>
+    <div class="form-spacing">
+  	</div>
+    <%= submit_tag "Search", name: nil, id: "search-submit", class: "btn btn-primary form-control"%>
+  <% end %>
+</div><!-- search form column  -->
