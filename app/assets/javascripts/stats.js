@@ -116,15 +116,13 @@ $(document).on('turbolinks:load', function() {
     if (this.value == 'true') {
       $("#new-category").remove();
       $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
-      $("#category-pitcher").hide();
-      $("#category-batter").show();
+      addCategoryBatter(0);
       counter = 1;
     }
     else {
       $("#new-category").remove();
       $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
-      $("#category-batter").hide();
-      $("#category-pitcher").show();
+      addCategoryPitcher(0);
       counter = 1;
     }
 
@@ -153,9 +151,6 @@ $(document).on('turbolinks:load', function() {
      sortRestart : true,
      sortInitialOrder: 'desc',
    });
-$("#category-pitcher").hide();
-
-
 
 }); // end document.ready
 
