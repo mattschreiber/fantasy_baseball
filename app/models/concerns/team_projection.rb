@@ -62,17 +62,19 @@ module TeamProjection
           end
         end
       end #end search for categories in params hash
+      i = 0 # iterator to apply appropriate weight to each category
       categories.each do |category|
-        temp_hash = {}
-        player_hash = {}
-        if category == 'era' || category == 'whip'
-          temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :asc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.to_h
+          temp_hash = {}
+          player_hash = {}
+          if category == 'era' || category == 'whip'
+            temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :asc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.to_h
+          else
+            temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :desc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.reverse.to_h
+          end #sort hash for ranking descending unless era or whip since lower is better for these 2 categories
           player_hash = TeamSeason.rankv2(temp_hash)
-        else
-          temp_hash = self.joins(:player).where('year = ? AND players.avail = ?', year, true).order("#{category}": :desc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.reverse.to_h
-          player_hash = TeamSeason.rankv2(temp_hash)
-        end #sort hash for ranking descending unless era or whip since lower is better for these 2 categories
-        player_totals.merge!(player_hash){|k, oldval, newval| oldval + newval}
+          player_hash.each {|k,v| player_hash[k] = v * weights[i]}
+          player_totals.merge!(player_hash){|k, oldval, newval| oldval + newval}
+          i += 1
       end #end categories loop
       return player_totals
     end #end category_compare method
