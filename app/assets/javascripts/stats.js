@@ -110,7 +110,7 @@ $(document).on('turbolinks:load', function() {
   });
 
 // functions for player_select view
-(function(){
+// (function(){
 
   var counter = 1; // use this to dynamically create select tag with unique id
   //this changes the categories to be chosen from based on if it's a batter or a hitter
@@ -148,7 +148,7 @@ $(document).on('turbolinks:load', function() {
     counter = 1;
   });
   // validate weights equal 1 before submitting page
-  $("#search-submit").on('click', function(){
+  $("#player-select-submit-submit").on('click', function(){
     let iterable = document.getElementsByClassName("weight-control");
     let total = 0;
     for (let val of iterable) {
@@ -199,7 +199,7 @@ $(document).on('turbolinks:load', function() {
 
   var hideAlert = $(".alert-danger").hide(); //hide the alert div on page load. Only will be displayed if there's an error on submit
   hideAlert.hide();
-})(); //end player_select view iife
+// })(); //end player_select view iife
 $(".tablesorter").tablesorter({
    widgets: ['zebra'],
    sortList: [[1,0]],
