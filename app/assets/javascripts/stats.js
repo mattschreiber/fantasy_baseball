@@ -184,7 +184,7 @@ function addCategoryBatter(counter){
   "<option value='sb'>SB</option>"+
   "<option value='average'>AVG</option>"+
   "</select> "+
-  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+"></div>"
+  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
   $("#new-category").append(batterSelect);
 };
 
@@ -199,7 +199,7 @@ function addCategoryPitcher(counter){
   "<option value='whip'>WHIP</option>"+
   "<option value='sv'>SV</option>"+
   "</select> "+
-  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+"></div>"
+  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
   $("#new-category").append(pitcherSelect);
 };
 
