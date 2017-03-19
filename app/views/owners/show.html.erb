@@ -30,8 +30,7 @@
         <%= @owner.num_titles %>
       </p>
       <%= link_to 'Edit', edit_owner_path(@owner) %> |
-      <%= link_to 'Back', owners_path %> |
-      <%= link_to 'Team Projections', owners_teamprojections_path %>
+      <%= link_to 'Back', owners_path %>
 
     </div>
     <div id= "ownerrecord">
@@ -76,13 +75,9 @@
         </tbody>
       </table>
       </div>
-    
+
     <br>
     <div id="ownerplayer">
-      <%= render 'ownerplayers' %>
+      <%= render 'teamprojections' %>
     </div>
 </div>
-
-
-
-

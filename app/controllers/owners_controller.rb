@@ -23,8 +23,19 @@ class OwnersController < ApplicationController
   def show
     # used to display season history by owner
     @season = @owner.team_seasons.where(current_season: false)
-    @batters = Player.includes(:battings).where("owner_id = ? AND battings.year = ?", params[:id], 2017).references(:battings)
-    @pitchers = Player.includes(:pitchings).where("owner_id = ? AND pitchings.year = ?", params[:id], 2017).references(:pitchings)
+    year = Time.now.year
+    cat_points = 8
+    start_year = 2012
+    end_year = Time.now.year
+    @batters = Batting.team_player_stats(year, params[:id], true)
+    @batter_totals = Batting.team_totals(year, params[:id], true)
+
+    @pitchers = Pitching.team_player_stats(year, params[:id], false)
+    @pitcher_totals = Pitching.team_totals(year, params[:id], false)
+
+    @category_average = CategoryAverage.calc_by_place(cat_points, start_year, end_year)
+    # @batters = Player.includes(:battings).where("owner_id = ? AND battings.year = ?", params[:id], 2017).references(:battings)
+    # @pitchers = Player.includes(:pitchings).where("owner_id = ? AND pitchings.year = ?", params[:id], 2017).references(:pitchings)
 
   end
 
@@ -75,20 +86,6 @@ class OwnersController < ApplicationController
       format.html { redirect_to owners_url, notice: 'Owner was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def teamprojections
-    year = Time.now.year
-    cat_points = 8
-    start_year = 2012
-    end_year = Time.now.year
-    @batters = Batting.team_player_stats(year, params[:id], true)
-    @batter_totals = Batting.team_totals(year, params[:id], true)
-
-    @pitchers = Pitching.team_player_stats(year, params[:id], false)
-    @pitcher_totals = Pitching.team_totals(year, params[:id], false)
-
-    @category_average = CategoryAverage.calc_by_place(cat_points, start_year, end_year)
   end
 
   private
