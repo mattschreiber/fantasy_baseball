@@ -49,9 +49,17 @@ module TeamProjection
       year = params[:year] || Time.now.year
       # check params hash for any params that include category as key
       categories = []
+      weights = []
       params.each do |k,v|
         if /^category(.*)/.match(k)
           categories << v
+        end
+        if /^num(.*)/.match(k)
+          if !v.blank?
+            weights << v
+          else
+            weights << 1 #set weight to 1 if no weight found in params
+          end
         end
       end #end search for categories in params hash
       categories.each do |category|
