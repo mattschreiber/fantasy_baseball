@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function() {
 
    var playerArray = [];
    var isBatter;
-   var counter = 1; // use this to dynamically create select tag with unique id
+
 
   $('#bat_pitch_true').on('click', function(){
     resetSearchForm();
@@ -109,6 +109,9 @@ $(document).on('turbolinks:load', function() {
     });
   });
 
+// functions for player_select view
+(function(){
+  var counter = 1; // use this to dynamically create select tag with unique id
   //this changes the categories to be chosen from based on if it's a batter or a hitter
   //we also remove and then re-add a div to insert additonal categories
   // finally reset the counter to 1 (which is used to give each select tag a unique name and id)
@@ -144,16 +147,43 @@ $(document).on('turbolinks:load', function() {
     counter = 1;
   });
 
+  function addCategoryBatter(counter){
 
-  $(".tablesorter").tablesorter({
-   	 widgets: ['zebra'],
-   	 sortList: [[1,0]],
-     sortRestart : true,
-     sortInitialOrder: 'desc',
-   });
+    var batterSelect = "<div class='form-spacing'>"+
+    "<label for="+'category'+counter+">Select Category: </label> "+
+    "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
+    "<option value='run'>RUNS</option>" +
+    "<option value='hr'>HR</option>" +
+    "<option value='rbi'>RBI</option>" +
+    "<option value='sb'>SB</option>"+
+    "<option value='average'>AVG</option>"+
+    "</select> "+
+    "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
+    $("#new-category").append(batterSelect);
+  };
 
+  function addCategoryPitcher(counter){
+
+    var pitcherSelect = "<div class='form-spacing'>"+
+    "<label for="+'category'+counter+">Select Category: </label> "+
+    "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
+    "<option value='win'>WIN</option>" +
+    "<option value='so'>SO</option>" +
+    "<option value='era'>ERA</option>" +
+    "<option value='whip'>WHIP</option>"+
+    "<option value='sv'>SV</option>"+
+    "</select> "+
+    "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
+    $("#new-category").append(pitcherSelect);
+  };
+})(); //end player_select view iife
+$(".tablesorter").tablesorter({
+   widgets: ['zebra'],
+   sortList: [[1,0]],
+   sortRestart : true,
+   sortInitialOrder: 'desc',
+ });
 }); // end document.ready
-
 
 
 function resetSearchForm() {
@@ -171,36 +201,6 @@ function getSearchIndex(isBatter) {
    bat_pitch: isBatter
   },
    });
-};
-
-function addCategoryBatter(counter){
-
-  var batterSelect = "<div class='form-spacing'>"+
-  "<label for="+'category'+counter+">Select Category: </label> "+
-  "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
-  "<option value='run'>RUNS</option>" +
-  "<option value='hr'>HR</option>" +
-  "<option value='rbi'>RBI</option>" +
-  "<option value='sb'>SB</option>"+
-  "<option value='average'>AVG</option>"+
-  "</select> "+
-  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
-  $("#new-category").append(batterSelect);
-};
-
-function addCategoryPitcher(counter){
-
-  var pitcherSelect = "<div class='form-spacing'>"+
-  "<label for="+'category'+counter+">Select Category: </label> "+
-  "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
-  "<option value='win'>WIN</option>" +
-  "<option value='so'>SO</option>" +
-  "<option value='era'>ERA</option>" +
-  "<option value='whip'>WHIP</option>"+
-  "<option value='sv'>SV</option>"+
-  "</select> "+
-  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
-  $("#new-category").append(pitcherSelect);
 };
 
 function buildTable(){
