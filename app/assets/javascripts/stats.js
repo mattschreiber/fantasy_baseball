@@ -111,6 +111,7 @@ $(document).on('turbolinks:load', function() {
 
 // functions for player_select view
 (function(){
+
   var counter = 1; // use this to dynamically create select tag with unique id
   //this changes the categories to be chosen from based on if it's a batter or a hitter
   //we also remove and then re-add a div to insert additonal categories
@@ -146,9 +147,24 @@ $(document).on('turbolinks:load', function() {
     $( "<div id='new-category'></div>" ).insertBefore( "#add-category" );
     counter = 1;
   });
+  // validate weights equal 1 before submitting page
+  $("#search-submit").on('click', function(){
+    let iterable = document.getElementsByClassName("weight-control");
+    let total = 0;
+    for (let val of iterable) {
+      total += parseFloat(val.value);
+    }
+    //apply equal weights if total equals 2
+    if (total == 1 || total == 2) {
+      $(".alert-danger").hide();
+    }
+    else {
+      $(".alert-danger").show();
+      return false;
+    }
+  });
 
   function addCategoryBatter(counter){
-
     var batterSelect = "<div class='form-spacing'>"+
     "<label for="+'category'+counter+">Select Category: </label> "+
     "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
@@ -157,13 +173,12 @@ $(document).on('turbolinks:load', function() {
     "<option value='rbi'>RBI</option>" +
     "<option value='sb'>SB</option>"+
     "<option value='average'>AVG</option>"+
-    "</select> "+
-    "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
+    "</select> "+ appendWeightInput(counter) +
+    "</div>"
     $("#new-category").append(batterSelect);
   };
 
   function addCategoryPitcher(counter){
-
     var pitcherSelect = "<div class='form-spacing'>"+
     "<label for="+'category'+counter+">Select Category: </label> "+
     "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
@@ -172,10 +187,18 @@ $(document).on('turbolinks:load', function() {
     "<option value='era'>ERA</option>" +
     "<option value='whip'>WHIP</option>"+
     "<option value='sv'>SV</option>"+
-    "</select> "+
-    "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'></div>"
+    "</select> "+ appendWeightInput(counter) +
+    "</div>"
     $("#new-category").append(pitcherSelect);
   };
+
+  function appendWeightInput(counter) {
+    return "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control weight-control' name="+'num'+counter+" data-toggle='tooltip' title='Select Weight - default 1'><strong> Weight </strong>(sum must equal 1)"
+  };
+
+
+  var hideAlert = $(".alert-danger").hide(); //hide the alert div on page load. Only will be displayed if there's an error on submit
+  hideAlert.hide();
 })(); //end player_select view iife
 $(".tablesorter").tablesorter({
    widgets: ['zebra'],
@@ -225,13 +248,3 @@ function buildTable(){
   "<tbody></tbody>"+
   "</table>");
 };
-
-
-//  $('#compare-list ul').empty(); remove all items from list
-
- function render_partial() {
-  	$.ajax({
-			type: 'GET',
-			url : "partial",
-			 });
-	};
