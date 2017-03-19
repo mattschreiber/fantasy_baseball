@@ -52,7 +52,7 @@ class StatsController < ApplicationController
   # 2-dimensional array [category, weight]
   def player_select
     # :run, :hr, :rbi, :sb, :average, :win, :so, :era, :whip, :sv
-    byebug
+    # byebug
   end #end player_select
 
   private

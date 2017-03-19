@@ -183,8 +183,8 @@ function addCategoryBatter(counter){
   "<option value='rbi'>RBI</option>" +
   "<option value='sb'>SB</option>"+
   "<option value='average'>AVG</option>"+
-  "</select></div>"
-
+  "</select> "+
+  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+"></div>"
   $("#new-category").append(batterSelect);
 };
 
@@ -198,8 +198,8 @@ function addCategoryPitcher(counter){
   "<option value='era'>ERA</option>" +
   "<option value='whip'>WHIP</option>"+
   "<option value='sv'>SV</option>"+
-  "</select></div>"
-
+  "</select> "+
+  "<input type='number' min='0' max='1' step='0.1' value='1' class='form-control' name="+'num'+counter+"></div>"
   $("#new-category").append(pitcherSelect);
 };
 
