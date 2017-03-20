@@ -40,7 +40,7 @@ module TeamProjection
   	end
 
     def team_player_stats (year, owner_id, batter)
-    	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
+    	joins(player: [:owner,:positions]).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
     end
 
     # returns hash with player_id and total points based on rankings in each categories
