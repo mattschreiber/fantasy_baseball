@@ -20,3 +20,10 @@ arr.each do |a|
 end
 
 return bat_hash
+
+
+def stand_deviation(array)
+  # mean = (sd.reduce(:+)/sd.count) more efficient to caluculate mean once
+  Math.sqrt(sd.map{|m| (m-(sd.reduce(:+)/sd.count))**2}.reduce(:+)/(sd.count.to_f-1)) #sample sd
+  Math.sqrt(sd.map{|m| (m-(sd.reduce(:+)/sd.count))**2}.reduce(:+)/(sd.count.to_f)) #population sd
+end

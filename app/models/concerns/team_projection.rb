@@ -43,6 +43,7 @@ module TeamProjection
     	joins(player: :owner, player: :positions).where("year = ? AND players.owner_id = ?", year, owner_id).order('positions.sort')
     end
 
+    # returns hash with player_id and total points based on rankings in each categories
     def category_compare(params)
       player_totals = Hash.new(0)
       player_array = []
