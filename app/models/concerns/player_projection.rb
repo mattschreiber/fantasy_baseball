@@ -7,7 +7,7 @@ module PlayerProjection
       player_totals = Hash.new(0)
       player_array = []
       year = params[:year] || Time.now.year
-      # check params hash for any params that include category as key
+      # check params hash for any params that include category as key and any weights with num as the key
       categories = []
       weights = []
       params.each do |k,v|

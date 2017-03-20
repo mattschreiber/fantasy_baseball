@@ -62,7 +62,7 @@ class Player < ActiveRecord::Base
 		else
 			hash = Pitching.category_compare(params)
 			players_rank = hash.first(10).to_h # limit results to top 10 highest combined rank points
-				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
+				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND pitchings.innings > 50 AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, pitchings.wins, pitchings.so, pitchings.era, pitchings.whip, pitchings.sv')
 			keys = pitching_keys
 		end #if/else is_batter
