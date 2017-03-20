@@ -113,38 +113,38 @@ namespace :csv do
 	# 	end #end loop through fg (csv table object)
 	# end #end fangraphs
 
-	desc "FanGraphs Pitcher Stats"
-	task :fangraphs_pitcher => :environment do
-			year = 2017
-			s_weight = 0.3 #weight to be applied to FanGraphs statistics
-			e_weight = 0.7  #weight for espn stats
-
-			player_exist = [] #gather list of players who aren't in db
-			pitch_year_exist = [] #gather list of players with no batting records in db
-			fg = CSV.read('lib/csv_files/FanGraphsLeaderboardpitch.csv', {headers: true, header_converters: :symbol})
-			fg.each do |row|
-				player = Player.where(first_name: row[:name].split[0], last_name: row[:name].split[1]).first
-				if !player.nil?
-					pitch = Pitching.where(player_id: player[:id], year: year).first
-					if !pitch.nil?
-						steamer = row.to_h.slice(:w, :era, :so, :whip)
-						steamer_weighted = steamer.values.map{|m| m.to_f * s_weight}
-
-						espn = pitch.slice("wins", "era", "so", "whip")
-						espn_weighted = espn.values.map{|m| m.to_f * e_weight}
-
-						total = [espn_weighted, steamer_weighted].transpose.map{|m| m.reduce(:+).to_f}
-
-						pitch.update(wins: total[0], era: total[1], so: total[2], whip: total[3],
-							games: row[:g], gs: row[:gs], innings: row[:ip], er: row[:er], bb: row[:bb],
-							hits: row[:h], adp: row[:adp], fip: row[:fip])
-					else
-						pitch_year_exist << "#{player.first_name} #{player.last_name} has no season data"
-					end #end check if player has a batting record for this year
-				else
-					player_exist << "Player doesn't exist #{row[:name].split[0]} #{row[:name].split[1]} "
-				end #check if player exits in db (if!p.nil?)
-		end #end loop through fg (csv table object)
-	end #end fangraphs pitcher
+	# desc "FanGraphs Pitcher Stats"
+	# task :fangraphs_pitcher => :environment do
+	# 		year = 2017
+	# 		s_weight = 0.3 #weight to be applied to FanGraphs statistics
+	# 		e_weight = 0.7  #weight for espn stats
+	#
+	# 		player_exist = [] #gather list of players who aren't in db
+	# 		pitch_year_exist = [] #gather list of players with no batting records in db
+	# 		fg = CSV.read('lib/csv_files/FanGraphsLeaderboardpitch.csv', {headers: true, header_converters: :symbol})
+	# 		fg.each do |row|
+	# 			player = Player.where(first_name: row[:name].split[0], last_name: row[:name].split[1]).first
+	# 			if !player.nil?
+	# 				pitch = Pitching.where(player_id: player[:id], year: year).first
+	# 				if !pitch.nil?
+	# 					steamer = row.to_h.slice(:w, :era, :so, :whip)
+	# 					steamer_weighted = steamer.values.map{|m| m.to_f * s_weight}
+	#
+	# 					espn = pitch.slice("wins", "era", "so", "whip")
+	# 					espn_weighted = espn.values.map{|m| m.to_f * e_weight}
+	#
+	# 					total = [espn_weighted, steamer_weighted].transpose.map{|m| m.reduce(:+).to_f}
+	#
+	# 					pitch.update(wins: total[0], era: total[1], so: total[2], whip: total[3],
+	# 						games: row[:g], gs: row[:gs], innings: row[:ip], er: row[:er], bb: row[:bb],
+	# 						hits: row[:h], adp: row[:adp], fip: row[:fip])
+	# 				else
+	# 					pitch_year_exist << "#{player.first_name} #{player.last_name} has no season data"
+	# 				end #end check if player has a batting record for this year
+	# 			else
+	# 				player_exist << "Player doesn't exist #{row[:name].split[0]} #{row[:name].split[1]} "
+	# 			end #check if player exits in db (if!p.nil?)
+	# 	end #end loop through fg (csv table object)
+	# end #end fangraphs pitcher
 
 end #end CSV name space
