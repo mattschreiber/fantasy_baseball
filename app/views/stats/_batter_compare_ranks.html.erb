@@ -1,0 +1,37 @@
+<h1>Batters</h1>
+<table id="myTable" class="tablesorter tablesorter-blue">
+  <thead>
+    <tr>
+      <th>Ranking</th>
+      <th>First</th>
+      <th>Last</th>
+      <th>Age</th>
+      <th>Pos</th>
+      <th>Team</th>
+      <th>Runs</th>
+      <th>Home Runs</th>
+      <th>RBIs</th>
+      <th>SB</th>
+      <th>BA</th>
+      <th>wRC+</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr <tr class=<%=cycle("even", "odd")%>>
+        <td><%= round_4 player[:rank_points] %></td>
+        <td class="first-name"><%= player[:first_name]%></td>
+        <td class="last-name"><%= player[:last_name] %></td>
+        <td><%= age player[:birthday] %></td>
+        <td><%= player[:pos] %></td>
+        <td><%= player[:mlbteam] %></td>
+        <td><%= player[:runs] %></td>
+        <td><%= player[:hr] %></td>
+        <td><%= player[:rbi]%></td>
+        <td><%= player[:sb]%></td>
+        <td><%= player[:average]%></td>
+        <td><%= player[:wrc]%></td>
+    <% end %>
+  </tbody>
+</table>

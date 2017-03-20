@@ -49,20 +49,22 @@ class Player < ActiveRecord::Base
 		end
 	end #end compare_players
 
-	def self.player_rank(params)
-		# limit results to top 10 highest combined rank points
+	def player_rank(params)
 		year = params[:year] || Time.now.year
 		hash = {}
+		keys = [] # this is a set of keys to pass along with the result array to the convert_to_hash method
 		if params[:is_batter] == 'true'
 			hash = Batting.category_compare(params)
-			players_rank = hash.first(10).to_h
+			players_rank = hash.first(10).to_h # limit results to top 10 highest combined rank points
 			players = Player.joins(:player_ranking, :positions, battings: :mlbteam).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, battings.runs, battings.hr, battings.rbi, battings.sb, battings.average, battings.wrc')
+			keys = batting_keys
 		else
 			hash = Pitching.category_compare(params)
-			players_rank = hash.first(10).to_h
-			players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
+			players_rank = hash.first(10).to_h # limit results to top 10 highest combined rank points
+				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, pitchings.wins, pitchings.so, pitchings.era, pitchings.whip, pitchings.sv')
+			keys = pitching_keys
 		end #if/else is_batter
 		result = []
 		players_rank = players_rank.sort_by{|k, v| k}.to_h
@@ -72,10 +74,10 @@ class Player < ActiveRecord::Base
 			result << player #player with rank to new result
 			i += 1
 		end
-		p = Player.new
 		# convert result array into hash before and then return sorted hash by most ranking points
-		p.convert_to_hash(result)
-		return p.sort_by {|k, v| k[:rank_points]}.reverse
+		# p = Player.new
+		return convert_to_hash(result, keys).sort_by {|k, v| k[:rank_points]}.reverse
+		# return p.sort_by {|k, v| k[:rank_points]}.reverse
 	end #end calc_player_rank
 
 	def name
@@ -91,9 +93,9 @@ class Player < ActiveRecord::Base
 		end
 	end
 
-	def convert_to_hash(arrays)
+	def convert_to_hash(arrays, keys)
 		result = []
-		keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :runs, :hr, :rbi, :sb, :average, :wrc, :rank_points
+		# keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :runs, :hr, :rbi, :sb, :average, :wrc, :rank_points
 		arrays.each do |array|
 			hash = {}
 			array.each.with_index do |a, i|
@@ -103,6 +105,14 @@ class Player < ActiveRecord::Base
 		end #end outer array loop
 		return result
 	end # end convert_to_hash
+
+	def batting_keys
+		return keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :runs, :hr, :rbi, :sb, :average, :wrc, :rank_points
+	end
+
+	def pitching_keys
+		return keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :wins, :so, :era, :whip, :sv, :rank_points
+	end
 end
 #params = {category: 'hr', num: 1, is_batter: 'true'}
 #players = Player.player_rank(params)

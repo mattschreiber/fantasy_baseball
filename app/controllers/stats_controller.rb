@@ -51,8 +51,19 @@ class StatsController < ApplicationController
   # the result is a numerical total that shows the best available player for a given combination of categories
   # 2-dimensional array [category, weight]
   def player_select
-    # :run, :hr, :rbi, :sb, :average, :win, :so, :era, :whip, :sv
-    # byebug
+    p = Player.new
+    @players = p.player_rank(params)
+    if params[:is_batter] == "true"
+      respond_to do |format|
+        format.js {render :batter_compare_ranks}
+        format.html {render :player_select}
+      end
+    else
+      respond_to do |format|
+        format.js {render :pitcher_compare_ranks}
+        format.html {render :player_select}
+      end
+    end
   end #end player_select
 
   private

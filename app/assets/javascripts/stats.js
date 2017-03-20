@@ -148,7 +148,7 @@ $(document).on('turbolinks:load', function() {
     counter = 1;
   });
   // validate weights equal 1 before submitting page
-  $("#player-select-submit-submit").on('click', function(){
+  $("#player-select-submit").on('click', function(){
     let iterable = document.getElementsByClassName("weight-control");
     let total = 0;
     for (let val of iterable) {
@@ -168,7 +168,7 @@ $(document).on('turbolinks:load', function() {
     var batterSelect = "<div class='form-spacing'>"+
     "<label for="+'category'+counter+">Select Category: </label> "+
     "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
-    "<option value='run'>RUNS</option>" +
+    "<option value='runs'>RUNS</option>" +
     "<option value='hr'>HR</option>" +
     "<option value='rbi'>RBI</option>" +
     "<option value='sb'>SB</option>"+
@@ -182,7 +182,7 @@ $(document).on('turbolinks:load', function() {
     var pitcherSelect = "<div class='form-spacing'>"+
     "<label for="+'category'+counter+">Select Category: </label> "+
     "<select name="+'category'+counter+" id="+'category'+counter+ " class='form-control'>" +
-    "<option value='win'>WIN</option>" +
+    "<option value='wins'>WIN</option>" +
     "<option value='so'>SO</option>" +
     "<option value='era'>ERA</option>" +
     "<option value='whip'>WHIP</option>"+
