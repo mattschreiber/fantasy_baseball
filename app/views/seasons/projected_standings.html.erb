@@ -24,7 +24,7 @@
     <tbody>
       <% @standings.each do |standing| %>
         <tr>
-          <td><%= link_to standing.owner_first,owners_teamprojections_path(standing.owner_id) %></td>
+          <td><%= standing.owner_first %></td>
           <td><%= standing.owner_last  %></td>
           <td><%= standing.run %></td>
           <td><%= standing.hr %></td>
