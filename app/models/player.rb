@@ -57,19 +57,14 @@ class Player < ActiveRecord::Base
 		if params[:is_batter] == 'true'
 			hash = Batting.category_compare(params)
 			players_rank = hash.first(10).to_h
-			players = Player.joins(:battings, :player_ranking).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').map { |player| player.attributes.symbolize_keys}
+			players = Player.joins(:battings, :player_ranking).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id')
 		else
 			hash = Pitching.category_compare(params)
 			players_rank = hash.first(10).to_h
-			players = Player.joins(:pitchings, :player_ranking).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').map { |player| player.attributes.symbolize_keys}
+			players = Player.joins(:pitchings, :player_ranking).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id')
 		end #if/else is_batter
-		players_rank = players_rank.to_a.sort #player_id in position 0 and rank_points in position 1 of array
-		i = 0
-		players.each do |player|
-			player[:rank_points] = players_rank[i][1]
-			i += 1
-		end
-		return players.sort_by {|k, v| k[:rank_points]}.reverse
+		players_rank = players_rank.sort_by {|k, v| k}.to_h #player_id in position 0 and rank_points in position 1 of array
+		return result << players << players_rank.values
 	end #end calc_player_rank
 
 	def name
