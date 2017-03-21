@@ -32,9 +32,11 @@ module PlayerProjection
             temp_hash = self.joins(player: :player_ranking).where('year = ? AND players.avail = ?', year, true).order("#{category}": :desc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.reverse.to_h
           end #sort hash for ranking descending unless era or whip since lower is better for these 2 categories
           player_hash = TeamSeason.rankv2(temp_hash)
-          player_hash.each {|k,v| player_hash[k] = v * weights[i]}
-          player_totals.merge!(player_hash){|k, oldval, newval| oldval + newval}
+          player_hash.each do |k, v|
+            player_hash[k] = v * weights[i]
+          end
           i += 1
+          player_totals.merge!(player_hash){|k, oldval, newval| oldval + newval}
       end #end categories loop
       return player_totals
     end #end category_compare method

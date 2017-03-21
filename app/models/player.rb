@@ -55,13 +55,13 @@ class Player < ActiveRecord::Base
 		keys = [] # this is a set of keys to pass along with the result array to the convert_to_hash method
 		if params[:is_batter] == 'true'
 			hash = Batting.category_compare(params)
-			players_rank = hash.first(10).to_h # limit results to top 10 highest combined rank points
+			players_rank = hash # limit results to top 10 highest combined rank points
 			players = Player.joins(:player_ranking, :positions, battings: :mlbteam).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, battings.runs, battings.hr, battings.rbi, battings.sb, battings.average, battings.wrc')
 			keys = batting_keys
 		else
 			hash = Pitching.category_compare(params)
-			players_rank = hash.first(10).to_h # limit results to top 10 highest combined rank points
+			players_rank = hash # limit results to top 10 highest combined rank points
 				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND pitchings.innings > 50 AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, pitchings.wins, pitchings.so, pitchings.era, pitchings.whip, pitchings.sv')
 			keys = pitching_keys
