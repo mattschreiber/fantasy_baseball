@@ -56,13 +56,13 @@ class Player < ActiveRecord::Base
 		if params[:is_batter] == 'true'
 			hash = Batting.category_compare(params)
 			players_rank = hash # limit results to top 10 highest combined rank points
-			players = Player.joins(:player_ranking, :positions, battings: :mlbteam).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.first_name,
+			players = Player.joins(:player_ranking, :positions, battings: :mlbteam).where('battings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.id, players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, battings.runs, battings.hr, battings.rbi, battings.sb, battings.average, battings.wrc')
 			keys = batting_keys
 		else
 			hash = Pitching.category_compare(params)
 			players_rank = hash # limit results to top 10 highest combined rank points
-				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND pitchings.innings > 50 AND players.id IN (?)',year, players_rank.keys).order('players.id').order('players.id').pluck('players.first_name,
+				players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND pitchings.innings > 50 AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.id, players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, pitchings.wins, pitchings.so, pitchings.era, pitchings.whip, pitchings.sv')
 			keys = pitching_keys
 		end #if/else is_batter
@@ -76,7 +76,7 @@ class Player < ActiveRecord::Base
 		end
 		# convert result array into hash before and then return sorted hash by most ranking points
 		# p = Player.new
-		return convert_to_hash(result, keys).sort_by {|k, v| k[:rank_points]}.reverse
+		return convert_to_hash(result, keys).sort_by {|k, v| k[:rank_points]}.reverse.first(20)
 		# return p.sort_by {|k, v| k[:rank_points]}.reverse
 	end #end calc_player_rank
 
@@ -107,11 +107,11 @@ class Player < ActiveRecord::Base
 	end # end convert_to_hash
 
 	def batting_keys
-		return keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :runs, :hr, :rbi, :sb, :average, :wrc, :rank_points
+		return keys = :id, :first_name, :last_name, :birthday, :pos, :mlbteam, :runs, :hr, :rbi, :sb, :average, :wrc, :rank_points
 	end
 
 	def pitching_keys
-		return keys = :first_name, :last_name, :birthday, :pos, :mlbteam, :wins, :so, :era, :whip, :sv, :rank_points
+		return keys = :id, :first_name, :last_name, :birthday, :pos, :mlbteam, :wins, :so, :era, :whip, :sv, :rank_points
 	end
 end
 #params = {category: 'hr', num: 1, is_batter: 'true'}
