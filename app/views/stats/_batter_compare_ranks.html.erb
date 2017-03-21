@@ -21,7 +21,7 @@
     <% @players.each do |player| %>
       <tr <tr class=<%=cycle("even", "odd")%>>
         <td><%= round_4 player[:rank_points] %></td>
-        <td class="first-name"><%= player[:first_name]%></td>
+        <td class="first-name"><%= link_to player[:first_name], player_path(player[:id])%></td>
         <td class="last-name"><%= player[:last_name] %></td>
         <td><%= age player[:birthday] %></td>
         <td><%= player[:pos] %></td>

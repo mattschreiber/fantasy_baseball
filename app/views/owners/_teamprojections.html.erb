@@ -7,6 +7,7 @@
         <th>Last</th>
         <th>Pos</th>
         <th>ESPN Rank</th>
+        <th>MLB Rank</th>
         <th>CBS Rank</th>
         <th>Runs</th>
         <th>HR</th>
@@ -24,6 +25,7 @@
           <td><%= batter.player[:last_name]  %></td>
           <td><%= batter.player.positions[0].pos %></td>
           <td><%= batter.player.player_ranking[:espn] unless batter.player.player_ranking.blank? %> </td>
+          <td><%= batter.player.player_ranking[:mlb] unless batter.player.player_ranking.blank? %> </td>
           <td><%= batter.player.player_ranking[:cbs] unless batter.player.player_ranking.blank? %> </td>
           <td><%= batter[:runs] %></td>
           <td><%= batter[:hr] %></td>
