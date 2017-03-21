@@ -257,3 +257,4 @@ end #end of class
 # points = points - 1
 # end
 # assign index value as point to hash with k = owner_id
+# points_by_team = []
