@@ -1,3 +1,6 @@
+<head>
+  <title>Projected Standings</title>
+</head>
 <div class="container-fluid">
 
   <h1>Projected Standings</h1>
@@ -41,4 +44,44 @@
       <% end %>
     </tbody>
     </table>
+  <h3>Projected Category Points</h3>
+    <table class="projected_standings tablesorter-blue">
+      <thead>
+        <tr>
+          <th>FIRST</th>
+          <th>LAST</th>
+          <th>RUNS PTS</th>
+          <th>HR PTS</th>
+          <th>RBI PTS</th>
+          <th>SB PTS</th>
+          <th>AVG PTS</th>
+          <th>WINS PTS</th>
+          <th>SV PTS</th>
+          <th>K'S PTS</th>
+          <th>ERA PTS</th>
+          <th>WHIP PTS</th>
+          <th>TOTAL PTS</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @standings.each do |standing| %>
+          <tr>
+            <td><%= standing.owner_first %></td>
+            <td><%= standing.owner_last  %></td>
+            <td><%= standing.run_points %></td>
+            <td><%= standing.hr_points %></td>
+            <td><%= standing.rbi_points %></td>
+            <td><%= standing.sb_points %></td>
+            <td><%= round_4 standing.average_points%></td>
+            <td><%= standing.win_points%></td>
+            <td><%= standing.sv_points%></td>
+            <td><%= standing.so_points%></td>
+            <td><%= round_4 standing.era_points%></td>
+            <td><%= round_4 standing.whip_points%></td>
+            <td><%= standing.total_points%></td>
+          </tr>
+        <% end %>
+      </tbody>
+      </table>
 </div> <!-- end container fluid  -->
