@@ -75,7 +75,28 @@ namespace :csv do
 		exist.each do |r|
 			puts r
 		end
-	end
+	end #end update espn ranking
+
+	desc "update espn adp"
+	task :espn_adp => :environment do
+		page = a.get('http://games.espn.com/flb/livedraftresults?addata=flb_subnav_adp')
+		arr = []
+		page.parser.css('.tableBody').css('tr:nth-child(n+4)').each do |r|
+		  player = []
+		  r.css('td').each do |t|
+		    player << t.text
+		  end
+		  arr << player
+		end
+
+		 CSV.open("espn_adp.csv", "w+") do |csv|
+		   arr.each do |t|
+		     if !t[1].nil?
+		       csv <<  [t[0], "#{t[1].split[0]} #{t[1].split[1]}", t[3]]
+		     end
+		   end
+		 end
+ # 	end update espn_adp
 
 	task :espn => [:download_espn_rank, :espn_rank]
 
