@@ -27,7 +27,7 @@ module PlayerProjection
           temp_hash = {}
           player_hash = {}
           if category == 'era' || category == 'whip'
-            temp_hash = self.joins(player: :player_ranking).where('year = ? AND players.avail = ?', year, true).order("#{category}": :asc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.to_h
+            temp_hash = self.joins(player: :player_ranking).where('year = ? AND players.avail = ? AND innings > 50', year, true).order("#{category}": :asc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.to_h
           else
             temp_hash = self.joins(player: :player_ranking).where('year = ? AND players.avail = ?', year, true).order("#{category}": :desc).pluck(:player_id, :"#{category}").sort_by{|k,v| v}.reverse.to_h
           end #sort hash for ranking descending unless era or whip since lower is better for these 2 categories
