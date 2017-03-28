@@ -45,7 +45,7 @@
   <div>
     <table class="tablesorter-blue team-projection">
       <tr class="odd">
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td>Average:</td>
         <td><%= to_int @category_average[:total_run]%></td>
         <td><%= to_int @category_average[:total_hr] %></td>
@@ -66,6 +66,7 @@
         <th>Last</th>
         <th>Pos</th>
         <th>ESPN Rank</th>
+        <th>MLB Rank</th>
         <th>CBS Rank</th>
         <th>K's</th>
         <th>Wins</th>
@@ -83,6 +84,7 @@
           <td><%= pitcher.player[:last_name]  %></td>
           <td><%= pitcher.player.positions[0].pos %></td>
           <td><%= pitcher.player.player_ranking[:espn] unless pitcher.player.player_ranking.blank? %></td>
+          <td><%= pitcher.player.player_ranking[:mlb] unless pitcher.player.player_ranking.blank? %> </td>
           <td><%= pitcher.player.player_ranking[:cbs] unless pitcher.player.player_ranking.blank? %>
           <td><%= pitcher[:so] %></td>
           <td><%= pitcher[:wins] %></td>
@@ -101,7 +103,7 @@
   <div>
   <table class="tablesorter-blue team-projection">
    <tr class="odd">
-        <td colspan="4"></td>
+        <td colspan="5"></td>
         <td>Average:</td>
         <td><%= to_int @category_average[:total_k] %></td>
         <td><%= to_int @category_average[:total_win] %></td>
