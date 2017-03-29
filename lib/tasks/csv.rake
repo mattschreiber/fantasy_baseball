@@ -1,4 +1,5 @@
 namespace :csv do
+	year = Time.now.year
 	desc "Update batters assigned to each owner"
 	task :owner_batter => :environment do
 		csv_import('lib/csv_files/o_p.csv')
@@ -79,6 +80,7 @@ namespace :csv do
 
 	desc "update espn adp"
 	task :espn_adp => :environment do
+		a = Mechanize.new
 		page = a.get('http://games.espn.com/flb/livedraftresults?addata=flb_subnav_adp')
 		arr = []
 		page.parser.css('.tableBody').css('tr:nth-child(n+4)').each do |r|
@@ -89,13 +91,32 @@ namespace :csv do
 		  arr << player
 		end
 
-		 CSV.open("espn_adp.csv", "w+") do |csv|
-		   arr.each do |t|
-		     if !t[1].nil?
-		       csv <<  [t[0], "#{t[1].split[0]} #{t[1].split[1]}", t[3]]
-		     end
-		   end
-		 end
+		arr.each do |row|
+			if !row[1].nil?
+				player = Player.find_by(first_name: row[1].split[0], last_name: row[1].split[1].chomp(','))
+				if !player.nil?
+					if player.batter
+						bat = Batting.find_by(player_id: player.id, year: year)
+						if !bat.nil?
+							bat.update(adp: row[3])
+						end
+					else
+						pitch = Pitching.find_by(player_id: player.id, year: year)
+						if !pitch.nil?
+							pitch.update(adp: row[3])
+						end
+					end #end check if player is a batter
+				end # check if player exists
+			end #make sure there is a name before querying the database
+		end # end arr loop
+
+		#  CSV.open("espn_adp.csv", "w+") do |csv|
+		#    arr.each do |t|
+		#      if !t[1].nil?
+		#        csv <<  [t[0], "#{t[1].split[0]} #{t[1].split[1]}", t[3]]
+		#      end
+		#    end
+		#  end # end CSV
  	end #update espn_adp
 
 	task :espn => [:download_espn_rank, :espn_rank]
