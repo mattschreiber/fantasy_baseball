@@ -64,7 +64,7 @@ class Player < ActiveRecord::Base
 			hash = Pitching.category_compare(params)
 			players_rank = hash
 			# need to update keys function with any new columns returned via pluck
-			players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ? AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.id, players.first_name,
+			players = Player.joins(:player_ranking, :positions, pitchings: :mlbteam).where('pitchings.year = ?AND players.id IN (?)',year, players_rank.keys).order('players.id').pluck('players.id, players.first_name,
 				players.last_name, players.birthday, positions.pos, mlbteams.abbr, pitchings.wins, pitchings.so, pitchings.era, pitchings.whip, pitchings.sv, pitchings.adp')
 			keys = pitching_keys
 		end #if/else is_batter
@@ -77,7 +77,7 @@ class Player < ActiveRecord::Base
 			i += 1
 		end
 		# convert result array into hash before and then return sorted hash by most ranking points
-		# p = Player.new
+		# return only first 20 results
 		return convert_to_hash(result, keys).sort_by {|k, v| k[:rank_points]}.reverse.first(20)
 		# return p.sort_by {|k, v| k[:rank_points]}.reverse
 	end #end calc_player_rank
